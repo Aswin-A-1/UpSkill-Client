@@ -1,0 +1,4 @@
+/* styles.component.css */
+::ng-deep .p-inputtext {
+  @apply text-indigo-600 border-2 border-solid border-indigo-200 focus:border-indigo-600
+}

@@ -1,0 +1,12 @@
+.ui-messages .ui-messages-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+/* Customize the appearance of error messages */
+.ui-messages .ui-messages-error {
+    background-color: #7fb4ec;
+    border-color: #050f69;
+    color: #201c72;
+}

@@ -1,0 +1,16 @@
+<!-- <custom-toast [customToastService]="customToastService"></custom-toast>
+<div class="w-full p-8 flex justify-center mt-20">
+    <h1 class="text-indigo-600 mb-0">Welcome Home</h1>
+</div> -->
+
+<!-- Custom Toast -->
+<custom-toast [customToastService]="customToastService"></custom-toast>
+<div class="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+    <div class="text-center">
+        <h1 class="text-indigo-600 mb-0">Welcome Home</h1>
+        <button
+            class="bg-indigo-600 mt-4 hover:bg-indigo-700 border-none text-white text-lg font-bold py-2 px-4 rounded hover:cursor-pointer focus:outline-none focus:shadow-outline" (click)="logout()">
+            Logout
+        </button>
+    </div>
+</div>

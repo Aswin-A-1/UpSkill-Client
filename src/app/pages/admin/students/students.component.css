@@ -1,0 +1,13 @@
+/* Style for the Block button */
+.block-btn {
+    background-color: #e53e3e; /* Red */
+    border: 1px solid #e53e3e;
+    color: white;
+}
+
+/* Style for the Unblock button */
+.unblock-btn {
+    background-color: #38a169; /* Green */
+    border: 1px solid #38a169;
+    color: white;
+}
