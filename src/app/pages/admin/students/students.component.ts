@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getStudent } from '../../../core/state/admin/actions';
 import { AdminStudentService } from '../../../core/services/admin/student/adminstudent.services';
+import { User } from '../../../core/models/student';
 
 @Component({
   selector: 'app-students',
@@ -10,17 +11,17 @@ import { AdminStudentService } from '../../../core/services/admin/student/admins
 })
 
 export class StudentsComponent {
-  users: any[] = []
+  users: User[] = []
   constructor(
-    private store : Store,
+    private store: Store,
     private service: AdminStudentService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // this.store.dispatch(getStudent())
     this.service.getStudents().subscribe({
       next: (res) => {
-        if(res) {
+        if (res) {
           this.users = res.students
         }
       }
@@ -30,8 +31,12 @@ export class StudentsComponent {
   toggleBlockStatus(user: any) {
     this.service.manageStudents(user._id).subscribe({
       next: (res) => {
-        if(res) {
-          this.users = res.students
+        if (res) {
+          // this.users = res.updateStudent
+          const index = this.users.findIndex(u => u._id === user._id);
+          if (index !== -1) {
+            this.users[index].isBlocked = res.updatedStudent.isBlocked;
+          }
         }
       }
     })
