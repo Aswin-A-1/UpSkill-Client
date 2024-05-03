@@ -15,6 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginTemplateComponent {
   @Input() headding: string = ''
   @Input() tag: string = ''
+  @Input() type: string = ''
   @Output() submitEvent = new EventEmitter()
   signinForm!: FormGroup;
   apiUri = environment.GOOGLE_URL

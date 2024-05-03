@@ -4,7 +4,8 @@
 
   <!-- Left side for image -->
   <div class="hidden lg:block lg:w-1/2">
-    <img [src]="'assets/images/learninglogin.png'" alt="Image" class="object-cover w-full h-full p-4">
+    <img *ngIf="type === 'instructor'" [src]="'assets/images/learningsignup.png'" alt="Image" class="object-cover w-full h-full p-4">
+    <img *ngIf="type === 'student'" [src]="'assets/images/learninglogin.png'" alt="Image" class="object-cover w-full h-full p-4">
   </div>
 
 
@@ -72,7 +73,9 @@
       </div>
       <auth-form-btn [value]="'SignUp'" [bg]="'bg-indigo-600'"></auth-form-btn>
       <!-- <button type="submit" class="text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full" style="outline: none;">Login</button> -->
-      <p class="text-xs text-gray-600 font-semibold text-center">Already have an account? <a routerLink="/login"
+      <p *ngIf="type === 'student'" class="text-xs text-gray-600 font-semibold text-center">Already have an account? <a routerLink="/login"
+          class="text-indigo-600 no-underline hover:text-indigo-800">Log in</a></p>
+      <p *ngIf="type === 'instructor'" class="text-xs text-gray-600 font-semibold text-center">Already have an account? <a routerLink="/instructor-login"
           class="text-indigo-600 no-underline hover:text-indigo-800">Log in</a></p>
     </form>
   </div>

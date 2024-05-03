@@ -6,6 +6,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 // import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { InputOtpModule } from 'primeng/inputotp';
+import { TableModule } from 'primeng/table';
 import { RatingModule } from 'primeng/rating';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { RatingModule } from 'primeng/rating';
         // ToastModule,
         MessagesModule,
         InputOtpModule,
+        TableModule,
         RatingModule,
     ],
     exports : [
@@ -29,6 +31,7 @@ import { RatingModule } from 'primeng/rating';
         // ToastModule,
         MessagesModule,
         InputOtpModule,
+        TableModule,
         RatingModule
     ],
   

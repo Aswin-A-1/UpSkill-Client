@@ -6,7 +6,7 @@ import { AuthFormButtonComponent } from "../../reusables/buttons/auth-form-butto
 
 import { LoginTemplateComponent } from "../../reusables/templates/login-template/login-template.component";
 import { SignupTemplateComponent } from "../../reusables/templates/signup-template/signup-template.component";
-import { SharedModules } from "../shared_modules";
+import { SharedModules } from "../shared.module";
 import { OtpTemplateComponent } from "../../reusables/templates/otp-template/otp-template.component";
 import { CustomToastComponent } from "../../reusables/reusable-components/toast.component";
 

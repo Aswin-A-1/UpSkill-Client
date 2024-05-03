@@ -7,17 +7,18 @@ import { HomeComponent } from './pages/student/home/home/home.component';
 import { authGuard } from './core/guards/student_guard';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { StudentsComponent } from './pages/admin/students/students.component';
+import { InstructorLoginComponent } from './pages/instructor/authorization/instructor-login/instructor-login.component';
+import { InstructorSignupComponent } from './pages/instructor/authorization/instructor-signup/instructor-signup.component';
+import { InstructorOtpComponent } from './pages/instructor/authorization/instructor-otp/instructor-otp.component';
 
 const routes: Routes = [
+  // student
   { path: 'login', component: StudentLoginComponent},
   { path: 'signup', component: StudentSignupComponent },
   { path: 'signup/verify-otp', component: OtpTemplateComponent },
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
 
-
-  // { path: 'admindashboard', component: DashboardComponent },
-  // { path: 'admin/dashboard', component: AdminDashboardComponent },
-  // { path: 'admin/students', component: StudentsComponent },
+  // admin
   {
     path: 'admin',
     children: [
@@ -26,6 +27,11 @@ const routes: Routes = [
       { path: '', redirectTo: 'student', pathMatch: 'full' }
     ]
   },
+  
+  // instructor
+  { path: 'instructor-login', component: InstructorLoginComponent},
+  { path: 'instructor-signup', component: InstructorSignupComponent},
+  { path: 'instructor-signup/verify-otp', component: InstructorOtpComponent},
 ];
 
 @NgModule({

@@ -24,6 +24,10 @@ export class AuthService {
         return this.http.post(`${BASE_URL}/student/signup`, requestBody)
     }
 
+    instructorRegister(requestBody: SignUpCredentials): Observable<any> {
+        return this.http.post(`${BASE_URL}/instructor/signup`, requestBody)
+    }
+
     // googleAuth(): Observable<any>{
     //     return this.http.get(`${GOOGLE_URL}auth/google`)
     // }
@@ -46,9 +50,18 @@ export class AuthService {
         return this.http.post(`${BASE_URL}/student/login`, requestBody)
     }
 
+    instructorLogin(requestBody: loginCredentials): Observable<any> {
+        return this.http.post(`${BASE_URL}/instructor/login`, requestBody)
+    }
+
     veriftOtp(userData: string, otp: number): Observable<any> {
         const requestBody = { userData: userData, enteredOtp: otp };
         return this.http.post(`${BASE_URL}/student/signup/verify-otp`, requestBody)
+    }
+
+    verifyinstructortOtp(userData: string, otp: number): Observable<any> {
+        const requestBody = { userData: userData, enteredOtp: otp };
+        return this.http.post(`${BASE_URL}/instructor/signup/verify-otp`, requestBody)
     }
 
     resendOtp(requestBody: SignUpCredentials): Observable<any> {

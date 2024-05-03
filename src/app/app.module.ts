@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StudentModule } from './modules/feature_modules/student.module';
 import { AdminModule } from './modules/feature_modules/admin.module';
-import { SharedModules } from './modules/shared_modules';
+import { SharedModules } from './modules/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './core/state/auth/effects';
@@ -21,6 +21,7 @@ import { AuthTokenInterceptorService } from './core/interceptors/authtoken.inter
 
 import { MessageService } from 'primeng/api';
 import { AdminEffects } from './core/state/admin/effects';
+import { InstructorModule } from './modules/feature_modules/instructor.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AdminEffects } from './core/state/admin/effects';
     AppRoutingModule,
     StudentModule,
     AdminModule,
+    InstructorModule,
     SharedModules,
     ToastModule,
     ToastrModule.forRoot(),

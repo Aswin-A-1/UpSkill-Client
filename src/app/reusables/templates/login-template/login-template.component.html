@@ -5,7 +5,8 @@
   <custom-toast [customToastService]="customToastService"></custom-toast>
 
   <div class="hidden lg:block lg:w-1/2">
-    <img [src]="'assets/images/learninglogin.png'" alt="Image" class="object-cover w-full h-full p-4">
+    <img *ngIf="type === 'student'" [src]="'assets/images/learninglogin.png'" alt="Image" class="object-cover w-full h-full p-4">
+    <img *ngIf="type === 'instructor'" [src]="'assets/images/learningsignup.png'" alt="Image" class="object-cover w-full h-full p-4">
   </div>
 
   <!-- Right side for login form -->
@@ -55,12 +56,12 @@
           class="text-indigo-600 no-underline hover:text-indigo-800">Forgot password?</a></p>
       <auth-form-btn [value]="'Login'" [bg]="'bg-indigo-600'"></auth-form-btn>
       <!-- <button type="submit" class="text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full" style="outline: none;">Login</button> -->
-      <div class="flex items-center mt-1">
+      <div *ngIf="type === 'student'" class="flex items-center mt-1">
         <hr class="w-2/6">
         <p class="text-xs">Or, Login with</p>
         <hr class="w-2/6">
       </div>
-      <button (click)="googleSignin()"
+      <button *ngIf="type === 'student'" (click)="googleSignin()"
         class="w-full bg-indigo-200 text-indigo-500 text-base p-3 rounded-md hover:cursor-pointer border-none border-blue-100 hover: hover:bg-indigo-700 hover:text-white focus:outline-none">
         <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
           viewBox="0 0 18 19">
@@ -70,7 +71,9 @@
         </svg>
         Sign in with Google
       </button>
-      <p class="text-xs text-gray-600 font-semibold text-center">Dont have an account? <a routerLink="/signup"
+      <p *ngIf="type === 'student'" class="text-xs text-gray-600 font-semibold text-center">Dont have an account? <a routerLink="/signup"
+          class="text-indigo-600 no-underline hover:text-indigo-800">Register here</a></p>
+      <p *ngIf="type === 'instructor'" class="text-xs text-gray-600 font-semibold text-center">Dont have an account? <a routerLink="/instructor-signup"
           class="text-indigo-600 no-underline hover:text-indigo-800">Register here</a></p>
     </form>
   </div>

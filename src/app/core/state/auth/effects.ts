@@ -64,7 +64,6 @@ export class AuthEffects {
                         return AuthActions.submitSuccess({ successResponse })
                     }),
                     catchError((error) => {
-                        console.log(error)
                         this.customToastService.setToast('error', error.error.message)
                         return of(AuthActions.submitFail({ error: error.error.message || 'An error occurred' }));
                     })

@@ -1,0 +1,36 @@
+<div class="min-h-screen flex">
+    <!-- Custom Toast -->
+    <custom-toast [customToastService]="customToastServices"></custom-toast>
+  
+    <!-- Left side for image -->
+    <div class="hidden lg:block lg:w-1/2">
+      <img [src]="'assets/images/learningsignup.png'" alt="Image" class="object-cover w-full h-full p-4">
+    </div>
+  
+    <!-- Right side for OTP verification form -->
+    <div class="w-full lg:w-1/2 p-8 flex justify-center mt-48">
+      <!-- OTP verification form -->
+      <form class="w-full max-w-sm" (ngSubmit)="onSubmit()">
+        <h1 class="text-indigo-600 mb-0">OTP Verification</h1>
+        <p class="text-xs text-gray-600 font-medium">OTP is send to your mail.</p>
+        <!-- OTP input box -->
+        <div class="mb-4 mt-8 flex justify-center">
+          <p-inputOtp [(ngModel)]="value" [ngModelOptions]="{ standalone: true }" placeholder=""></p-inputOtp>
+        </div>
+        <auth-form-btn [value]="'Verify OTP'" [bg]="'bg-indigo-600'"></auth-form-btn>
+        <!-- Button to trigger OTP resend functionality -->
+        <div>
+          <p *ngIf="remainingTime > 0; else expired" class="font-semibold text-center text-xs text-indigo-600 hover:text-indigo-800">
+            OTP will expire in: {{ remainingTime }}
+         </p>
+         <ng-template #expired>
+          <p class="text-xs text-gray-600 font-semibold text-center">
+            <a class="text-indigo-600 no-underline hover:text-indigo-800 cursor-pointer" (click)="resendOtp(); $event.preventDefault()">
+              Resend OTP
+             </a>
+          </p>
+       </ng-template>
+        </div>
+      </form>
+    </div>
+  </div>

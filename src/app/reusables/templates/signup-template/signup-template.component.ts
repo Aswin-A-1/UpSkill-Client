@@ -62,6 +62,7 @@ export class SignupTemplateComponent {
 
   @Input() headding: string = ''
   @Input() tag: string = ''
+  @Input() type: string = ''
   @Output() submitEvent = new EventEmitter()
 
   onSubmitClick() {
