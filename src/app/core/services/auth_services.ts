@@ -54,6 +54,10 @@ export class AuthService {
         return this.http.post(`${BASE_URL}/instructor/login`, requestBody)
     }
 
+    adminLogin(requestBody: loginCredentials): Observable<any> {
+        return this.http.post(`${BASE_URL}/admin/login`, requestBody)
+    }
+
     veriftOtp(userData: string, otp: number): Observable<any> {
         const requestBody = { userData: userData, enteredOtp: otp };
         return this.http.post(`${BASE_URL}/student/signup/verify-otp`, requestBody)

@@ -49,15 +49,11 @@ export class AuthEffects {
                 this.service.userLogin(action.userData).pipe(
                     map((successResponse) => {
                         if (successResponse.message) {
-                            sessionStorage.setItem('auth_token', successResponse.token)
+                            sessionStorage.setItem('token', successResponse.token)
                             localStorage.setItem('token', successResponse.token);
                             const user = successResponse.student
                             localStorage.setItem('user', JSON.stringify(successResponse.student));
-                            if(user.role == 'Student') {
-                                this.customToastService.setToastAndNavigate('success', successResponse.message, ['home']);
-                            } else if (user.role == 'Admin') {
-                                this.customToastService.setToast('success', successResponse.message, ['admin/student']);
-                            }
+                            this.customToastService.setToastAndNavigate('success', successResponse.message, ['home']);
                             // this.router.navigate(['home']);
                             // this.toastService.set('success', 'Login successful');
                         }

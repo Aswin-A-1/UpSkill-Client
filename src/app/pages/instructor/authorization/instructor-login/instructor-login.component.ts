@@ -19,8 +19,8 @@ export class InstructorLoginComponent {
     this.service.instructorLogin(userData).subscribe({
       next: (successResponse: any) => {
         if (successResponse.message) {
-          sessionStorage.setItem('auth_token', successResponse.token)
-          localStorage.setItem('token', successResponse.token);
+          sessionStorage.setItem('instructor_token', successResponse.token)
+          localStorage.setItem('instructor_token', successResponse.token);
           localStorage.setItem('instructor', JSON.stringify(successResponse.instructor));
           this.customToastService.setToast('success', successResponse.message);
         }

@@ -15,7 +15,6 @@ export class HomeComponent {
 
   logout() {
     localStorage.removeItem('token');
-    // sessionStorage.removeItem('auth_token');
     this.router.navigateByUrl('/login');
   }
 
