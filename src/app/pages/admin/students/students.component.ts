@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getStudent } from '../../../core/state/admin/actions';
-import { AdminStudentService } from '../../../core/services/admin/student/adminstudent.services';
+import { AdminStudentService } from '../../../core/services/admin/student/adminstudent.service';
 import { User } from '../../../core/models/student';
 
 @Component({

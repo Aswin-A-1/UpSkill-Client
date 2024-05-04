@@ -4,19 +4,21 @@ import { StudentLoginComponent } from './pages/student/authorization/login/stude
 import { StudentSignupComponent } from './pages/student/authorization/student-signup/student-signup.component';
 import { OtpTemplateComponent } from './reusables/templates/otp-template/otp-template.component';
 import { HomeComponent } from './pages/student/home/home/home.component';
-import { authGuard } from './core/guards/student_guard';
+import { studentAuthGuard, authGuardForLoggedUser } from './core/guards/student_guard';
+import { adminAuthGuard } from './core/guards/admin_guard';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { StudentsComponent } from './pages/admin/students/students.component';
 import { InstructorLoginComponent } from './pages/instructor/authorization/instructor-login/instructor-login.component';
 import { InstructorSignupComponent } from './pages/instructor/authorization/instructor-signup/instructor-signup.component';
 import { InstructorOtpComponent } from './pages/instructor/authorization/instructor-otp/instructor-otp.component';
+import { InstructorComponent } from './pages/admin/instructor/instructor.component';
 
 const routes: Routes = [
   // student
-  { path: 'login', component: StudentLoginComponent},
+  { path: 'login', component: StudentLoginComponent, canActivate: [authGuardForLoggedUser] },
   { path: 'signup', component: StudentSignupComponent },
   { path: 'signup/verify-otp', component: OtpTemplateComponent },
-  { path: 'home', component: HomeComponent, canActivate: [authGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [studentAuthGuard] },
 
   // admin
   {
@@ -24,8 +26,10 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'student', component: StudentsComponent },
+      { path: 'instructor', component: InstructorComponent },
       { path: '', redirectTo: 'student', pathMatch: 'full' }
-    ]
+    ],
+    canActivateChild: [adminAuthGuard]
   },
   
   // instructor

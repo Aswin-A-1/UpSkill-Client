@@ -3,7 +3,7 @@ import { Actions, ofType, createEffect } from "@ngrx/effects";
 import { catchError, of, exhaustMap, map, tap } from 'rxjs';
 import * as StudentActions from "../admin/actions";
 import { CustomToastService } from "../../services/customtoast.service";
-import { AdminStudentService } from "../../services/admin/student/adminstudent.services";
+import { AdminStudentService } from "../../services/admin/student/adminstudent.service";
 
 
 @Injectable()

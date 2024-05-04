@@ -5,6 +5,7 @@ import { DashboardComponent } from "../../pages/admin/dashboard/dashboard.compon
 import { StudentsComponent } from "../../pages/admin/students/students.component";
 import { AdminDashboardComponent } from "../../pages/admin/admin-dashboard/admin-dashboard.component";
 import { SidebarComponent } from "../../pages/admin/sidebar/sidebar.component";
+import { InstructorComponent } from "../../pages/admin/instructor/instructor.component";
 
 
 
@@ -13,6 +14,7 @@ import { SidebarComponent } from "../../pages/admin/sidebar/sidebar.component";
         DashboardComponent,
         SidebarComponent,
         StudentsComponent,
+        InstructorComponent,
         AdminDashboardComponent
     ],
     exports: [],

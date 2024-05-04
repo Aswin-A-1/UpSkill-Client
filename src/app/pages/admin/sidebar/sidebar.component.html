@@ -26,9 +26,12 @@
     </div>
 </div> -->
 
-<div class="p-4">
-    <span class="text-2xl mx-2 font-semibold  text-indigo-600">Admin Dashboard</span>
-    <nav class="mt-10">
+<div>
+    <div class="p-5">
+        <span class="text-2xl mx-2 font-semibold  text-indigo-600">Admin Dashboard</span>
+    </div>
+    <div class="h-1 bg-indigo-50">
+    <nav class="p-4">
         <a routerLink="/admin/dashboard"
             class="flex items-center rounded-md mt-4 py-4 pl-2 no-underline text-indigo-500 hover:bg-indigo-100 hover:text-indigo-600">
             <span class="mx-3 text-lg font-semibold">Dashboard</span>
@@ -37,13 +40,17 @@
             class="flex items-center rounded-md mt-4 py-4 pl-2 no-underline text-indigo-500 hover:bg-indigo-100 hover:text-indigo-600">
             <span class="mx-3 text-lg font-semibold">Students</span>
         </a>
-        <a routerLink="/admin/dashboard"
+        <a routerLink="/admin/instructor"
             class="flex items-center rounded-md mt-4 py-4 pl-2 no-underline text-indigo-500 hover:bg-indigo-100 hover:text-indigo-600">
             <span class="mx-3 text-lg font-semibold">Instructors</span>
         </a>
         <a routerLink="admin/dashboard"
             class="flex items-center rounded-md mt-4 py-4 pl-2 no-underline text-indigo-500 hover:bg-indigo-100 hover:text-indigo-600">
             <span class="mx-3 text-lg font-semibold">Courses</span>
+        </a>
+        <a  (click)="logout()"
+            class="flex items-center cursor-pointer rounded-md mt-4 py-4 pl-2 no-underline text-indigo-500 hover:bg-indigo-100 hover:text-indigo-600">
+            <span class="mx-3 text-lg font-semibold">Logout</span>
         </a>
     </nav>
 </div>

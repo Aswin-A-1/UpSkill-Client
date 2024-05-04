@@ -2,7 +2,7 @@ import { CanActivateFn, Router } from "@angular/router";
 import { inject } from "@angular/core";
 import { jwtDecode } from 'jwt-decode';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const studentAuthGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   const token = localStorage.getItem('token');
@@ -14,12 +14,18 @@ export const authGuard: CanActivateFn = (route, state) => {
   try {
     const decodedToken: any = jwtDecode(token);
     const currentTime = Math.floor(Date.now() / 1000);
-    if (decodedToken.exp < currentTime) {
+    if (decodedToken.exp > currentTime) {
+      if (decodedToken.user_type == "Student") {
+        return true;
+      } else {
+        router.navigateByUrl('/login');
+        return false;
+      }
+    } else {
       localStorage.removeItem('token');
       router.navigateByUrl('/login');
       return false;
     }
-    return true;
   } catch (error) {
     localStorage.removeItem('token');
     router.navigateByUrl('/login');
@@ -32,7 +38,6 @@ export const authGuardForLoggedUser: CanActivateFn = (route, state) => {
 
   const token = localStorage.getItem('token');
   if (!token) {
-    router.navigateByUrl('/login');
     return true;
   }
 
@@ -40,18 +45,22 @@ export const authGuardForLoggedUser: CanActivateFn = (route, state) => {
     const decodedToken: any = jwtDecode(token);
     const currentTime = Math.floor(Date.now() / 1000);
     if (decodedToken.exp > currentTime) {
-      router.navigateByUrl('/home');
-      return false;
+      if (decodedToken.user_type == 'Student') {
+        router.navigateByUrl('/home');
+        return false;
+      } else if (decodedToken.user_type == 'Admin') {
+        router.navigateByUrl('/admin/student');
+        return false;
+      }
     }
     return true;
   } catch (error) {
     localStorage.removeItem('token');
-    router.navigateByUrl('/login');
     return true;
   }
 };
 
-export const authGuardWithLogin: CanActivateFn = (route, state) => {
+export const adminAuthGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   const token = localStorage.getItem('token');
@@ -63,13 +72,18 @@ export const authGuardWithLogin: CanActivateFn = (route, state) => {
   try {
     const decodedToken: any = jwtDecode(token);
     const currentTime = Math.floor(Date.now() / 1000);
-    if (decodedToken.exp < currentTime) {
+    if (decodedToken.exp > currentTime) {
+      if (decodedToken.user_type == "Admin") {
+        return true;
+      } else {
+        router.navigateByUrl('/login');
+        return false;
+      }
+    } else {
       localStorage.removeItem('token');
       router.navigateByUrl('/login');
       return false;
     }
-    router.navigate(['/home'])
-    return true;
   } catch (error) {
     localStorage.removeItem('token');
     router.navigateByUrl('/login');
