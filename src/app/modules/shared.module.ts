@@ -8,6 +8,7 @@ import { MessagesModule } from 'primeng/messages';
 import { InputOtpModule } from 'primeng/inputotp';
 import { TableModule } from 'primeng/table';
 import { RatingModule } from 'primeng/rating';
+import { LucideAngularModule, File, Home, Menu, UserCheck, ArrowLeft, Trash2 } from 'lucide-angular';
 
 @NgModule({
     imports : [
@@ -21,6 +22,7 @@ import { RatingModule } from 'primeng/rating';
         InputOtpModule,
         TableModule,
         RatingModule,
+        LucideAngularModule.pick({Home, Menu, ArrowLeft, Trash2})
     ],
     exports : [
         FormsModule,
@@ -32,7 +34,8 @@ import { RatingModule } from 'primeng/rating';
         MessagesModule,
         InputOtpModule,
         TableModule,
-        RatingModule
+        RatingModule,
+        LucideAngularModule
     ],
   
 })

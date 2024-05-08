@@ -13,6 +13,12 @@ import { InstructorSignupComponent } from './pages/instructor/authorization/inst
 import { InstructorOtpComponent } from './pages/instructor/authorization/instructor-otp/instructor-otp.component';
 import { InstructorComponent } from './pages/admin/instructor/instructor.component';
 import { AdminLoginComponent } from './pages/admin/authorization/admin-login/admin-login.component';
+import { InstructorDashboardComponent } from './pages/instructor/dashboard/instructor-dashboard/instructor-dashboard.component';
+import { InstructorCoursesComponent } from './pages/instructor/dashboard/course/instructor-courses/instructor-courses.component';
+import { authGuardForLoggedInstructor, instructorAuthGuard } from './core/guards/instructor_guard';
+import { MaininstructorDashboardComponent } from './pages/instructor/dashboard/maininstructor-dashboard/maininstructor-dashboard.component';
+import { InstructorAddcourseComponent } from './pages/instructor/dashboard/course/instructor-addcourse/instructor-addcourse.component';
+import { InstructorCourselistComponent } from './pages/instructor/dashboard/course/instructor-courselist/instructor-courselist.component';
 
 const routes: Routes = [
   // student
@@ -33,11 +39,25 @@ const routes: Routes = [
     canActivateChild: [adminAuthGuard]
   },
   { path: 'admin-login', component: AdminLoginComponent, canActivate: [authGuardForLoggedAdmin] },
-  
+
   // instructor
-  { path: 'instructor-login', component: InstructorLoginComponent},
-  { path: 'instructor-signup', component: InstructorSignupComponent},
-  { path: 'instructor-signup/verify-otp', component: InstructorOtpComponent},
+  { path: 'instructor-login', component: InstructorLoginComponent, canActivate: [authGuardForLoggedInstructor] },
+  { path: 'instructor-signup', component: InstructorSignupComponent },
+  { path: 'instructor-signup/verify-otp', component: InstructorOtpComponent },
+  {
+    path: 'instructor', component: MaininstructorDashboardComponent,
+    children: [
+      { path: 'dashboard', component: InstructorDashboardComponent,
+      },
+      { path: 'courses', component: InstructorCoursesComponent,
+      children: [
+        { path: 'addcourse', component: InstructorAddcourseComponent },
+        { path: '', component: InstructorCourselistComponent }
+      ]
+     },
+    ],
+    canActivateChild: [instructorAuthGuard]
+  }
 ];
 
 @NgModule({

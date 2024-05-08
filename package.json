@@ -22,6 +22,7 @@
     "@ngrx/store": "^17.1.0",
     "flowbite": "^2.3.0",
     "jwt-decode": "^4.0.0",
+    "lucide-angular": "^0.378.0",
     "ngx-cookie-service": "^17.1.0",
     "ngx-toastr": "^18.0.0",
     "primeicons": "^7.0.0",

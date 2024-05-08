@@ -1,0 +1,54 @@
+<div class="px-4 py-4 flex justify-between">
+    <div class="p-0">
+        <h2 class="text-2xl font-semibold text-indigo-600">Courses</h2>
+    </div>
+    <div class="w-36 mt-2">
+        <button (click)="navigateToAddCourse()"
+            class="w-full bg-indigo-600 text-white text-base p-3 rounded-md hover:cursor-pointer border-none border-blue-100 hover: hover:bg-indigo-700 focus:outline-none">New
+            Course</button>
+    </div>
+</div>
+<div class="px-4">
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                    No
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                    Email
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                    Status
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                    ACTION
+                </th>
+            </tr>
+        </thead>
+        <!-- <tbody class="bg-white divide-y divide-gray-200">
+                        <tr *ngFor="let user of users; let i = index">
+                            <td class="px-6 py-3 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-500">{{ i + 1 }}</div>
+                            </td>
+                            <td class="px-6 py-3 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-500">{{ user.username }}</div>
+                            </td>
+                            <td class="px-6 py-3 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-500">{{ user.email }}</div>
+                            </td>
+                            <td class="px-6 py-3 whitespace-nowrap">
+                                <span *ngIf="!user.isBlocked" class="bg-green-100 text-green-500 text-xs font-medium me-2 px-2.5 py-0.5 rounded">ACTIVE</span>
+                                <span *ngIf="user.isBlocked" class="bg-red-100 text-red-500 text-xs font-medium me-2 px-2.5 py-0.5 rounded">BLOCKED</span>
+                            </td>
+                            <td class="px-6 py-3 whitespace-pre-wrap flex">
+                                <button *ngIf="user.isBlocked" type="button" class="px-3 py-2 text-sm font-medium text-center cursor-pointer text-white bg-green-500 rounded-lg border-none hover:bg-green-600 focus:ring-4 focus:outline-none">Unblock</button>
+                                <button *ngIf="!user.isBlocked" type="button" class="px-3 py-2 text-sm font-medium text-center cursor-pointer text-white bg-red-500 rounded-lg border-none hover:bg-red-600 focus:ring-4 focus:outline-none">Block</button>
+                            </td>
+                        </tr>
+                    </tbody> -->
+    </table>
+</div>

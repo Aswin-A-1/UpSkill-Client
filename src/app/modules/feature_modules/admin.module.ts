@@ -17,7 +17,7 @@ import { AdminLoginComponent } from "../../pages/admin/authorization/admin-login
         SidebarComponent,
         StudentsComponent,
         InstructorComponent,
-        AdminDashboardComponent
+        AdminDashboardComponent,
     ],
     exports: [],
     imports: [

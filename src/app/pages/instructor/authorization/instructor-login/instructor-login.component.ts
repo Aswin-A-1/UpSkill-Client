@@ -22,7 +22,7 @@ export class InstructorLoginComponent {
           sessionStorage.setItem('instructor_token', successResponse.token)
           localStorage.setItem('instructor_token', successResponse.token);
           localStorage.setItem('instructor', JSON.stringify(successResponse.instructor));
-          this.customToastService.setToast('success', successResponse.message);
+          this.customToastService.setToast('success', successResponse.message, ['instructor/courses']);
         }
       },
       error: (error: any) => {

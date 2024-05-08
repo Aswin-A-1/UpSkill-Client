@@ -9,6 +9,7 @@ import { SignupTemplateComponent } from "../../reusables/templates/signup-templa
 import { SharedModules } from "../shared.module";
 import { OtpTemplateComponent } from "../../reusables/templates/otp-template/otp-template.component";
 import { CustomToastComponent } from "../../reusables/reusable-components/toast.component";
+import { FormButtonComponent } from "../../reusables/buttons/form-button";
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { CustomToastComponent } from "../../reusables/reusable-components/toast.
         AuthFormButtonComponent,
         LoginTemplateComponent,
         SignupTemplateComponent,
-        OtpTemplateComponent
+        OtpTemplateComponent,
+        FormButtonComponent
     ],
     exports: [
         FormInputReusableComponent,
@@ -25,7 +27,8 @@ import { CustomToastComponent } from "../../reusables/reusable-components/toast.
         AuthFormButtonComponent,
         LoginTemplateComponent,
         SignupTemplateComponent,
-        OtpTemplateComponent
+        OtpTemplateComponent,
+        FormButtonComponent
     ],
     imports: [
         SharedModules
