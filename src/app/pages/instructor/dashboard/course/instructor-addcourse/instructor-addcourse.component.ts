@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,7 +8,33 @@ import { Router } from '@angular/router';
   styleUrl: './instructor-addcourse.component.css'
 })
 export class InstructorAddcourseComponent {
-  constructor(private router: Router) { }
+  courseForm!: FormGroup;
+  constructor(private router: Router) {
+    this.courseForm = new FormGroup({
+      courseName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(50)
+      ]),
+      courseDescription: new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(500)
+      ]),
+      courseCategory: new FormControl('', [
+        Validators.required,
+      ]),
+      coursePrice: new FormControl('', [
+        Validators.required,
+        Validators.min(1),
+        Validators.max(10000)
+      ]),
+      courseImage: new FormControl('', [
+        Validators.required,
+        this.validateImage.bind(this)
+      ]),
+    });
+  }
 
   navigateToCourseList() {
     this.router.navigate(['instructor/courses']);
@@ -30,49 +56,40 @@ export class InstructorAddcourseComponent {
 
   removeImage() {
     this.previewUrl = null
+    this.courseForm.get('courseImage')?.reset();
   }
 
-
-  // Define the form model
-  courseForm = new FormGroup({
-    courseTitle: new FormControl('', Validators.required),
-    courseDescription: new FormControl('', Validators.required),
-    courseCategory: new FormControl('', Validators.required),
-    courseLevel: new FormControl('', Validators.required),
-    courseDuration: new FormControl('', Validators.required),
-    coursePrice: new FormControl('', Validators.required),
-    instructor: new FormControl('', Validators.required),
-    instructorBio: new FormControl(''),
-    courseImage: new FormControl<File | null>(null),
-    courseVideo: new FormControl<File | null>(null),
-    courseOutline: new FormControl('', Validators.required),
-    startDate: new FormControl('', Validators.required),
-    endDate: new FormControl('', Validators.required),
-    enrollmentLimit: new FormControl('', Validators.required),
-    enrollmentOpenDate: new FormControl('', Validators.required),
-    enrollmentCloseDate: new FormControl('', Validators.required)
-  });
-
-  // Method to handle form submission
   onSubmit() {
-    // Implement your logic to handle form submission here
-    console.log(this.courseForm.value);
-  }
-
-  onCourseImageSelected(event: Event) {
-    const target = event.target as HTMLInputElement;
-    if (target.files && target.files.length > 0) {
-      const file = target.files[0];
-      this.courseForm.get('courseImage')?.setValue(file);
+    if (this.courseForm.valid) {
+      console.log(this.courseForm.value)
+    } else {
+      Object.keys(this.courseForm.controls).forEach(field => {
+        const control = this.courseForm.get(field);
+        control!.markAsTouched({ onlySelf: true });
+      });
     }
   }
 
-  onCourseVideoSelected(event: Event) {
-    const target = event.target as HTMLInputElement;
-    if (target.files && target.files.length > 0) {
-      const file = target.files[0];
-      this.courseForm.get('courseVideo')?.setValue(file);
+  // onCourseImageSelected(event: Event) {
+  //   const target = event.target as HTMLInputElement;
+  //   if (target.files && target.files.length > 0) {
+  //     const file = target.files[0];
+  //     // Use patchValue instead of setValue
+  //     this.courseForm.patchValue({ courseImage: file });
+  //   }
+  // }
+
+  validateImage(control: AbstractControl): { [key: string]: any } | null {
+    if (control.value) {
+      const file: string = control.value;
+      const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+      const extension = file.split('.').pop()?.toLowerCase();
+      if (extension && allowedExtensions.indexOf(extension) === -1) {
+        return { invalidImage: true };
+      }
     }
+    return null;
   }
+
 
 }
