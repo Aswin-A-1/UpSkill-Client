@@ -1,0 +1,31 @@
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { environment } from "../../../../../environments/environment";
+import { CustomToastService } from "../../customtoast.service";
+import { CourseDetails } from "../../../models/course";
+
+const BASE_URL = environment.BASE_URL
+
+
+@Injectable({
+    providedIn: 'root'
+})
+export class InstructorCourseService {
+
+    constructor(
+        private http: HttpClient,
+        private customToastServices: CustomToastService
+    ) { }
+
+    addCourseDetails(courseDetails: CourseDetails, file: File, instructor_id: string): Observable<any> {
+        const formData = new FormData();
+        formData.append('courseName', courseDetails.courseName);
+        formData.append('courseDescription', courseDetails.courseDescription);
+        formData.append('courseCategory', courseDetails.courseCategory);
+        formData.append('coursePrice', courseDetails.coursePrice.toString());
+        formData.append('courseImage', file);
+        formData.append('instructorId', instructor_id)
+        return this.http.post(`${BASE_URL}/instructor/coursedetails`, formData);
+    }
+}

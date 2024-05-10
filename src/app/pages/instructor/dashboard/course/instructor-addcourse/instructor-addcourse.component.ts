@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { InstructorCourseService } from '../../../../../core/services/instructor/course/instructorcourse.service';
+import { CustomToastService } from '../../../../../core/services/customtoast.service';
 
 @Component({
   selector: 'app-instructor-addcourse',
@@ -9,7 +11,12 @@ import { Router } from '@angular/router';
 })
 export class InstructorAddcourseComponent {
   courseForm!: FormGroup;
-  constructor(private router: Router) {
+  file!: File;
+  constructor(
+    private router: Router,
+    private service: InstructorCourseService,
+    public customToastServices: CustomToastService
+  ) {
     this.courseForm = new FormGroup({
       courseName: new FormControl('', [
         Validators.required,
@@ -44,13 +51,13 @@ export class InstructorAddcourseComponent {
   previewUrl: string | null = null;
 
   onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
+    this.file = event.target.files[0];
+    if (this.file) {
       const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.previewUrl = e.target.result;
+      reader.onload = () => {
+        this.previewUrl = reader.result as string;
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(this.file);
     }
   }
 
@@ -60,8 +67,24 @@ export class InstructorAddcourseComponent {
   }
 
   onSubmit() {
-    if (this.courseForm.valid) {
-      console.log(this.courseForm.value)
+    if (this.courseForm.valid && this.file) {
+      console.log()
+      let instructor_id = JSON.parse(localStorage.getItem('instructor')!)
+      if(instructor_id) {
+        this.service.addCourseDetails(this.courseForm.value, this.file,  instructor_id._id).subscribe({
+          next: (successResponse: any) => {
+            if (successResponse.message) {
+              localStorage.removeItem('userData');
+              this.customToastServices.setToast('success', successResponse.message, ['login']);
+              // this.toastService.set('success', successResponse.message);
+            }
+          },
+          error: (error: any) => {
+            // this.toastService.set('error', error.error.error || 'An error occurred');
+            this.customToastServices.setToast('error', error.error.error);
+          }
+        });
+      }
     } else {
       Object.keys(this.courseForm.controls).forEach(field => {
         const control = this.courseForm.get(field);
