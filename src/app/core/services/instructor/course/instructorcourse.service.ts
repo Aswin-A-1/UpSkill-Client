@@ -28,4 +28,8 @@ export class InstructorCourseService {
         formData.append('instructorId', instructor_id)
         return this.http.post(`${BASE_URL}/instructor/coursedetails`, formData);
     }
+
+    getCourses(instructorid: string): Observable<any> {
+        return this.http.get(`${BASE_URL}/instructor/getcourse/${instructorid}`);
+    }
 }

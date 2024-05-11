@@ -15,7 +15,7 @@ export class InstructorAddcourseComponent {
   constructor(
     private router: Router,
     private service: InstructorCourseService,
-    public customToastServices: CustomToastService
+    public customToastService: CustomToastService
   ) {
     this.courseForm = new FormGroup({
       courseName: new FormControl('', [
@@ -74,14 +74,12 @@ export class InstructorAddcourseComponent {
         this.service.addCourseDetails(this.courseForm.value, this.file,  instructor_id._id).subscribe({
           next: (successResponse: any) => {
             if (successResponse.message) {
-              localStorage.removeItem('userData');
-              this.customToastServices.setToast('success', successResponse.message, ['login']);
-              // this.toastService.set('success', successResponse.message);
+              console.log(successResponse.message)
+              this.customToastService.setToast('success', successResponse.message, ['instructor/courses']);
             }
           },
           error: (error: any) => {
-            // this.toastService.set('error', error.error.error || 'An error occurred');
-            this.customToastServices.setToast('error', error.error.error);
+            this.customToastService.setToast('error', error.error.error);
           }
         });
       }

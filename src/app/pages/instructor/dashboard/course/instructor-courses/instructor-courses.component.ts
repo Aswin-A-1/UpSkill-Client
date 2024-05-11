@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CustomToastService } from '../../../../../core/services/customtoast.service';
 
 @Component({
   selector: 'app-instructor-courses',
@@ -7,6 +8,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrl: './instructor-courses.component.css'
 })
 export class InstructorCoursesComponent {
+  constructor(
+    public customToastService: CustomToastService
+  ) { }
 
   
   previewUrl: string | null = null;
