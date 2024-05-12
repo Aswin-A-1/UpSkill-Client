@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "../../../../../environments/environment";
 import { CustomToastService } from "../../customtoast.service";
-import { CourseDetails } from "../../../models/course";
+import { CourseDetails, Sections } from "../../../models/course";
 
 const BASE_URL = environment.BASE_URL
 
@@ -31,5 +31,14 @@ export class InstructorCourseService {
 
     getCourses(instructorid: string): Observable<any> {
         return this.http.get(`${BASE_URL}/instructor/getcourse/${instructorid}`);
+    }
+
+    saveSection(section: Sections, courseId: string): Observable<any> {
+        const requestBody = { section: section, courseId: courseId };
+        return this.http.post(`${BASE_URL}/instructor/savesection`, requestBody);
+    }
+
+    getSection(courseId: string): Observable<any> {
+        return this.http.get(`${BASE_URL}/instructor/getsection/${courseId}`);
     }
 }

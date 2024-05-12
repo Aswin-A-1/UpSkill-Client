@@ -74,8 +74,7 @@ export class InstructorAddcourseComponent {
         this.service.addCourseDetails(this.courseForm.value, this.file,  instructor_id._id).subscribe({
           next: (successResponse: any) => {
             if (successResponse.message) {
-              console.log(successResponse.message)
-              this.customToastService.setToast('success', successResponse.message, ['instructor/courses']);
+              this.customToastService.setToastAndNavigateWithQueryparams('success', successResponse.message, 'instructor/courses/addsection', successResponse.courseId);
             }
           },
           error: (error: any) => {

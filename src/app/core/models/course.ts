@@ -19,3 +19,31 @@ export interface Courses {
     __v: number;
     _id: string;
 }
+
+export interface lessons {
+    title: string;
+    description: string;
+    vedio: string;
+}
+
+export interface Sections {
+    title: string;
+    description: string;
+    lessons: [lessons]
+}
+
+export interface LessonDb {
+    title: string;
+    description: string;
+    _id: string;
+}
+
+export interface SectionDb {
+    sectionname: string;
+    description: string;
+    lessons: LessonDb[];
+    courseid: any;
+    isFree: boolean;
+    _id: string;
+    __v: number;
+}

@@ -19,6 +19,7 @@ import { authGuardForLoggedInstructor, instructorAuthGuard } from './core/guards
 import { MaininstructorDashboardComponent } from './pages/instructor/dashboard/maininstructor-dashboard/maininstructor-dashboard.component';
 import { InstructorAddcourseComponent } from './pages/instructor/dashboard/course/instructor-addcourse/instructor-addcourse.component';
 import { InstructorCourselistComponent } from './pages/instructor/dashboard/course/instructor-courselist/instructor-courselist.component';
+import { InstructorCoursevideouploadComponent } from './pages/instructor/dashboard/course/instructor-coursevideoupload/instructor-coursevideoupload.component';
 
 const routes: Routes = [
   // student
@@ -52,6 +53,7 @@ const routes: Routes = [
       { path: 'courses', component: InstructorCoursesComponent,
       children: [
         { path: 'addcourse', component: InstructorAddcourseComponent },
+        { path: 'addsection', component: InstructorCoursevideouploadComponent },
         { path: '', component: InstructorCourselistComponent }
       ]
      },

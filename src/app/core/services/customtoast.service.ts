@@ -37,6 +37,18 @@ export class CustomToastService {
         }, 3000);
     }
 
+    setToastAndNavigateWithQueryparams(type: string, message: string, navigateTo: string, id: string) {
+        if (navigateTo.length > 0) {
+            this.router.navigate([navigateTo], { queryParams: { id: id } });
+        }
+        this.showToast = true;
+        this.toastMessage = message;
+        this.toastType = type;
+        setTimeout(() => {
+            this.clearToast();
+        }, 3000);
+    }
+
     clearToast() {
         this.showToast = false;
         this.toastMessage = '';

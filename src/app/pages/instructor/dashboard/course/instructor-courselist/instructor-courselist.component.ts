@@ -31,6 +31,16 @@ export class InstructorCourselistComponent {
     })
   }
 
+  edit(id: string) {
+    console.log('id to edit: ', id)
+  }
+  addSection(id: string) {
+    this.router.navigate(['instructor/courses/addsection'], { queryParams: { id: id } });
+  }
+  deletecourse(id: string) {
+    console.log('id to delete: ', id)
+  }
+
   toggleDropdown(courseId: any, event: MouseEvent) {
     event.stopPropagation();
 

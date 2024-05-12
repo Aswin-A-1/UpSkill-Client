@@ -1,18 +1,23 @@
-<div class="bg-indigo-50 flex flex-row">
-    <!-- Sidebar -->
-    <div class="bg-white text-white w-1/5 h-screen">
-        <!-- Sidebar content -->
+<!-- <div class="bg-indigo-50 flex flex-row">
+    <div class="bg-white text-white w-1/5 h-screen fixed">
         <app-instructor-sidebar></app-instructor-sidebar>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="w-4/5 h-screen">
-
-        <!-- Main Content -->
-        <main class="pl-1">
-            <!-- Main content goes here -->
+    <div class="flex-1 ml-60 overflow-y-auto">
+        <main>
             <router-outlet></router-outlet> 
-    
         </main>
+    </div>
+</div> -->
+
+
+<div class="flex bg-indigo-50">
+    <div class="w-1/5 bg-white text-white">
+        <app-instructor-sidebar></app-instructor-sidebar>
+    </div>
+    <div class="w-4/5 overflow-auto">
+        <div class="pl-1">
+            <router-outlet></router-outlet> 
+        </div>
     </div>
 </div>
