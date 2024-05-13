@@ -15,6 +15,9 @@ export class InstructorCoursevideouploadComponent {
   
   sections: Sections[] = [];
   // lessons: lessons[] = [];
+  
+  file!: File;
+  previewUrl: string | null = null;
 
   constructor(
     private router: Router,
@@ -32,7 +35,6 @@ export class InstructorCoursevideouploadComponent {
       next: (res) => {
         if (res) {
           this.savedsections = res.sections
-          console.log('inservice: ', this.savedsections.length)
 
           if(this.savedsections.length == 0) {
             this.sections.push({
@@ -41,7 +43,7 @@ export class InstructorCoursevideouploadComponent {
               lessons: [{
                 title: '',
                 description: '',
-                vedio: ''
+                vedio: null
             }]
             })
           }
@@ -57,7 +59,7 @@ export class InstructorCoursevideouploadComponent {
       lessons: [{
         title: '',
         description: '',
-        vedio: ''
+        vedio: null
     }]
     });
   }
@@ -66,17 +68,15 @@ export class InstructorCoursevideouploadComponent {
     this.sections[index].lessons.push({
         title: '',
         description: '',
-        vedio: ''
+        vedio: null
     });
   }
 
   saveSection(index: number): void {
-    this.service.saveSection(this.sections[0],  this.courseId).subscribe({
+    this.service.saveSection(this.sections[0], this.file,  this.courseId).subscribe({
       next: (successResponse: any) => {
         if (successResponse.message) {
           this.savedsections.push(successResponse.newSection)
-          console.log('saved', this.savedsections)
-          console.log('normal', this.sections)
           this.sections.pop()
           this.customToastService.setToast('success', successResponse.message);
         }
@@ -89,5 +89,22 @@ export class InstructorCoursevideouploadComponent {
 
   savelesson(index: number): void {
     console.log(this.sections[0]);
+  }
+
+  onFileSelected(event: any, i: number, j: number) {
+    this.file = event.target.files[0];
+    if (this.file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result as string;
+        console.log(this.previewUrl, i, j)
+      };
+      reader.readAsDataURL(this.file);
+    }
+  }
+
+  removeVideo() {
+    this.previewUrl = null
+    // this.courseForm.get('courseImage')?.reset();
   }
 }

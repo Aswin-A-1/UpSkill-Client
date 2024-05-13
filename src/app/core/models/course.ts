@@ -23,7 +23,7 @@ export interface Courses {
 export interface lessons {
     title: string;
     description: string;
-    vedio: string;
+    vedio: string | null;
 }
 
 export interface Sections {
