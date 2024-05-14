@@ -35,6 +35,7 @@ export interface Sections {
 export interface LessonDb {
     title: string;
     description: string;
+    video: string;
     _id: string;
 }
 

@@ -16,8 +16,8 @@ export class InstructorCoursevideouploadComponent {
   sections: Sections[] = [];
   // lessons: lessons[] = [];
   
-  file!: File;
-  previewUrl: string | null = null;
+  files: { [key: number]: File } = {};
+  previewUrls: string[][] = [];
 
   constructor(
     private router: Router,
@@ -73,7 +73,7 @@ export class InstructorCoursevideouploadComponent {
   }
 
   saveSection(index: number): void {
-    this.service.saveSection(this.sections[0], this.file,  this.courseId).subscribe({
+    this.service.saveSection(this.sections[0], this.files,  this.courseId).subscribe({
       next: (successResponse: any) => {
         if (successResponse.message) {
           this.savedsections.push(successResponse.newSection)
@@ -85,6 +85,19 @@ export class InstructorCoursevideouploadComponent {
         this.customToastService.setToast('error', error.error.error);
       }
     });
+
+    // this.service.saveSection(this.sections[0], this.file,  this.courseId).subscribe({
+    //   next: (successResponse: any) => {
+    //     if (successResponse.message) {
+    //       this.savedsections.push(successResponse.newSection)
+    //       this.sections.pop()
+    //       this.customToastService.setToast('success', successResponse.message);
+    //     }
+    //   },
+    //   error: (error: any) => {
+    //     this.customToastService.setToast('error', error.error.error);
+    //   }
+    // });
   }
 
   savelesson(index: number): void {
@@ -92,19 +105,35 @@ export class InstructorCoursevideouploadComponent {
   }
 
   onFileSelected(event: any, i: number, j: number) {
-    this.file = event.target.files[0];
-    if (this.file) {
+    const file = event.target.files[0];
+    if (file) {
+      this.previewUrls[i] = this.previewUrls[i] || [];
+      this.files[j] = file;
+
       const reader = new FileReader();
       reader.onload = () => {
-        this.previewUrl = reader.result as string;
-        console.log(this.previewUrl, i, j)
+        this.previewUrls[i][j] = reader.result as string;
+        // console.log(i, j);
+        // console.log('files: ', this.files)
+        // console.log('urls: ', this.previewUrls)
       };
-      reader.readAsDataURL(this.file);
+      reader.readAsDataURL(file);
     }
+    // this.file = event.target.files[0];
+    // if (this.file) {
+    //   const reader = new FileReader();
+    //   reader.onload = () => {
+    //     this.previewUrl = reader.result as string;
+    //     console.log(this.previewUrl, i, j)
+    //   };
+    //   reader.readAsDataURL(this.file);
+    // }
   }
 
-  removeVideo() {
-    this.previewUrl = null
+  removeVideo(i: number, j: number) {
+    this.previewUrls[i][j] = null as unknown as string;
+    delete this.files[j];
+    // this.files[i][j] = null as unknown as File;
     // this.courseForm.get('courseImage')?.reset();
   }
 }
