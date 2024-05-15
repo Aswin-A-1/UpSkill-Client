@@ -18,6 +18,7 @@ export class InstructorCoursevideouploadComponent {
   
   files: { [key: number]: File } = {};
   previewUrls: string[][] = [];
+  // isVideoFileValid: boolean = true
 
   constructor(
     private router: Router,
@@ -102,6 +103,18 @@ export class InstructorCoursevideouploadComponent {
 
   savelesson(index: number): void {
     console.log(this.sections[0]);
+  }
+
+  validateVideoFile(event: any, sectionIndex: number, lessonIndex: number): void {
+    const file = event.target.files[0];
+    if (!file.type.startsWith('video/')) {
+      // this.isVideoFileValid = false
+      this.customToastService.setToast('error', 'Input a video file.');
+      event.target.value = '';
+    } else {
+      // if(!this.isVideoFileValid) this.isVideoFileValid = true
+      // this.onFileSelected(event, sectionIndex, lessonIndex);
+    }
   }
 
   onFileSelected(event: any, i: number, j: number) {
