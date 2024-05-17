@@ -242,26 +242,26 @@ export class InstructorCoursevideouploadComponent {
       this.lessonEditForm.get(control)?.markAsTouched();
     });
     if(this.lessonEditFile != null && this.lessonEditUrl) {
-      console.log('new values: ', this.lessonEditForm.value)
-      console.log('file inputed: ', this.lessonEditFile)
-      // this.service.editSection(this.sectionEditForm.value.sectionEditTitle, this.sectionEditForm.value.sectionEditDescription, this.sectionEditId).subscribe({
-      //   next: (successResponse: any) => {
-          // if (this.sectionEditIndex != null) {
-          //   this.savedsections[this.sectionEditIndex].sectionname = successResponse.section.sectionname;
-          //   this.savedsections[this.sectionEditIndex].description = successResponse.section.description;
-          //   this.sectionEditId = null
-          //   this.sectionEditIndex = null
-          //   this.showModal = false;
-          //   this.sectionEditForm.reset();
-          //   this.customToastService.setToast('success', successResponse.message);
-          // }
-      //   },
-      //   error: (error: any) => {
-      //     this.customToastService.setToast('error', error.error.error);
-      //   }
-      // });
+      this.service.editLessonWithVideo(this.lessonEditForm.get('lessonEditTitle')?.value, this.lessonEditForm.get('lessonEditDescription')?.value, this.lessonEditFile, this.lessonEditSessionId as string, this.lessonEditIndex as number).subscribe({
+        next: (successResponse: any) => {
+          if (this.lessonEditSectionIndex != null && this.lessonEditIndex != null) {
+            this.savedsections[this.lessonEditSectionIndex].lessons[this.lessonEditIndex].title = successResponse.newlesson.title;
+            this.savedsections[this.lessonEditSectionIndex].lessons[this.lessonEditIndex].description = successResponse.newlesson.description;
+            this.savedsections[this.lessonEditSectionIndex].lessons[this.lessonEditIndex].video = successResponse.newlesson.video;
+            this.lessonEditSessionId = null
+            this.lessonEditIndex = null
+            this.lessonEditSectionIndex = null
+            this.lessonEditFile = null
+            this.showLessonEditModal = false;
+            this.lessonEditForm.reset();
+            this.customToastService.setToast('success', successResponse.message);
+          }
+        },
+        error: (error: any) => {
+          this.customToastService.setToast('error', error.error.error);
+        }
+      });
     } else {
-      console.log('file not inputed: ', this.lessonEditForm.value)
       this.service.editLesson(this.lessonEditForm.get('lessonEditTitle')?.value, this.lessonEditForm.get('lessonEditDescription')?.value, this.lessonEditSessionId as string, this.lessonEditIndex as number).subscribe({
         next: (successResponse: any) => {
           if (this.lessonEditSectionIndex != null && this.lessonEditIndex != null) {

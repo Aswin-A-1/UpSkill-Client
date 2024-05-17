@@ -64,7 +64,17 @@ export class InstructorCourseService {
         return this.http.post(`${BASE_URL}/instructor/editlesson`, requestBody);
     }
 
-    editSection(title: string, description: string, sectionId: string ): Observable<any> {
+    editLessonWithVideo(title: string, description: string, videofile: File, sectionId: string, lessonIndex: number): Observable<any> {
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('videofile', videofile);
+        formData.append('sectionId', sectionId);
+        formData.append('lessonIndex', lessonIndex.toString());
+        return this.http.post(`${BASE_URL}/instructor/editlessonwithvideo`, formData);
+    }
+
+    editSection(title: string, description: string, sectionId: string): Observable<any> {
         const requestBody = { title: title, description: description, sectionId: sectionId };
         return this.http.post(`${BASE_URL}/instructor/editsection`, requestBody);
     }
