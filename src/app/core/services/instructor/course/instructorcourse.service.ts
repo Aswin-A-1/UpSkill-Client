@@ -59,6 +59,16 @@ export class InstructorCourseService {
         return this.http.post(`${BASE_URL}/instructor/savesection`, formData);
     }
 
+    editLesson(title: string, description: string, sectionId: string, lessonIndex: number): Observable<any> {
+        const requestBody = { title: title, description: description, sectionId: sectionId, lessonIndex: lessonIndex };
+        return this.http.post(`${BASE_URL}/instructor/editlesson`, requestBody);
+    }
+
+    editSection(title: string, description: string, sectionId: string ): Observable<any> {
+        const requestBody = { title: title, description: description, sectionId: sectionId };
+        return this.http.post(`${BASE_URL}/instructor/editsection`, requestBody);
+    }
+
     getSection(courseId: string): Observable<any> {
         return this.http.get(`${BASE_URL}/instructor/getsection/${courseId}`);
     }
