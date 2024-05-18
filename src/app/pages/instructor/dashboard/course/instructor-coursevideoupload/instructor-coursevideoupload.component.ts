@@ -19,8 +19,10 @@ export class InstructorCoursevideouploadComponent {
 
   files: { [key: number]: File } = {};
   lessonEditFile!: File | null;
+  lessonAddFile!: File | null;
   previewUrls: string[][] = [];
   lessonEditUrl: string | null = null;
+  lessonAddUrl: string | null = null;
   isVideoFileValid: boolean = true
 
   showModal = false;
@@ -33,6 +35,20 @@ export class InstructorCoursevideouploadComponent {
   lessonEditSessionId!: string | null;
   lessonEditIndex!: number | null;
   lessonEditSectionIndex!: number | null;
+
+  showAddLessonModal = false;
+  lessonAddForm!: FormGroup;
+  lessonAddSessionId!: string | null;
+  lessonAddSectionIndex!: number | null;
+
+  showDeleteSectionModal = false;
+  deleteSessionId!: string | null;
+  deleteSessionIndex!: number | null;
+
+  showDeleteLessonModal = false;
+  deleteLessonSessionId!: string | null;
+  deleteLessonIndex!: number | null;
+  deleteLessonSessionIndex!: number | null;
 
   constructor(
     private router: Router,
@@ -92,6 +108,22 @@ export class InstructorCoursevideouploadComponent {
       ]),
       lessonEditVideo: new FormControl('', [])
     });
+
+    this.lessonAddForm = new FormGroup({
+      lessonAddTitle: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(100),
+      ]),
+      lessonAddDescription: new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(1000),
+      ]),
+      lessonAddVideo: new FormControl('', [
+        Validators.required,
+      ])
+    });
   }
 
   addSection(): void {
@@ -115,8 +147,6 @@ export class InstructorCoursevideouploadComponent {
   }
 
   saveSection(index: number): void {
-    console.log('data: ', this.sections[0])
-    console.log('files: ', this.files)
     if (this.sections[0].title == '' || this.sections[0].description == '' || this.sections[0].lessons.some(lesson => lesson.title.trim() === '' || lesson.description.trim() === '' || !lesson.vedio)) {
       this.customToastService.setToast('error', 'All fields are required');
       return;
@@ -212,6 +242,12 @@ export class InstructorCoursevideouploadComponent {
     this.lessonEditForm.get('lessonEditVideo')?.reset();
   }
 
+  removeLessonAddVideo() {
+    this.lessonAddFile = null
+    this.lessonAddUrl = null
+    this.lessonAddForm.get('lessonAddVideo')?.reset();
+  }
+
   sectionEditSubmit() {
     Object.keys(this.sectionEditForm.controls).forEach(control => {
       this.sectionEditForm.get(control)?.markAsTouched();
@@ -282,6 +318,68 @@ export class InstructorCoursevideouploadComponent {
     }
   }
 
+  lessonAddSubmit() {
+    Object.keys(this.lessonAddForm.controls).forEach(control => {
+      this.lessonAddForm.get(control)?.markAsTouched();
+    });
+    if(this.lessonAddFile != null && this.lessonAddUrl) {
+      this.service.addLessonWithVideo(this.lessonAddForm.get('lessonAddTitle')?.value, this.lessonAddForm.get('lessonAddDescription')?.value, this.lessonAddFile, this.lessonAddSessionId as string).subscribe({
+        next: (successResponse: any) => {
+          if (this.lessonAddSectionIndex != null) {
+            this.savedsections[this.lessonAddSectionIndex].lessons.push(successResponse.newLesson);
+            this.lessonAddSessionId = null
+            this.lessonAddSectionIndex = null
+            this.showAddLessonModal = false;
+            this.lessonAddForm.reset();
+            this.customToastService.setToast('success', successResponse.message);
+          }
+        },
+        error: (error: any) => {
+          this.customToastService.setToast('error', error.error.error);
+        }
+      });
+    }
+  }
+
+  deleteSectionSubmit() {
+    if( this.deleteSessionId != null && this.deleteSessionIndex != null ) {
+      this.service.deleteSection( this.deleteSessionId as string ).subscribe({
+        next: (successResponse: any) => {
+          if (this.deleteSessionIndex != null) {
+            this.savedsections.splice(this.deleteSessionIndex, 1)
+            this.deleteSessionId = null
+            this.deleteSessionIndex = null
+            this.showDeleteSectionModal = false;
+            this.customToastService.setToast('success', successResponse.message);
+          }
+        },
+        error: (error: any) => {
+          this.customToastService.setToast('error', error.error.error);
+        }
+      });
+    }
+  }
+
+  deleteLessonSubmit() {
+    if( this.deleteLessonSessionId != null && this.deleteLessonIndex != null, this.deleteLessonSessionIndex != null ) {
+      this.service.deleteLesson( this.deleteLessonSessionId as string, this.deleteLessonIndex as number ).subscribe({
+        next: (successResponse: any) => {
+          if (this.deleteLessonIndex != null) {
+            this.savedsections[this.deleteLessonSessionIndex as number].lessons.splice(this.deleteLessonIndex, 1)
+            this.deleteLessonSessionId = null
+            this.deleteLessonIndex = null
+            this.deleteLessonSessionIndex = null
+            this.showDeleteLessonModal = false;
+            this.customToastService.setToast('success', successResponse.message);
+          }
+        },
+        error: (error: any) => {
+          this.customToastService.setToast('error', error.error.error);
+        }
+      });
+    }
+  }
+
   openModal(sectionId: string, index: number) {
     this.sectionEditId = sectionId
     this.sectionEditIndex = index
@@ -317,6 +415,19 @@ export class InstructorCoursevideouploadComponent {
     this.showLessonEditModal = false;
   }
 
+  openAddNewLessonModal(sectionId: string, sectionIndex: number) {
+    this.showAddLessonModal = true
+    this.lessonAddSessionId = sectionId
+    this.lessonAddSectionIndex = sectionIndex
+  }
+
+  closeAddLessonModal() {
+    this.lessonAddForm.reset();
+    this.showAddLessonModal = false
+    this.lessonAddSessionId = null
+    this.lessonAddSectionIndex = null
+  }
+
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -328,4 +439,43 @@ export class InstructorCoursevideouploadComponent {
       reader.readAsDataURL(file);
     }
   }
+
+  onLessonAddFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.lessonAddFile = file;
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.lessonAddUrl = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  openDeleteSectionModal(sectionId: string, index: number) {
+    this.deleteSessionId = sectionId
+    this.deleteSessionIndex = index
+    this.showDeleteSectionModal = true
+  }
+
+  closeDeleteSectionModal() {
+    this.showDeleteSectionModal = false
+    this.deleteSessionId = null
+    this.deleteSessionIndex = null
+  }
+
+  openDeleteLessonModal(sectionId: string, index: number, sectionIndex: number) {
+    this.deleteLessonSessionId = sectionId
+    this.deleteLessonIndex = index
+    this.deleteLessonSessionIndex = sectionIndex
+    this.showDeleteLessonModal = true
+  }
+
+  closeDeleteLessonModal() {
+    this.showDeleteLessonModal = false
+    this.deleteLessonSessionId = null
+    this.deleteLessonIndex = null
+    this.deleteLessonSessionIndex = null
+  }
+
 }

@@ -74,9 +74,28 @@ export class InstructorCourseService {
         return this.http.post(`${BASE_URL}/instructor/editlessonwithvideo`, formData);
     }
 
+    addLessonWithVideo(title: string, description: string, videofile: File, sectionId: string): Observable<any> {
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('videofile', videofile);
+        formData.append('sectionId', sectionId);
+        return this.http.post(`${BASE_URL}/instructor/addlesson`, formData);
+    }
+
     editSection(title: string, description: string, sectionId: string): Observable<any> {
         const requestBody = { title: title, description: description, sectionId: sectionId };
         return this.http.post(`${BASE_URL}/instructor/editsection`, requestBody);
+    }
+
+    deleteSection(sectionId: string): Observable<any> {
+        const requestBody = { sectionId: sectionId };
+        return this.http.post(`${BASE_URL}/instructor/deletesection`, requestBody);
+    }
+
+    deleteLesson(sectionId: string, lessonIndex: number): Observable<any> {
+        const requestBody = { sectionId: sectionId, lessonIndex: lessonIndex };
+        return this.http.post(`${BASE_URL}/instructor/deletelesson`, requestBody);
     }
 
     getSection(courseId: string): Observable<any> {
