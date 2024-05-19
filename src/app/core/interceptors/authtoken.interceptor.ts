@@ -8,12 +8,30 @@ import { Observable } from 'rxjs';
 export class AuthTokenInterceptorService implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const token = localStorage.getItem('token');
+        const studentToken = localStorage.getItem('token');
+        const instructorToken = localStorage.getItem('instructor_token');
+        const adminToken = localStorage.getItem('admin_token');
 
-        if (token) {
-            const authReq = req.clone({
-                headers: req.headers.set('Authorization', `Bearer ${token}`)
-            });
+        if (studentToken || instructorToken || adminToken) {
+            let authReq = req;
+
+            if (studentToken) {
+                authReq = authReq.clone({
+                    headers: authReq.headers.set('Authorization-Student', `Bearer ${studentToken}`)
+                });
+            }
+
+            if (instructorToken) {
+                authReq = authReq.clone({
+                    headers: authReq.headers.set('Authorization-Instructor', `Bearer ${instructorToken}`)
+                });
+            }
+
+            if (adminToken) {
+                authReq = authReq.clone({
+                    headers: authReq.headers.set('Authorization-Admin', `Bearer ${adminToken}`)
+                });
+            }
 
             return next.handle(authReq);
         } else {

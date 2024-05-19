@@ -179,10 +179,6 @@ export class InstructorCoursevideouploadComponent {
     // });
   }
 
-  savelesson(index: number): void {
-    console.log(this.sections[0]);
-  }
-
   spaceValidator(control: FormControl): { [s: string]: boolean } | null {
     if (control.value.trim == '') {
       return { 'spaceInvalid': true };
