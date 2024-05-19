@@ -4,6 +4,7 @@ import { StudentSignupComponent } from "../../pages/student/authorization/studen
 import { ReusableComponentsModule } from "../custom_modules/reusablemodule.module";
 import { SharedModules } from "../shared.module";
 import { HomeComponent } from "../../pages/student/home/home/home.component";
+import { NavbarComponent } from "../../pages/student/home/navbar/navbar.component";
 
 
 
@@ -11,7 +12,8 @@ import { HomeComponent } from "../../pages/student/home/home/home.component";
     declarations: [
         StudentLoginComponent,
         StudentSignupComponent,
-        HomeComponent
+        HomeComponent,
+        NavbarComponent,
     ],
     exports: [],
     imports: [
