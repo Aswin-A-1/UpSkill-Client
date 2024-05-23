@@ -12,11 +12,23 @@ import { CustomToastService } from '../../../../../core/services/customtoast.ser
 export class InstructorAddcourseComponent {
   courseForm!: FormGroup;
   file!: File;
+  isVerified!: boolean
   constructor(
     private router: Router,
     private service: InstructorCourseService,
     public customToastService: CustomToastService
   ) {
+    
+    const instructor = JSON.parse(localStorage.getItem('instructor')!)
+    this.service.getVerification(instructor._id).subscribe({
+      next: (res) => {
+        if (res) {
+          this.isVerified = res.verification
+          console.log('verfication received: ', this.isVerified)
+        }
+      }
+    })
+
     this.courseForm = new FormGroup({
       courseName: new FormControl('', [
         Validators.required,
@@ -64,6 +76,10 @@ export class InstructorAddcourseComponent {
   removeImage() {
     this.previewUrl = null
     this.courseForm.get('courseImage')?.reset();
+  }
+
+  navigateToAddProfile() {
+    this.router.navigate(['instructor/profile/addprofile']);
   }
 
   onSubmit() {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CustomToastService } from '../../../../core/services/customtoast.service';
 import { loginCredentials } from '../../../../core/models/auth';
-import { AuthService } from '../../../../core/services/auth_services';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-instructor-login',

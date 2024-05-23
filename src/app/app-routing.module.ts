@@ -20,6 +20,9 @@ import { MaininstructorDashboardComponent } from './pages/instructor/dashboard/m
 import { InstructorAddcourseComponent } from './pages/instructor/dashboard/course/instructor-addcourse/instructor-addcourse.component';
 import { InstructorCourselistComponent } from './pages/instructor/dashboard/course/instructor-courselist/instructor-courselist.component';
 import { InstructorCoursevideouploadComponent } from './pages/instructor/dashboard/course/instructor-coursevideoupload/instructor-coursevideoupload.component';
+import { InstructorAddprofileComponent } from './pages/instructor/profile/instructor-addprofile/instructor-addprofile.component';
+import { InstructorProfileComponent } from './pages/instructor/profile/instructor-profile/instructor-profile.component';
+import { InstructorProfiledetailsComponent } from './pages/instructor/profile/instructor-profiledetails/instructor-profiledetails.component';
 
 const routes: Routes = [
   // student
@@ -48,15 +51,22 @@ const routes: Routes = [
   {
     path: 'instructor', component: MaininstructorDashboardComponent,
     children: [
-      { path: 'dashboard', component: InstructorDashboardComponent,
+      { path: 'dashboard', component: InstructorDashboardComponent },
+      {
+        path: 'courses', component: InstructorCoursesComponent,
+        children: [
+          { path: 'addcourse', component: InstructorAddcourseComponent },
+          { path: 'addsection', component: InstructorCoursevideouploadComponent },
+          { path: '', component: InstructorCourselistComponent }
+        ]
       },
-      { path: 'courses', component: InstructorCoursesComponent,
-      children: [
-        { path: 'addcourse', component: InstructorAddcourseComponent },
-        { path: 'addsection', component: InstructorCoursevideouploadComponent },
-        { path: '', component: InstructorCourselistComponent }
-      ]
-     },
+      {
+        path: 'profile', component: InstructorProfileComponent,
+        children: [
+          { path: 'addprofile', component:InstructorAddprofileComponent },
+          { path: '', component: InstructorProfiledetailsComponent }
+        ]
+      },
     ],
     canActivateChild: [instructorAuthGuard]
   }

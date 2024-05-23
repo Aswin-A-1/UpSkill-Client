@@ -40,6 +40,10 @@
                             </th>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                                Verified
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                                 ACTION
                             </th>
                         </tr>
@@ -58,6 +62,10 @@
                             <td class="px-6 py-3 whitespace-nowrap">
                                 <span *ngIf="!instructor.isBlocked" class="bg-green-100 text-green-500 text-xs font-medium me-2 px-2.5 py-0.5 rounded">ACTIVE</span>
                                 <span *ngIf="instructor.isBlocked" class="bg-red-100 text-red-500 text-xs font-medium me-2 px-2.5 py-0.5 rounded">BLOCKED</span>
+                            </td>
+                            <td class="px-6 py-3 whitespace-nowrap">
+                                <span *ngIf="instructor.isVerified" class="bg-green-100 text-green-500 text-xs font-medium me-2 px-2.5 py-0.5 rounded">VERIFIED</span>
+                                <span *ngIf="!instructor.isVerified" class="bg-red-100 text-red-500 text-xs font-medium me-2 px-2.5 py-0.5 rounded">NOT VERIFIED</span>
                             </td>
                             <td class="px-6 py-3 whitespace-pre-wrap flex">
                                 <button *ngIf="instructor.isBlocked" type="button" class="px-3 py-2 text-sm font-medium text-center cursor-pointer text-white bg-green-500 rounded-lg border-none hover:bg-green-600 focus:ring-4 focus:outline-none" (click)="toggleBlockStatus(instructor)">Unblock</button>

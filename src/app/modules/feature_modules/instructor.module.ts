@@ -11,6 +11,9 @@ import { InstructorCoursesComponent } from "../../pages/instructor/dashboard/cou
 import { InstructorAddcourseComponent } from "../../pages/instructor/dashboard/course/instructor-addcourse/instructor-addcourse.component";
 import { InstructorCourselistComponent } from "../../pages/instructor/dashboard/course/instructor-courselist/instructor-courselist.component";
 import { InstructorCoursevideouploadComponent } from "../../pages/instructor/dashboard/course/instructor-coursevideoupload/instructor-coursevideoupload.component";
+import { InstructorAddprofileComponent } from "../../pages/instructor/profile/instructor-addprofile/instructor-addprofile.component";
+import { InstructorProfileComponent } from "../../pages/instructor/profile/instructor-profile/instructor-profile.component";
+import { InstructorProfiledetailsComponent } from "../../pages/instructor/profile/instructor-profiledetails/instructor-profiledetails.component";
 
 
 
@@ -26,6 +29,9 @@ import { InstructorCoursevideouploadComponent } from "../../pages/instructor/das
         InstructorAddcourseComponent,
         InstructorCourselistComponent,
         InstructorCoursevideouploadComponent,
+        InstructorAddprofileComponent,
+        InstructorProfileComponent,
+        InstructorProfiledetailsComponent,
     ],
     exports: [],
     imports: [

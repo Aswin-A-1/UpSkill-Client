@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CustomToastService } from '../../../../core/services/customtoast.service';
-import { AuthService } from '../../../../core/services/auth_services';
+import { AuthService } from '../../../../core/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({

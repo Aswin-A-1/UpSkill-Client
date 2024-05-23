@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../core/services/auth_services';
+import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { ToastService } from '../../../core/services/toast.service';
 import { CustomToastService } from '../../../core/services/customtoast.service';

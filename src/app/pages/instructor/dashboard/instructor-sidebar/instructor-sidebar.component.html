@@ -19,6 +19,10 @@
             class="flex items-center rounded-md mt-4 py-4 pl-2 no-underline text-indigo-500 hover:bg-indigo-100 hover:text-indigo-600">
             <span class="mx-3 text-lg font-semibold">Messages</span>
         </a>
+        <a routerLink="/instructor/profile" [routerLinkActive]="['active-link']"
+            class="flex items-center rounded-md mt-4 py-4 pl-2 no-underline text-indigo-500 hover:bg-indigo-100 hover:text-indigo-600">
+            <span class="mx-3 text-lg font-semibold">Profile</span>
+        </a>
         <a (click)="logout()"
             class="flex items-center cursor-pointer rounded-md mt-4 py-4 pl-2 no-underline text-indigo-500 hover:bg-indigo-100 hover:text-indigo-600">
             <span class="mx-3 text-lg font-semibold">Logout</span>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SignUpCredentials } from '../../../../core/models/auth';
-import { AuthService } from '../../../../core/services/auth_services';
+import { AuthService } from '../../../../core/services/auth.service';
 import { catchError, of, exhaustMap, map, tap } from 'rxjs';
 import { CustomToastService } from '../../../../core/services/customtoast.service';
 

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomToastService } from '../../../core/services/customtoast.service';
 import { environment } from '../../../../environments/environment';
-import { AuthService } from '../../../core/services/auth_services';
+import { AuthService } from '../../../core/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';

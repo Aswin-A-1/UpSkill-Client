@@ -23,9 +23,11 @@ export class HomeComponent {
       next: (res) => {
         if (res) {
           this.courses = res.courses
+          console.log(this.courses);
         }
       }
     })
+    
   }
 
   logout() {

@@ -33,16 +33,9 @@ export class InstructorCourseService {
         return this.http.get(`${BASE_URL}/instructor/getcourse/${instructorid}`);
     }
 
-    // saveSection(section: Sections, videofile: File[][], courseId: string): Observable<any> {
-    //     const requestBody = { section: section, videoFile: videofile, courseId: courseId };
-    //     console.log('requestbody in service: ', requestBody)
-    //     const formData = new FormData();
-    //     formData.append('section', JSON.stringify(section));
-    //     formData.append('videoFile', videofile);
-    //     formData.append('courseId', courseId);
-    //     console.log('requestbody in service: ', formData);
-    //     return this.http.post(`${BASE_URL}/instructor/savesection`, formData);
-    // }
+    getVerification(instructorid: string): Observable<any> {
+        return this.http.get(`${BASE_URL}/instructor/getverification/${instructorid}`);
+    }
 
     saveSection(section: Sections, videofiles: { [key: number]: File }, courseId: string): Observable<any> {
         const requestBody = { section: section, videoFile: videofiles, courseId: courseId };
