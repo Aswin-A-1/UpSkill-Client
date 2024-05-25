@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AdminInstructorService } from '../../../../core/services/admin/instructor/admininstructor.service';
 import { Instructor } from '../../../../core/models/student';
 import { Router } from '@angular/router';
+import { InstructorProfileService } from '../../../../core/services/instructor/profile/instructorprofile.service';
+import { CustomToastService } from '../../../../core/services/customtoast.service';
 
 @Component({
   selector: 'app-instructor',
@@ -9,13 +11,19 @@ import { Router } from '@angular/router';
   styleUrl: './instructor.component.css'
 })
 export class InstructorComponent {
+  blockModal = false;
+  unBlockModal = false;
+  instructorBlockId: string | null = null;
+  instructorBlockIndex: number | null = null;
   isDropdownOpen: { [key: string]: boolean } = {};
   lastOpenedDropdown: string = '';
 
   instructors: Instructor[] = []
   constructor(
     private router: Router,
-    private service: AdminInstructorService
+    private service: AdminInstructorService,
+    private profileService: InstructorProfileService,
+    public customToastService: CustomToastService
   ) { }
   
   ngOnInit(): void {
@@ -31,6 +39,9 @@ export class InstructorComponent {
 
   openProfile(instructorId: string) {
     this.router.navigate(['admin/instructor-profile'], { queryParams: { id: instructorId } });
+  }
+
+  blockInstuctor(instructorId: string, instructorIndex: number) {
   }
 
   toggleDropdown(instructorId: any, event: MouseEvent) {
@@ -60,6 +71,69 @@ export class InstructorComponent {
     });
   }
 
+  openBlockModal(instructorId: string, instructorIndex: number, event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const dropdowns = document.querySelectorAll('.dropdown-menu');
+    dropdowns.forEach((dropdown) => {
+      if (!dropdown.contains(target)) {
+        this.isDropdownOpen[this.lastOpenedDropdown] = false;
+        this.lastOpenedDropdown = '';
+      }
+    });
+    this.instructorBlockId = instructorId
+    this.instructorBlockIndex = instructorIndex
+    this.blockModal = true
+  }
+
+  openUnblockModal(instructorId: string, instructorIndex: number, event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const dropdowns = document.querySelectorAll('.dropdown-menu');
+    dropdowns.forEach((dropdown) => {
+      if (!dropdown.contains(target)) {
+        this.isDropdownOpen[this.lastOpenedDropdown] = false;
+        this.lastOpenedDropdown = '';
+      }
+    });
+    this.instructorBlockId = instructorId
+    this.instructorBlockIndex = instructorIndex
+    this.unBlockModal = true
+  }
+
+  closeBlockModal() {
+    this.blockModal = false;
+  }
+
+  closeUnblockModal() {
+    this.unBlockModal = false;
+  }
+
+  block() {
+    if(this.instructorBlockId != null && this.instructorBlockIndex != null) {
+      this.profileService.updateblock(this.instructorBlockId).subscribe({
+        next: (res) => {
+          if (res) {
+            this.instructors[this.instructorBlockIndex as number].isBlocked = res.instructor.isBlocked
+            this.blockModal = false;
+            this.customToastService.setToast('success', res.message);
+          }
+        }
+      })
+    }
+  }
+
+  unBlock() {
+    if(this.instructorBlockId != null && this.instructorBlockIndex != null) {
+      this.profileService.updateblock(this.instructorBlockId).subscribe({
+        next: (res) => {
+          if (res) {
+            this.instructors[this.instructorBlockIndex as number].isBlocked = res.instructor.isBlocked
+            this.unBlockModal = false;
+            this.customToastService.setToast('success', res.message);
+          }
+        }
+      })
+    }
+  }
   
   toggleBlockStatus(instructor: Instructor) {
     // this.service.manageStudents(user._id).subscribe({
