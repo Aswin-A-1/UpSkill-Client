@@ -25,14 +25,20 @@ export class InstructorAddprofileComponent {
     private service: InstructorProfileService,
     public customToastService: CustomToastService
   ) {
-    this.profileForm = new FormGroup({
-      qualitifcation: new FormControl('', []),
-    });
   }
 
   ngOnInit(): void {
-    this.instructor = JSON.parse(localStorage.getItem('instructor')!)
-    console.log(this.instructor)
+    const instructorId = JSON.parse(localStorage.getItem('instructor')!)._id
+    this.service.getInstructor(instructorId).subscribe({
+      next: (res) => {
+        if (res) {
+          this.instructor = res.instructor
+        }
+      }
+    })
+    this.profileForm = new FormGroup({
+      qualitifcation: new FormControl(this.instructor.qualification, []),
+    });
   }
 
   navigateToProfile() {
@@ -85,6 +91,7 @@ export class InstructorAddprofileComponent {
     if(!this.certificateFileError && instructorData) {
       this.service.updateProfile(this.profileForm.get('qualitifcation')?.value, this.profileFile, this.certificateFiles, instructorData._id).subscribe({
         next: (successResponse: any) => {
+          localStorage.setItem('instructor', JSON.stringify(successResponse.instructor));
           this.instructor = successResponse.instructor
           this.customToastService.setToast('success', successResponse.message);
         },

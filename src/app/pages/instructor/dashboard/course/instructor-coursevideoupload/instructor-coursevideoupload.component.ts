@@ -474,4 +474,8 @@ export class InstructorCoursevideouploadComponent {
     this.deleteLessonSessionIndex = null
   }
 
+  navigateToCourseList() {
+    this.router.navigate(['instructor/courses']);
+  }
+
 }

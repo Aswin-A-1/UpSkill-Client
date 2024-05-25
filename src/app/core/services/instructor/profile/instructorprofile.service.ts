@@ -30,4 +30,8 @@ export class InstructorProfileService {
         formData.append('instructorId', instructorId);
         return this.http.post(`${BASE_URL}/instructor/updateprofile`, formData);
     }
+
+    getInstructor(instructorid: string): Observable<any> {
+        return this.http.get(`${BASE_URL}/instructor/getprofile/${instructorid}`);
+    }
 }

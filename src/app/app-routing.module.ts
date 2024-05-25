@@ -11,7 +11,7 @@ import { StudentsComponent } from './pages/admin/students/students.component';
 import { InstructorLoginComponent } from './pages/instructor/authorization/instructor-login/instructor-login.component';
 import { InstructorSignupComponent } from './pages/instructor/authorization/instructor-signup/instructor-signup.component';
 import { InstructorOtpComponent } from './pages/instructor/authorization/instructor-otp/instructor-otp.component';
-import { InstructorComponent } from './pages/admin/instructor/instructor.component';
+import { InstructorComponent } from './pages/admin/instructorsection/instructor/instructor.component';
 import { AdminLoginComponent } from './pages/admin/authorization/admin-login/admin-login.component';
 import { InstructorDashboardComponent } from './pages/instructor/dashboard/instructor-dashboard/instructor-dashboard.component';
 import { InstructorCoursesComponent } from './pages/instructor/dashboard/course/instructor-courses/instructor-courses.component';
@@ -23,6 +23,7 @@ import { InstructorCoursevideouploadComponent } from './pages/instructor/dashboa
 import { InstructorAddprofileComponent } from './pages/instructor/profile/instructor-addprofile/instructor-addprofile.component';
 import { InstructorProfileComponent } from './pages/instructor/profile/instructor-profile/instructor-profile.component';
 import { InstructorProfiledetailsComponent } from './pages/instructor/profile/instructor-profiledetails/instructor-profiledetails.component';
+import { AdmininstructorprofileComponent } from './pages/admin/instructorsection/admininstructorprofile/admininstructorprofile.component';
 
 const routes: Routes = [
   // student
@@ -38,6 +39,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'student', component: StudentsComponent },
       { path: 'instructor', component: InstructorComponent },
+      { path: 'instructor-profile', component: AdmininstructorprofileComponent },
       { path: '', redirectTo: 'student', pathMatch: 'full' }
     ],
     canActivateChild: [adminAuthGuard]

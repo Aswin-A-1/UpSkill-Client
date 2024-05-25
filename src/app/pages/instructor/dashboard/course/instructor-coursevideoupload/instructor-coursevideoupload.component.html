@@ -1,10 +1,10 @@
 <div class="bg-white">
   <div class="flex flex-row">
-    <!-- <div class="w-20 mt-6 ml-6">
-          <button
+    <div class="w-20 mt-6 ml-6">
+          <button (click)="navigateToCourseList()"
               class="bg-white pt-3 pb-2 px-3  text-indigo-600 text-base rounded-full hover:cursor-pointer border-none border-blue-100 hover: hover:bg-indigo-100 focus:outline-none">
               <lucide-icon name="arrow-left" class="my-icon"></lucide-icon></button>
-      </div> -->
+      </div>
     <div class="pt-8 pl-4 uppercase tracking-wide text-indigo-500 font-semibold text-xl">Sections</div>
   </div>
   <div *ngIf="savedsections.length != 0" class="px-10 pb-10 pt-5 savedsection">

@@ -78,8 +78,8 @@ export class InstructorAddcourseComponent {
     this.courseForm.get('courseImage')?.reset();
   }
 
-  navigateToAddProfile() {
-    this.router.navigate(['instructor/profile/addprofile']);
+  navigateToProfile() {
+    this.router.navigate(['instructor/profile']);
   }
 
   onSubmit() {

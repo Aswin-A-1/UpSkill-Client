@@ -19,6 +19,7 @@ export class InstructorLoginComponent {
     this.service.instructorLogin(userData).subscribe({
       next: (successResponse: any) => {
         if (successResponse.message) {
+          console.log('instructor data while logging in: ', successResponse.instructor)
           sessionStorage.setItem('instructor_token', successResponse.token)
           localStorage.setItem('instructor_token', successResponse.token);
           localStorage.setItem('instructor', JSON.stringify(successResponse.instructor));

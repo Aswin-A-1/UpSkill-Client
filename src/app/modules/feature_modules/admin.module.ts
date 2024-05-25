@@ -5,8 +5,9 @@ import { DashboardComponent } from "../../pages/admin/dashboard/dashboard.compon
 import { StudentsComponent } from "../../pages/admin/students/students.component";
 import { AdminDashboardComponent } from "../../pages/admin/admin-dashboard/admin-dashboard.component";
 import { SidebarComponent } from "../../pages/admin/sidebar/sidebar.component";
-import { InstructorComponent } from "../../pages/admin/instructor/instructor.component";
+import { InstructorComponent } from "../../pages/admin/instructorsection/instructor/instructor.component";
 import { AdminLoginComponent } from "../../pages/admin/authorization/admin-login/admin-login.component";
+import { AdmininstructorprofileComponent } from "../../pages/admin/instructorsection/admininstructorprofile/admininstructorprofile.component";
 
 
 
@@ -18,6 +19,7 @@ import { AdminLoginComponent } from "../../pages/admin/authorization/admin-login
         StudentsComponent,
         InstructorComponent,
         AdminDashboardComponent,
+        AdmininstructorprofileComponent,
     ],
     exports: [],
     imports: [
