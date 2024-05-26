@@ -40,6 +40,6 @@ export class InstructorProfileService {
     }
 
     updateblock(instructorid: string): Observable<any> {
-        return this.http.post(`${BASE_URL}/instructor/updateBlock`, { instructorid });
+        return this.http.post(`${BASE_URL}/admin/updateBlock`, { instructorid });
     }
 }

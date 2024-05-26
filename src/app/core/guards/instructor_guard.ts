@@ -1,9 +1,12 @@
 import { CanActivateChildFn, CanActivateFn, Router } from "@angular/router";
 import { inject } from "@angular/core";
 import { jwtDecode } from 'jwt-decode';
+import { InstructorProfileService } from "../services/instructor/profile/instructorprofile.service";
+import { firstValueFrom } from 'rxjs';
 
-export const instructorAuthGuard: CanActivateChildFn = (route, state) => {
+export const instructorAuthGuard: CanActivateChildFn = async (route, state) => {
   const router = inject(Router);
+  const instructorProfileService = inject(InstructorProfileService);
 
   const token = localStorage.getItem('instructor_token');
   if (!token) {
@@ -16,7 +19,15 @@ export const instructorAuthGuard: CanActivateChildFn = (route, state) => {
     const currentTime = Math.floor(Date.now() / 1000);
     if (decodedToken.exp > currentTime) {
       if (decodedToken.user_type == "Instructor") {
-        return true;
+        const instructorid = decodedToken.id
+        const res = await firstValueFrom(instructorProfileService.getInstructor(instructorid));
+        if(res.instructor.isBlocked) {
+          localStorage.removeItem('instructor_token');
+          router.navigateByUrl('/instructor-login');
+          return false;
+        } else {
+          return true;
+        }
       } else {
         router.navigateByUrl('/instructor-login');
         return false;
