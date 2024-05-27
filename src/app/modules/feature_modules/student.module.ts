@@ -3,8 +3,9 @@ import { StudentLoginComponent } from "../../pages/student/authorization/login/s
 import { StudentSignupComponent } from "../../pages/student/authorization/student-signup/student-signup.component";
 import { ReusableComponentsModule } from "../custom_modules/reusablemodule.module";
 import { SharedModules } from "../shared.module";
-import { HomeComponent } from "../../pages/student/home/home/home.component";
+import { HomeComponent } from "../../pages/home/home/home.component";
 import { NavbarComponent } from "../../pages/student/home/navbar/navbar.component";
+import { StudenthomeComponent } from "../../pages/student/home/studenthome/studenthome.component";
 
 
 
@@ -14,6 +15,7 @@ import { NavbarComponent } from "../../pages/student/home/navbar/navbar.componen
         StudentSignupComponent,
         HomeComponent,
         NavbarComponent,
+        StudenthomeComponent,
     ],
     exports: [],
     imports: [

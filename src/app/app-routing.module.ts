@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { StudentLoginComponent } from './pages/student/authorization/login/student-login.component';
 import { StudentSignupComponent } from './pages/student/authorization/student-signup/student-signup.component';
 import { OtpTemplateComponent } from './reusables/templates/otp-template/otp-template.component';
-import { HomeComponent } from './pages/student/home/home/home.component';
+import { HomeComponent } from './pages/home/home/home.component';
 import { studentAuthGuard, authGuardForLoggedUser } from './core/guards/student_guard';
 import { adminAuthGuard, authGuardForLoggedAdmin } from './core/guards/admin_guard';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
@@ -24,13 +24,15 @@ import { InstructorAddprofileComponent } from './pages/instructor/profile/instru
 import { InstructorProfileComponent } from './pages/instructor/profile/instructor-profile/instructor-profile.component';
 import { InstructorProfiledetailsComponent } from './pages/instructor/profile/instructor-profiledetails/instructor-profiledetails.component';
 import { AdmininstructorprofileComponent } from './pages/admin/instructorsection/admininstructorprofile/admininstructorprofile.component';
+import { StudenthomeComponent } from './pages/student/home/studenthome/studenthome.component';
 
 const routes: Routes = [
   // student
+  { path: '', component: HomeComponent, canActivate: [authGuardForLoggedUser] },
   { path: 'login', component: StudentLoginComponent, canActivate: [authGuardForLoggedUser] },
   { path: 'signup', component: StudentSignupComponent },
   { path: 'signup/verify-otp', component: OtpTemplateComponent },
-  { path: 'home', component: HomeComponent, canActivate: [studentAuthGuard] },
+  { path: 'home', component: StudenthomeComponent, canActivate: [studentAuthGuard] },
 
   // admin
   {

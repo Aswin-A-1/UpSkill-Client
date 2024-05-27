@@ -74,6 +74,7 @@ export class InstructorCoursevideouploadComponent {
               lessons: [{
                 title: '',
                 description: '',
+                free: false,
                 vedio: null
               }]
             })
@@ -106,6 +107,9 @@ export class InstructorCoursevideouploadComponent {
         Validators.minLength(5),
         Validators.maxLength(1000),
       ]),
+      lessonEditFree: new FormControl(false , [
+        Validators.required,
+      ]),
       lessonEditVideo: new FormControl('', [])
     });
 
@@ -120,6 +124,9 @@ export class InstructorCoursevideouploadComponent {
         Validators.minLength(5),
         Validators.maxLength(1000),
       ]),
+      lessonAddFree: new FormControl(false , [
+        Validators.required,
+      ]),
       lessonAddVideo: new FormControl('', [
         Validators.required,
       ])
@@ -133,6 +140,7 @@ export class InstructorCoursevideouploadComponent {
       lessons: [{
         title: '',
         description: '',
+        free: false,
         vedio: null
       }]
     });
@@ -142,6 +150,7 @@ export class InstructorCoursevideouploadComponent {
     this.sections[index].lessons.push({
       title: '',
       description: '',
+      free: false,
       vedio: null
     });
   }
@@ -274,11 +283,17 @@ export class InstructorCoursevideouploadComponent {
       this.lessonEditForm.get(control)?.markAsTouched();
     });
     if(this.lessonEditFile != null && this.lessonEditUrl) {
-      this.service.editLessonWithVideo(this.lessonEditForm.get('lessonEditTitle')?.value, this.lessonEditForm.get('lessonEditDescription')?.value, this.lessonEditFile, this.lessonEditSessionId as string, this.lessonEditIndex as number).subscribe({
+      let isfree = this.lessonEditForm.get('lessonEditFree')?.value
+      let free = 'false'
+      if(isfree) {
+        free = 'true'
+      }
+      this.service.editLessonWithVideo(this.lessonEditForm.get('lessonEditTitle')?.value, this.lessonEditForm.get('lessonEditDescription')?.value, free, this.lessonEditFile, this.lessonEditSessionId as string, this.lessonEditIndex as number).subscribe({
         next: (successResponse: any) => {
           if (this.lessonEditSectionIndex != null && this.lessonEditIndex != null) {
             this.savedsections[this.lessonEditSectionIndex].lessons[this.lessonEditIndex].title = successResponse.newlesson.title;
             this.savedsections[this.lessonEditSectionIndex].lessons[this.lessonEditIndex].description = successResponse.newlesson.description;
+            this.savedsections[this.lessonEditSectionIndex].lessons[this.lessonEditIndex].free = successResponse.newlesson.free;
             this.savedsections[this.lessonEditSectionIndex].lessons[this.lessonEditIndex].video = successResponse.newlesson.video;
             this.lessonEditSessionId = null
             this.lessonEditIndex = null
@@ -294,11 +309,12 @@ export class InstructorCoursevideouploadComponent {
         }
       });
     } else {
-      this.service.editLesson(this.lessonEditForm.get('lessonEditTitle')?.value, this.lessonEditForm.get('lessonEditDescription')?.value, this.lessonEditSessionId as string, this.lessonEditIndex as number).subscribe({
+      this.service.editLesson(this.lessonEditForm.get('lessonEditTitle')?.value, this.lessonEditForm.get('lessonEditDescription')?.value, this.lessonEditForm.get('lessonEditFree')?.value, this.lessonEditSessionId as string, this.lessonEditIndex as number).subscribe({
         next: (successResponse: any) => {
           if (this.lessonEditSectionIndex != null && this.lessonEditIndex != null) {
             this.savedsections[this.lessonEditSectionIndex].lessons[this.lessonEditIndex].title = successResponse.newlesson.title;
             this.savedsections[this.lessonEditSectionIndex].lessons[this.lessonEditIndex].description = successResponse.newlesson.description;
+            this.savedsections[this.lessonEditSectionIndex].lessons[this.lessonEditIndex].free = successResponse.newlesson.free;
             this.lessonEditSessionId = null
             this.lessonEditIndex = null
             this.lessonEditSectionIndex = null
@@ -319,7 +335,12 @@ export class InstructorCoursevideouploadComponent {
       this.lessonAddForm.get(control)?.markAsTouched();
     });
     if(this.lessonAddFile != null && this.lessonAddUrl) {
-      this.service.addLessonWithVideo(this.lessonAddForm.get('lessonAddTitle')?.value, this.lessonAddForm.get('lessonAddDescription')?.value, this.lessonAddFile, this.lessonAddSessionId as string).subscribe({
+      let isfree = this.lessonAddForm.get('lessonAddFree')?.value
+      let free = 'false'
+      if(isfree) {
+        free = 'true'
+      }
+      this.service.addLessonWithVideo(this.lessonAddForm.get('lessonAddTitle')?.value, this.lessonAddForm.get('lessonAddDescription')?.value, free, this.lessonAddFile, this.lessonAddSessionId as string).subscribe({
         next: (successResponse: any) => {
           if (this.lessonAddSectionIndex != null) {
             this.savedsections[this.lessonAddSectionIndex].lessons.push(successResponse.newLesson);
@@ -399,6 +420,7 @@ export class InstructorCoursevideouploadComponent {
     this.lessonEditForm.setValue({
       lessonEditTitle: this.savedsections[sectionIndex].lessons[index].title || '',
       lessonEditDescription: this.savedsections[sectionIndex].lessons[index].description || '',
+      lessonEditFree: this.savedsections[sectionIndex].lessons[index].free || false,
       lessonEditVideo: null
     });
     this.showLessonEditModal = true;

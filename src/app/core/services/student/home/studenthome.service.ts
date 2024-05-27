@@ -16,6 +16,10 @@ export class StudentHomeService {
         private http: HttpClient,
     ) { }
 
+    search(query: string): Observable<any> {
+        return this.http.post(`${BASE_URL}/student/search`, { query } );
+    }
+
     getCourses(): Observable<any> {
         return this.http.get(`${BASE_URL}/student/getcourses`);
     }

@@ -23,6 +23,7 @@ export interface Courses {
 export interface lessons {
     title: string;
     description: string;
+    free: boolean;
     vedio: string | null;
 }
 
@@ -35,6 +36,7 @@ export interface Sections {
 export interface LessonDb {
     title: string;
     description: string;
+    free: boolean;
     video: string;
     _id: string;
 }

@@ -5,11 +5,12 @@ import { StudentHomeService } from '../../../../core/services/student/home/stude
 import { Courses } from '../../../../core/models/course';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  selector: 'app-studenthome',
+  templateUrl: './studenthome.component.html',
+  styleUrl: './studenthome.component.css'
 })
-export class HomeComponent {
+export class StudenthomeComponent {
+  isloggedin: boolean = false
   courses: Courses[] = [];
   
   constructor(
@@ -23,16 +24,9 @@ export class HomeComponent {
       next: (res) => {
         if (res) {
           this.courses = res.courses
-          console.log(this.courses);
         }
       }
     })
     
   }
-
-  logout() {
-    localStorage.removeItem('token');
-    this.router.navigateByUrl('/login');
-  }
-
 }

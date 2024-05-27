@@ -39,7 +39,6 @@ export class InstructorCourseService {
 
     saveSection(section: Sections, videofiles: { [key: number]: File }, courseId: string): Observable<any> {
         const requestBody = { section: section, videoFile: videofiles, courseId: courseId };
-        console.log('requestbody in service: ', requestBody)
         const formData = new FormData();
         formData.append('section', JSON.stringify(section));
         for (const key in videofiles) {
@@ -48,29 +47,30 @@ export class InstructorCourseService {
             }
         }
         formData.append('courseId', courseId);
-        console.log('requestbody in service: ', formData);
         return this.http.post(`${BASE_URL}/instructor/savesection`, formData);
     }
 
-    editLesson(title: string, description: string, sectionId: string, lessonIndex: number): Observable<any> {
-        const requestBody = { title: title, description: description, sectionId: sectionId, lessonIndex: lessonIndex };
+    editLesson(title: string, description: string, free: boolean, sectionId: string, lessonIndex: number): Observable<any> {
+        const requestBody = { title: title, description: description,  free: free, sectionId: sectionId, lessonIndex: lessonIndex };
         return this.http.post(`${BASE_URL}/instructor/editlesson`, requestBody);
     }
 
-    editLessonWithVideo(title: string, description: string, videofile: File, sectionId: string, lessonIndex: number): Observable<any> {
+    editLessonWithVideo(title: string, description: string, free: string, videofile: File, sectionId: string, lessonIndex: number): Observable<any> {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
+        formData.append('isFree', free);
         formData.append('videofile', videofile);
         formData.append('sectionId', sectionId);
         formData.append('lessonIndex', lessonIndex.toString());
         return this.http.post(`${BASE_URL}/instructor/editlessonwithvideo`, formData);
     }
 
-    addLessonWithVideo(title: string, description: string, videofile: File, sectionId: string): Observable<any> {
+    addLessonWithVideo(title: string, description: string, free: string, videofile: File, sectionId: string): Observable<any> {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
+        formData.append('isFree', free);
         formData.append('videofile', videofile);
         formData.append('sectionId', sectionId);
         return this.http.post(`${BASE_URL}/instructor/addlesson`, formData);

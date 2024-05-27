@@ -1,19 +1,47 @@
-<div class="px-10">
+<div class="">
     <div class="flex flex-row justify-between items-center p-0">
         <div class="text-2xl font-bold text-indigo-600 w-2/12 py-4 pl-8">UpSkill</div>
-        <div class="w-5/12 py-4 pl-6 pr-12">
+        <div class="w-5/12 py-4 pl-6 mr-12 relative"> <!-- Added 'relative' for positioning -->
             <div class="w-full px-4 py-3 flex border-none text-sm font-medium bg-indigo-100 text-indigo-400 placeholder:text-indigo-500 rounded-full">
                 <div class="w-1/12 flex justify-center items-center">
                     <lucide-icon name="search" class="my-icon"></lucide-icon>
                 </div>
-                <input type="text" placeholder="Search for courses" class="w-11/12 border-none text-sm font-medium bg-indigo-100 text-indigo-500 placeholder:text-indigo-500 rounded-full">
+                <input [formControl]="searchControl" type="text" placeholder="Search for courses" (focus)="onFocus()" (blur)="onBlur()"
+                       class="w-11/12 border-none text-sm font-medium bg-indigo-100 text-indigo-500 placeholder:text-indigo-500 rounded-full">
+            </div>
+            <div *ngIf="isFocused && serachResult.length > 0" class="absolute w-full mt-1 pl-0 pr-4">
+                <div class="p-4 bg-white border-2 border-indigo-200 border-solid rounded-3xl shadow-lg z-10">
+                    <div *ngFor="let course of serachResult" class="px-3 py-3 rounded-lg hover:bg-indigo-50 cursor-pointer">
+                      {{ course.coursename }}
+                    </div>
+                </div>                  
             </div>
         </div>
-        <div class="w-5/12 flex justify-center gap-2">
-            <button class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 rounded-full">Cart</button>
-            <button class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 rounded-full">Wishlist</button>
-            <button class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 rounded-full">My Learnings</button>
-            <button class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 rounded-full">Profile</button>
+        
+        <div *ngIf="isloggedin" class="w-5/12 flex justify-center gap-6">
+            <button
+                class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full">Cart</button>
+            <button
+                class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full">Wishlist</button>
+            <button
+                class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full">My
+                Learnings</button>
+            <button
+                class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full"
+                (click)="logout()">Logout</button>
+        </div>
+        <div *ngIf="!isloggedin" class="w-5/12 mr-20 flex justify-end gap-6">
+            <!-- <button
+                class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full">Admin</button> -->
+            <button
+                class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full"
+                (click)="instructor()">Instructor</button>
+            <!-- <button
+                class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full">My
+                Learnings</button> -->
+            <button *ngIf="!isloggedin"
+                class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full"
+                (click)="login()">Login</button>
         </div>
     </div>
 </div>
