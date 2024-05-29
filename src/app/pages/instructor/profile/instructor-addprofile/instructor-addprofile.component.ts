@@ -37,7 +37,7 @@ export class InstructorAddprofileComponent {
       }
     })
     this.profileForm = new FormGroup({
-      qualitifcation: new FormControl(this.instructor.qualification, []),
+      qualitifcation: new FormControl( '', []),
     });
   }
 

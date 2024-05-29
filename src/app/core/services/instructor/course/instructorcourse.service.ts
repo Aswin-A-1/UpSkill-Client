@@ -81,8 +81,8 @@ export class InstructorCourseService {
         return this.http.post(`${BASE_URL}/instructor/editsection`, requestBody);
     }
 
-    deleteSection(sectionId: string): Observable<any> {
-        const requestBody = { sectionId: sectionId };
+    deleteSection(sectionId: string, courseId: string): Observable<any> {
+        const requestBody = { sectionId: sectionId, courseId: courseId };
         return this.http.post(`${BASE_URL}/instructor/deletesection`, requestBody);
     }
 

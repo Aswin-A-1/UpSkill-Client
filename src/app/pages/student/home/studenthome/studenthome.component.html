@@ -1,7 +1,7 @@
 <custom-toast [customToastService]="customToastService"></custom-toast>
 <div class="min-h-screen flex flex-col">
     <!-- Navbar -->
-    <app-navbar [isloggedin]="true"/>
+    <app-navbar [isloggedin]="true" />
 
     <div class="h-[450px] flex flex-row p-4">
         <div class="m-3 p-4 text-[#3b28fe] md:w-1/2 flex flex-col justify-center items-center">
@@ -22,10 +22,11 @@
 
     <!-- Courses Section -->
     <div class="px-10 mb-8">
-        <div class="container mx-auto">
+        <div class="container mb-20">
             <h2 class="text-2xl text-indigo-600 font-semibold mb-8">Recommended Courses</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div *ngFor="let course of courses; let i = index" class="max-w-sm bg-white border-2 border-gray-100 border-solid rounded-lg shadow-lg m-4">
+                <div *ngFor="let course of courses; let i = index"
+                    class="max-w-sm bg-white border-2 border-gray-100 border-solid rounded-lg shadow-lg m-4">
                     <div href="#" class="h-40 cursor-pointer">
                         <img class="w-full h-40 object-cover rounded-t-lg" src="{{course.thumbnailimage}}"
                             alt="loading image" />
@@ -39,7 +40,7 @@
                         <div class="flex flex-row justify-between py-2">
                             <div class="w-3/5 mr-1">
                                 <div class="w-2/3">
-                                    <button
+                                    <button (click)="enroll(course._id)"
                                         class="w-full border-none font-bold text-sm text-white bg-[#3b28fe] hover:bg-[#5930ff] hover:cursor-pointer py-3 rounded-lg">Enroll</button>
                                 </div>
                             </div>
@@ -59,9 +60,92 @@
     </div>
 
     <!-- Footer -->
-    <!-- <footer class="bg-gray-800 text-white py-4 mt-auto">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2024 UpSkill. All rights reserved.</p>
+    <footer class="bg-indigo-600 text-white py-8 mt-auto">
+        <div class="container mx-auto px-6 lg:px-20">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About Section -->
+                <div>
+                    <h2 class="text-xl font-bold mb-4">About UpSkill</h2>
+                    <p class="mb-4">UpSkill is your go-to platform for learning new skills and advancing your career. We
+                        offer a variety of courses across different fields, curated by industry experts.</p>
+                    <p>&copy; 2024 UpSkill. All rights reserved.</p>
+                </div>
+
+                <!-- Useful Links -->
+                <div>
+                    <h2 class="text-xl font-bold mb-4">Useful Links</h2>
+                    <ul class="space-y-2 list-none">
+                        <li><a href="#" class="hover:text-indigo-300 text-white no-underline">Home</a></li>
+                        <li><a href="#" class="hover:text-indigo-300 text-white no-underline">Courses</a></li>
+                        <li><a href="#" class="hover:text-indigo-300 text-white no-underline">About Us</a></li>
+                        <li><a href="#" class="hover:text-indigo-300 text-white no-underline">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-indigo-300 text-white no-underline">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-indigo-300 text-white no-underline">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Information -->
+                <div>
+                    <h2 class="text-xl font-bold mb-4">Contact Us</h2>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 2l-4 9H2l8 4-3 9 7-7h9L16 2z"></path>
+                            </svg>
+                            <span>1234 Learning St, Knowledge City, 56789</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                            <span>infoupskill.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 10h4l3 10 7-10h4"></path>
+                            </svg>
+                            <span>+1 (234) 567-890</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container mt-20 text-center">
+                <p>&copy; 2024 UpSkill. All rights reserved.</p>
+            </div>
+
+            <!-- Social Media Links -->
+            <!-- <div class="mt-8 text-center">
+                <h2 class="text-xl font-bold mb-4">Follow Us</h2>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="hover:text-indigo-300 text-white">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M22.46 6.003a8.589 8.589 0 01-2.481.682A4.252 4.252 0 0021.86 4.6a8.563 8.563 0 01-2.713 1.038A4.245 4.245 0 0016.1 4a4.245 4.245 0 00-4.245 4.245c0 .333.04.659.11.97A12.064 12.064 0 013.18 4.24a4.245 4.245 0 001.317 5.66 4.25 4.25 0 01-1.922-.53v.054a4.245 4.245 0 003.41 4.166 4.22 4.22 0 01-1.912.073 4.245 4.245 0 003.97 2.95A8.523 8.523 0 012 19.54 12.04 12.04 0 006.29 21c7.548 0 11.675-6.253 11.675-11.675 0-.18-.004-.357-.013-.534a8.354 8.354 0 002.047-2.12z">
+                            </path>
+                        </svg>
+                    </a>
+                    <a href="#" class="hover:text-indigo-300 text-white">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M22.675 0H1.326C.593 0 0 .593 0 1.326v21.348C0 23.407.593 24 1.326 24h11.494v-9.294H9.693V11.02h3.127V8.414c0-3.1 1.893-4.787 4.655-4.787 1.325 0 2.463.099 2.794.144v3.24h-1.918c-1.504 0-1.795.715-1.795 1.764v2.31h3.59l-.468 3.686h-.022v9.294H20.84V23.408h-.022l-.468-3.686h-.022v-9.294H20.84V8.414h-.022l-.468-3.686h-.022v9.294H20.84v3.094h.022v9.294h.022l.468-3.686H20.84v3.686h-.022V8.414h.022V23.408z">
+                            </path>
+                        </svg>
+                    </a>
+                    <a href="#" class="hover:text-indigo-300 text-white">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M18.36 5.64a1.795 1.795 0 100-3.59 1.795 1.795 0 000 3.59zM15.97 8.41c-1.203-.312-1.923-.469-2.825-.469-1.291 0-2.223.48-2.916.896-.707.428-1.155.805-2.091.805-.796 0-1.232-.212-1.7-.467l-.022.022-.446.893c.428.286 1.5.808 2.591.811.573 0 1.29-.024 1.843-.317.535-.286.831-.685 1.616-.685.796 0 1.155.428 1.746.428.61 0 1.07-.256 1.55-.513.5-.256 1.041-.756 2.324-.756 1.067 0 1.596.427 2.01.792.446.378.667.834.667 1.378 0 .707-.67 1.274-1.524 1.274-.718 0-1.346-.287-2.258-.787-1.29-.707-1.717-1.21-3.066-1.21-1.013 0-1.406.285-1.896.682-.495.4-.835.937-2.516.937-1.478 0-2.102-.795-2.916-1.223-1.03-.558-1.867-1.25-3.656-1.25-1.428 0-2.475.428-3.125.893-.682.49-1.05.97-1.05 1.835">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+            </div> -->
         </div>
-    </footer> -->
-</div>
+    </footer>

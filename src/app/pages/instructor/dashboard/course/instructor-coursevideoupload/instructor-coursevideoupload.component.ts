@@ -16,6 +16,8 @@ export class InstructorCoursevideouploadComponent {
 
   sections: Sections[] = [];
   // lessons: lessons[] = [];
+  isLoading: boolean = false;
+  isLoadingNew: boolean = false;
 
   files: { [key: number]: File } = {};
   lessonEditFile!: File | null;
@@ -160,15 +162,18 @@ export class InstructorCoursevideouploadComponent {
       this.customToastService.setToast('error', 'All fields are required');
       return;
     } else {
+      this.isLoading = true;
       this.service.saveSection(this.sections[0], this.files, this.courseId).subscribe({
         next: (successResponse: any) => {
           if (successResponse.message) {
+            this.isLoading = false;
             this.savedsections.push(successResponse.newSection)
             this.sections.pop()
             this.customToastService.setToast('success', successResponse.message);
           }
         },
         error: (error: any) => {
+          this.isLoading = false;
           this.customToastService.setToast('error', error.error.error);
         }
       });
@@ -288,9 +293,11 @@ export class InstructorCoursevideouploadComponent {
       if(isfree) {
         free = 'true'
       }
+      this.isLoadingNew = true
       this.service.editLessonWithVideo(this.lessonEditForm.get('lessonEditTitle')?.value, this.lessonEditForm.get('lessonEditDescription')?.value, free, this.lessonEditFile, this.lessonEditSessionId as string, this.lessonEditIndex as number).subscribe({
         next: (successResponse: any) => {
           if (this.lessonEditSectionIndex != null && this.lessonEditIndex != null) {
+            this.isLoadingNew = false
             this.savedsections[this.lessonEditSectionIndex].lessons[this.lessonEditIndex].title = successResponse.newlesson.title;
             this.savedsections[this.lessonEditSectionIndex].lessons[this.lessonEditIndex].description = successResponse.newlesson.description;
             this.savedsections[this.lessonEditSectionIndex].lessons[this.lessonEditIndex].free = successResponse.newlesson.free;
@@ -305,6 +312,7 @@ export class InstructorCoursevideouploadComponent {
           }
         },
         error: (error: any) => {
+          this.isLoadingNew = false
           this.customToastService.setToast('error', error.error.error);
         }
       });
@@ -340,9 +348,11 @@ export class InstructorCoursevideouploadComponent {
       if(isfree) {
         free = 'true'
       }
+      this.isLoadingNew = true
       this.service.addLessonWithVideo(this.lessonAddForm.get('lessonAddTitle')?.value, this.lessonAddForm.get('lessonAddDescription')?.value, free, this.lessonAddFile, this.lessonAddSessionId as string).subscribe({
         next: (successResponse: any) => {
           if (this.lessonAddSectionIndex != null) {
+            this.isLoadingNew = false
             this.savedsections[this.lessonAddSectionIndex].lessons.push(successResponse.newLesson);
             this.lessonAddSessionId = null
             this.lessonAddSectionIndex = null
@@ -352,6 +362,7 @@ export class InstructorCoursevideouploadComponent {
           }
         },
         error: (error: any) => {
+          this.isLoadingNew = false
           this.customToastService.setToast('error', error.error.error);
         }
       });
@@ -360,7 +371,7 @@ export class InstructorCoursevideouploadComponent {
 
   deleteSectionSubmit() {
     if( this.deleteSessionId != null && this.deleteSessionIndex != null ) {
-      this.service.deleteSection( this.deleteSessionId as string ).subscribe({
+      this.service.deleteSection( this.deleteSessionId as string, this.courseId ).subscribe({
         next: (successResponse: any) => {
           if (this.deleteSessionIndex != null) {
             this.savedsections.splice(this.deleteSessionIndex, 1)

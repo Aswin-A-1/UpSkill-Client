@@ -25,6 +25,7 @@ import { InstructorProfileComponent } from './pages/instructor/profile/instructo
 import { InstructorProfiledetailsComponent } from './pages/instructor/profile/instructor-profiledetails/instructor-profiledetails.component';
 import { AdmininstructorprofileComponent } from './pages/admin/instructorsection/admininstructorprofile/admininstructorprofile.component';
 import { StudenthomeComponent } from './pages/student/home/studenthome/studenthome.component';
+import { CoursedetailsComponent } from './pages/student/course/coursedetails/coursedetails.component';
 
 const routes: Routes = [
   // student
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'signup', component: StudentSignupComponent },
   { path: 'signup/verify-otp', component: OtpTemplateComponent },
   { path: 'home', component: StudenthomeComponent, canActivate: [studentAuthGuard] },
+  { path: 'course', component: CoursedetailsComponent },
 
   // admin
   {

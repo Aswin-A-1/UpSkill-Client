@@ -20,9 +20,6 @@ export class HomeComponent {
   ) {}
 
   ngOnInit(): void {
-    if(localStorage.getItem('token')) {
-
-    }
     this.service.getCourses().subscribe({
       next: (res) => {
         if (res) {

@@ -23,4 +23,8 @@ export class StudentHomeService {
     getCourses(): Observable<any> {
         return this.http.get(`${BASE_URL}/student/getcourses`);
     }
+
+    getCourse(courseId: string): Observable<any> {
+        return this.http.post(`${BASE_URL}/student/getcourse`, { courseId });
+    }
 }

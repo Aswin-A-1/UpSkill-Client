@@ -6,6 +6,7 @@ import { SharedModules } from "../shared.module";
 import { HomeComponent } from "../../pages/home/home/home.component";
 import { NavbarComponent } from "../../pages/student/home/navbar/navbar.component";
 import { StudenthomeComponent } from "../../pages/student/home/studenthome/studenthome.component";
+import { CoursedetailsComponent } from "../../pages/student/course/coursedetails/coursedetails.component";
 
 
 
@@ -16,6 +17,7 @@ import { StudenthomeComponent } from "../../pages/student/home/studenthome/stude
         HomeComponent,
         NavbarComponent,
         StudenthomeComponent,
+        CoursedetailsComponent,
     ],
     exports: [],
     imports: [

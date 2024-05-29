@@ -21,3 +21,21 @@ export interface Instructor {
     __v: number;
     _id: string;
 }
+
+export interface Course {
+    _id: {
+      $oid: string;
+    };
+    coursename: string;
+    description: string;
+    category: string;
+    price: number;
+    thumbnailimage: string;
+    sections: string[];
+    instructorid: {
+      $oid: string;
+    };
+    isBlocked: boolean;
+    isActive: boolean;
+    __v: number;
+  }

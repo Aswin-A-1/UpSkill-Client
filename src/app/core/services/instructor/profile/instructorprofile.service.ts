@@ -19,6 +19,7 @@ export class InstructorProfileService {
     ) { }
 
     updateProfile(qualification: string, profilepic: File, certificates: File[], instructorId: string): Observable<any> {
+        console.log(qualification, profilepic, certificates, instructorId)
         const formData = new FormData();
         formData.append('qualification', qualification);
         formData.append('profileImageFile', profilepic);

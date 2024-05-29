@@ -42,10 +42,23 @@ export class NavbarComponent {
     this.isFocused = true;
   }
 
-  onBlur() {
-    setTimeout(() => {
-      this.isFocused = false;
-    }, 200);
+  onBlur(event: FocusEvent) {
+    const relatedTarget = event.relatedTarget as HTMLElement;
+    if (!relatedTarget || !relatedTarget.closest('.suggestion-item')) {
+      setTimeout(() => {
+        this.isFocused = false;
+      }, 200);
+    }
+  }
+
+  stopBlur(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  navigatToCourse(courseId: string) {
+    console.log('redirecting')
+    this.router.navigate(['course'], { queryParams: { id: courseId } });
   }
 
   logout() {

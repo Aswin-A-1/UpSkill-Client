@@ -29,4 +29,8 @@ export class StudenthomeComponent {
     })
     
   }
+
+  enroll(courseId: string) {
+    this.router.navigate(['course'], { queryParams: { id: courseId } });
+  }
 }
