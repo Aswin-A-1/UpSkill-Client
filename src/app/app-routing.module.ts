@@ -26,6 +26,7 @@ import { InstructorProfiledetailsComponent } from './pages/instructor/profile/in
 import { AdmininstructorprofileComponent } from './pages/admin/instructorsection/admininstructorprofile/admininstructorprofile.component';
 import { StudenthomeComponent } from './pages/student/home/studenthome/studenthome.component';
 import { CoursedetailsComponent } from './pages/student/course/coursedetails/coursedetails.component';
+import { AdmincourselistComponent } from './pages/admin/course/admincourselist/admincourselist.component';
 
 const routes: Routes = [
   // student
@@ -44,6 +45,7 @@ const routes: Routes = [
       { path: 'student', component: StudentsComponent },
       { path: 'instructor', component: InstructorComponent },
       { path: 'instructor-profile', component: AdmininstructorprofileComponent },
+      { path: 'courses', component: AdmincourselistComponent },
       { path: '', redirectTo: 'student', pathMatch: 'full' }
     ],
     canActivateChild: [adminAuthGuard]

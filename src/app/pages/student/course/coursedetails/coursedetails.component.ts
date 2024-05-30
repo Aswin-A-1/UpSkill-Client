@@ -41,7 +41,7 @@ export class CoursedetailsComponent {
     description: 'This is a great product with detailed information.',
     price: 99.99,
     imageUrl: 'https://via.placeholder.com/150',
-    rating: 4,
+    rating: 2,
     categories: ['Category 1', 'Category 2', 'Category 3']
   };
 
@@ -50,6 +50,10 @@ export class CoursedetailsComponent {
     private service: StudentHomeService,
     public customToastService: CustomToastService,
   ) {}
+
+  playVideo(sectionId: string, lessonIndex: number) {
+    console.log('play video of lesson', lessonIndex, ' of sectionId: ', sectionId)
+  }
   
   ngOnInit() {
     this.route.queryParams.subscribe(params => {

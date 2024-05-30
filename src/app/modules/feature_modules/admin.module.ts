@@ -8,6 +8,7 @@ import { SidebarComponent } from "../../pages/admin/sidebar/sidebar.component";
 import { InstructorComponent } from "../../pages/admin/instructorsection/instructor/instructor.component";
 import { AdminLoginComponent } from "../../pages/admin/authorization/admin-login/admin-login.component";
 import { AdmininstructorprofileComponent } from "../../pages/admin/instructorsection/admininstructorprofile/admininstructorprofile.component";
+import { AdmincourselistComponent } from "../../pages/admin/course/admincourselist/admincourselist.component";
 
 
 
@@ -20,6 +21,7 @@ import { AdmininstructorprofileComponent } from "../../pages/admin/instructorsec
         InstructorComponent,
         AdminDashboardComponent,
         AdmininstructorprofileComponent,
+        AdmincourselistComponent,
     ],
     exports: [],
     imports: [
