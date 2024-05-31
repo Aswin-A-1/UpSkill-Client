@@ -18,4 +18,13 @@ export class AdminCourseService {
     getCourses(): Observable<any> {
         return this.http.get(`${BASE_URL}/admin/getCourses`);
     }
+
+    getCategory(): Observable<any> {
+        return this.http.get(`${BASE_URL}/admin/getCategory`);
+    }
+
+    addCategory(name: string): Observable<any> {
+        const requestBody = { name: name };
+        return this.http.post(`${BASE_URL}/admin/addcategory`, requestBody);
+    }
 }

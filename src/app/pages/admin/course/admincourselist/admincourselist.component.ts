@@ -14,6 +14,10 @@ export class AdmincourselistComponent {
     private router: Router,
     private service: AdminCourseService,
   ) {}
+
+  navigateToCategory() {
+    this.router.navigate(['admin/category']);
+  }
   
   ngOnInit(): void {
     this.service.getCourses().subscribe({

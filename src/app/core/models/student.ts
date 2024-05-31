@@ -39,3 +39,12 @@ export interface Course {
     isActive: boolean;
     __v: number;
   }
+
+export interface Category {
+    _id: {
+      $oid: string;
+    };
+    name: string;
+    isBlocked: boolean;
+    __v: number;
+  }

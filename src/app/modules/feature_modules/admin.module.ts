@@ -9,6 +9,7 @@ import { InstructorComponent } from "../../pages/admin/instructorsection/instruc
 import { AdminLoginComponent } from "../../pages/admin/authorization/admin-login/admin-login.component";
 import { AdmininstructorprofileComponent } from "../../pages/admin/instructorsection/admininstructorprofile/admininstructorprofile.component";
 import { AdmincourselistComponent } from "../../pages/admin/course/admincourselist/admincourselist.component";
+import { AdmincoursecategoryComponent } from "../../pages/admin/course/admincoursecategory/admincoursecategory.component";
 
 
 
@@ -22,6 +23,7 @@ import { AdmincourselistComponent } from "../../pages/admin/course/admincourseli
         AdminDashboardComponent,
         AdmininstructorprofileComponent,
         AdmincourselistComponent,
+        AdmincoursecategoryComponent,
     ],
     exports: [],
     imports: [
