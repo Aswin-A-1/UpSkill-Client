@@ -1,0 +1,37 @@
+@import "../../../../../../node_modules/video.js/dist/video-js.css";
+
+/* Customize the play/pause button */
+.vjs-play-control {
+  color: #9e74f9 !important;
+  padding: 10px !important;
+}
+
+.vjs-control-bar {
+  height: 60px !important;
+  padding: 8px !important;
+  border-bottom-left-radius: 10px!important;
+  border-bottom-right-radius: 10px!important;
+}
+
+.vjs-big-play-button {
+    color: #9e74f9!important;
+    
+}
+
+.vjs-default-skin {
+    font-size: 15px;
+    border-radius: 10px!important;
+  }
+
+/* Customize the progress bar */
+.vjs-progress-control {
+  text-decoration-color: #9e74f9 !important;
+  color: #9e74f9 !important;
+  height: 5px;
+}
+
+/* Customize the big play button */
+.vjs-big-play-button {
+  color: #4f46e5 !important;
+  color: white !important; /* White text */
+}

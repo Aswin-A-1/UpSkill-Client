@@ -27,4 +27,9 @@ export class AdminCourseService {
         const requestBody = { name: name };
         return this.http.post(`${BASE_URL}/admin/addcategory`, requestBody);
     }
+
+    deleteCategory(categoryId: string): Observable<any> {
+        const requestBody = { categoryId: categoryId };
+        return this.http.post(`${BASE_URL}/admin/deletecategory`, requestBody);
+    }
 }

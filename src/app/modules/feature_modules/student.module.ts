@@ -7,6 +7,7 @@ import { HomeComponent } from "../../pages/home/home/home.component";
 import { NavbarComponent } from "../../pages/student/home/navbar/navbar.component";
 import { StudenthomeComponent } from "../../pages/student/home/studenthome/studenthome.component";
 import { CoursedetailsComponent } from "../../pages/student/course/coursedetails/coursedetails.component";
+import { CoursepreviewvideoComponent } from "../../pages/student/course/coursepreviewvideo/coursepreviewvideo.component";
 
 
 
@@ -18,6 +19,7 @@ import { CoursedetailsComponent } from "../../pages/student/course/coursedetails
         NavbarComponent,
         StudenthomeComponent,
         CoursedetailsComponent,
+        CoursepreviewvideoComponent,
     ],
     exports: [],
     imports: [

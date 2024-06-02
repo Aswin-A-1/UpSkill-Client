@@ -45,11 +45,7 @@
                     <label for="courseCategory" class="block mb-2 text-base text-black font-semibold">Category</label>
                     <select id="courseCategory" formControlName="courseCategory"
                         class="block font-sans font-normal text-indigo-600 placeholder-indigo-600 text-sm rounded-lg  w-full p-3 border-2 border-solid border-indigo-200 focus:border-indigo-600">
-                        <option value="Design" selected>Design</option>
-                        <option value="Coding">Coding</option>
-                        <option value="Editing">Editing</option>
-                        <option value="Cooking">Cooking</option>
-                        <option value="Art">Art</option>
+                        <option *ngFor="let category of categorys" [value]="category.name" [selected]="categorys[0]">{{ category.name }}</option>
                     </select>
                     <span
                         *ngIf="courseForm.get('courseCategory')?.hasError('required') && (courseForm.get('courseCategory')?.touched)"

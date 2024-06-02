@@ -41,9 +41,7 @@ export interface Course {
   }
 
 export interface Category {
-    _id: {
-      $oid: string;
-    };
+    _id: string;
     name: string;
     isBlocked: boolean;
     __v: number;

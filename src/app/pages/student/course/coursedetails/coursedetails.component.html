@@ -11,7 +11,7 @@
         <div *ngFor="let section of sections; let i = index" class="">
           <button (click)="toggleAccordion(i)"
             class="w-full px-4 py-3 text-left hover:cursor-pointer hover:bg-indigo-100 border-2 border-indigo-100 border-solid focus:outline-none transition-colors duration-300 bg-white"
-            [ngClass]="{'rounded-t-lg': i === 0, 'rounded-b-lg': i === items.length - 1}">
+            [ngClass]="{'rounded-t-lg': i === 0, 'rounded-b-lg': i === sections.length - 1}">
             <div class="flex justify-between items-center">
               <span class="text-lg font-medium">{{ section.sectionname }}</span>
               <svg class="w-6 h-6 transform transition-transform duration-200"
@@ -22,8 +22,10 @@
             </div>
           </button>
           <div *ngIf="activeIndex === i" class="px-4 py-2 bg-indigo-50 transition-all duration-300">
-            <div (click)="lesson.free ? playVideo(section._id, j) : null" *ngFor="let lesson of section.lessons; let j = index" class="flex justify-between p-2 bg-indigo-50 border-2 border-indigo-200 border-solid transition-all duration-300"
-            [ngClass]="{'border-t-transparent': j != 0, 'rounded-t-lg': j === 0, 'rounded-b-lg': j === section.lessons.length - 1, 'hover:cursor-pointer hover:bg-indigo-100': lesson.free}">
+            <div (click)="lesson.free ? playVideo(section._id, j) : null"
+              *ngFor="let lesson of section.lessons; let j = index"
+              class="flex justify-between p-2 bg-indigo-50 border-2 border-indigo-200 border-solid transition-all duration-300"
+              [ngClass]="{'border-t-transparent': j != 0, 'rounded-t-lg': j === 0, 'rounded-b-lg': j === section.lessons.length - 1, 'hover:cursor-pointer hover:bg-indigo-100': lesson.free}">
               <div>
                 <span class="text-lg font-medium">{{ lesson.title }}</span>
               </div>
@@ -41,19 +43,19 @@
         {{ course.description }}
       </p> -->
       <div class="flex items-center mb-4">
-        <div class="text-yellow-500">
+        <div class="text-indigo-500">
           <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-            <svg *ngIf="star <= product.rating" class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <svg *ngIf="star <= 4" class="w-4 h-4 fill-current" viewBox="0 0 24 24">
               <path
                 d="M12 .587l3.668 7.431 8.207 1.192-5.938 5.784 1.405 8.176L12 18.897l-7.342 3.856 1.405-8.176L.125 9.21l8.207-1.192z" />
             </svg>
-            <svg *ngIf="star > product.rating" class="w-4 h-4 text-gray-300" viewBox="0 0 24 24">
+            <svg *ngIf="star > 4" class="w-4 h-4 fill-indigo-200" viewBox="0 0 24 24">
               <path
                 d="M12 .587l3.668 7.431 8.207 1.192-5.938 5.784 1.405 8.176L12 18.897l-7.342 3.856 1.405-8.176L.125 9.21l8.207-1.192z" />
             </svg>
           </ng-container>
         </div>
-        <span class="ml-2 text-gray-600">{{ product.rating }} / 5</span>
+        <span class="ml-2 text-gray-600">4 / 5</span>
       </div>
       <div class="mb-4">
         <span class="font-semibold">Category: </span>
@@ -93,8 +95,8 @@
         </div>
 
         <!-- Useful Links -->
-        <div>
-          <h2 class="text-xl font-bold mb-4">Useful Links</h2>
+        <div class="ml-10">
+          <h2 class="text-xl font-bold mb-4 ml-10">Useful Links</h2>
           <ul class="space-y-2 list-none">
             <li><a href="#" class="hover:text-indigo-300 text-white no-underline">Home</a></li>
             <li><a href="#" class="hover:text-indigo-300 text-white no-underline">Courses</a></li>
@@ -107,14 +109,10 @@
 
         <!-- Contact Information -->
         <div>
-          <h2 class="text-xl font-bold mb-4">Contact Us</h2>
+          <h2 class="text-xl font-bold mb-4 ml-10">Contact Us</h2>
           <ul class="space-y-2">
             <li class="flex items-center">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M16 2l-4 9H2l8 4-3 9 7-7h9L16 2z"></path>
-              </svg>
+              <lucide-icon name="map-pin" class="my-icon mr-1"></lucide-icon>
               <span>1234 Learning St, Knowledge City, 56789</span>
             </li>
             <li class="flex items-center">
@@ -127,10 +125,7 @@
               <span>infoupskill.com</span>
             </li>
             <li class="flex items-center">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h4l3 10 7-10h4"></path>
-              </svg>
+              <lucide-icon name="phone" class="my-icon mr-1"></lucide-icon>
               <span>+1 (234) 567-890</span>
             </li>
           </ul>

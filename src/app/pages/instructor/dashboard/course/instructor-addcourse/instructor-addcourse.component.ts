@@ -3,6 +3,8 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { InstructorCourseService } from '../../../../../core/services/instructor/course/instructorcourse.service';
 import { CustomToastService } from '../../../../../core/services/customtoast.service';
+import { Category } from '../../../../../core/models/student';
+import { AdminCourseService } from '../../../../../core/services/admin/course/admincourse.service';
 
 @Component({
   selector: 'app-instructor-addcourse',
@@ -13,9 +15,11 @@ export class InstructorAddcourseComponent {
   courseForm!: FormGroup;
   file!: File;
   isVerified!: boolean
+  categorys!: Category[]
   constructor(
     private router: Router,
     private service: InstructorCourseService,
+    private categoryservice: AdminCourseService,
     public customToastService: CustomToastService
   ) {
     
@@ -53,6 +57,18 @@ export class InstructorAddcourseComponent {
         this.validateImage.bind(this)
       ]),
     });
+  }
+
+  
+
+  ngOnInit(): void {
+    this.categoryservice.getCategory().subscribe({
+      next: (res) => {
+        if (res) {
+          this.categorys = res.categorys
+        }
+      }
+    })
   }
 
   navigateToCourseList() {

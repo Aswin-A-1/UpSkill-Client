@@ -22,6 +22,7 @@ import { AuthTokenInterceptorService } from './core/interceptors/authtoken.inter
 import { MessageService } from 'primeng/api';
 import { AdminEffects } from './core/state/admin/effects';
 import { InstructorModule } from './modules/feature_modules/instructor.module';
+import { ScrollService } from './core/services/scroll.service';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { InstructorModule } from './modules/feature_modules/instructor.module';
   providers: [
     MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptorService, multi: true },
+    ScrollService,
   ],
   bootstrap: [AppComponent]
 })

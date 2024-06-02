@@ -28,6 +28,7 @@ import { StudenthomeComponent } from './pages/student/home/studenthome/studentho
 import { CoursedetailsComponent } from './pages/student/course/coursedetails/coursedetails.component';
 import { AdmincourselistComponent } from './pages/admin/course/admincourselist/admincourselist.component';
 import { AdmincoursecategoryComponent } from './pages/admin/course/admincoursecategory/admincoursecategory.component';
+import { CoursepreviewvideoComponent } from './pages/student/course/coursepreviewvideo/coursepreviewvideo.component';
 
 const routes: Routes = [
   // student
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'signup/verify-otp', component: OtpTemplateComponent },
   { path: 'home', component: StudenthomeComponent, canActivate: [studentAuthGuard] },
   { path: 'course', component: CoursedetailsComponent },
+  { path: 'coursepreview', component: CoursepreviewvideoComponent },
 
   // admin
   {
