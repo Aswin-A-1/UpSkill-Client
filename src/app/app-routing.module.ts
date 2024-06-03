@@ -29,6 +29,7 @@ import { CoursedetailsComponent } from './pages/student/course/coursedetails/cou
 import { AdmincourselistComponent } from './pages/admin/course/admincourselist/admincourselist.component';
 import { AdmincoursecategoryComponent } from './pages/admin/course/admincoursecategory/admincoursecategory.component';
 import { CoursepreviewvideoComponent } from './pages/student/course/coursepreviewvideo/coursepreviewvideo.component';
+import { CourseenrollComponent } from './pages/student/course/courseenroll/courseenroll.component';
 
 const routes: Routes = [
   // student
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'home', component: StudenthomeComponent, canActivate: [studentAuthGuard] },
   { path: 'course', component: CoursedetailsComponent },
   { path: 'coursepreview', component: CoursepreviewvideoComponent },
+  { path: 'enroll', component: CourseenrollComponent, canActivate: [studentAuthGuard] },
 
   // admin
   {

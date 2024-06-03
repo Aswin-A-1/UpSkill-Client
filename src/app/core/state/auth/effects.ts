@@ -53,8 +53,8 @@ export class AuthEffects {
                             localStorage.setItem('token', successResponse.token);
                             const user = successResponse.student
                             localStorage.setItem('user', JSON.stringify(successResponse.student));
-                            this.customToastService.setToastAndNavigate('success', successResponse.message, ['home']);
-                            // this.router.navigate(['home']);
+                            // this.customToastService.setToastAndNavigate('success', successResponse.message, ['home']);
+                            this.router.navigate(['home']);
                             // this.toastService.set('success', 'Login successful');
                         }
                         return AuthActions.submitSuccess({ successResponse })

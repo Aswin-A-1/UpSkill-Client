@@ -30,4 +30,8 @@ export class HomeComponent {
     
   }
 
+  enroll(courseId: string) {
+    this.router.navigate(['course'], { queryParams: { id: courseId } });
+  }
+
 }

@@ -31,6 +31,10 @@ export class CoursedetailsComponent {
   playVideo(sectionId: string, lessonIndex: number) {
     this.router.navigate(['coursepreview'], { queryParams: { courseId: this.courseId, sectionId: sectionId, lessonIndex: lessonIndex } });
   }
+
+  enroll() {
+    this.router.navigate(['enroll'], { queryParams: { courseId: this.courseId } });
+  }
   
   ngOnInit() {
     this.route.queryParams.subscribe(params => {

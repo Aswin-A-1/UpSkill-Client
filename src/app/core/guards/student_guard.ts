@@ -1,13 +1,16 @@
 import { CanActivateFn, Router } from "@angular/router";
 import { inject } from "@angular/core";
 import { jwtDecode } from 'jwt-decode';
+import { CustomToastService } from "../services/customtoast.service";
 
 export const studentAuthGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
+  const customToastService = inject(CustomToastService);
 
   const token = localStorage.getItem('token');
   if (!token) {
-    router.navigateByUrl('/login');
+    // router.navigateByUrl('/login');
+    customToastService.setToastAndNavigate('error', 'Please login', ['login']);
     return false;
   }
 
@@ -18,12 +21,14 @@ export const studentAuthGuard: CanActivateFn = (route, state) => {
       return true;
     } else {
       localStorage.removeItem('token');
-      router.navigateByUrl('/login');
+      // router.navigateByUrl('/login');
+      customToastService.setToastAndNavigate('error', 'Please login', ['login']);
       return false;
     }
   } catch (error) {
     localStorage.removeItem('token');
-    router.navigateByUrl('/login');
+    // router.navigateByUrl('/login');
+    customToastService.setToastAndNavigate('error', 'Please login', ['login']);
     return false;
   }
 };

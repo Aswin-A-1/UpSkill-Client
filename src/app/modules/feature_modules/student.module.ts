@@ -8,6 +8,7 @@ import { NavbarComponent } from "../../pages/student/home/navbar/navbar.componen
 import { StudenthomeComponent } from "../../pages/student/home/studenthome/studenthome.component";
 import { CoursedetailsComponent } from "../../pages/student/course/coursedetails/coursedetails.component";
 import { CoursepreviewvideoComponent } from "../../pages/student/course/coursepreviewvideo/coursepreviewvideo.component";
+import { CourseenrollComponent } from "../../pages/student/course/courseenroll/courseenroll.component";
 
 
 
@@ -20,6 +21,7 @@ import { CoursepreviewvideoComponent } from "../../pages/student/course/coursepr
         StudenthomeComponent,
         CoursedetailsComponent,
         CoursepreviewvideoComponent,
+        CourseenrollComponent,
     ],
     exports: [],
     imports: [
