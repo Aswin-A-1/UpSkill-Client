@@ -2,15 +2,16 @@
 <div class="min-h-screen flex flex-col">
     <!-- Navbar -->
     <app-navbar [isloggedin]="true" />
-
     <div class="flex flex-col lg:flex-row h-full mx-16 mb-20 py-5 px-20">
         <!-- <div class="w-3/5 mr-5">
       <img class="object-cover w-full" [src]="course.thumbnailimage" alt="Product Image">
       <p class="mb-3 text-gray-700">{{ course.description }}</p>
     </div> -->
 
+        
+        
         <div class="w-4/6 p-4">
-            <div class="flex">
+            <div class="flex" *ngIf="course && !enrolled; else enrollSucess">
                 <div class="mt-4 px-1 border-2 border-indigo-50 border-solid rounded-lg">
                         <img class="w-full h-20 object-cover" [src]="course.thumbnailimage" alt="Product Image">
                 </div>
@@ -26,9 +27,27 @@
                     <span class="text-base font-bold text-indigo-500 mr-8">₹ {{ course.price }}</span>
                 </div>
             </div>
+            <ng-template #enrollSucess>
+                <div class="flex">
+                    <!-- <div class="mt-4 px-1 border-2 border-indigo-200 border-solid rounded-lg">
+                            <img class="w-full h-20 object-cover" [src]="course.thumbnailimage" alt="Product Image">
+                    </div> -->
+                    <div class="w-full flex justify-between pl-4 pt-6">
+                        <div>
+                            <div>
+                                <span class="text-base font-bold">Enrollment sucess</span>
+                            </div>
+                            <!-- <div>
+                                <span class="text-xs px-0">By, {{ instructor }}</span>
+                            </div> -->
+                        </div>
+                        <!-- <span class="text-base font-bold text-indigo-500 mr-8">₹ {{ course.price }}</span> -->
+                    </div>
+                </div>
+            </ng-template>
         </div>
         <div class="w-2/6 h-fit p-5 mt-8 border-2 border-indigo-200 border-solid rounded-lg ml-4">
-            <div class="flex">
+            <div class="flex" *ngIf="course">
                 <h1 class="text-2xl font-bold mb-4">Total:</h1>
                 <h1 class="text-2xl font-bold text-indigo-600 ml-2 mb-4">₹ {{ course.price }}</h1>
             </div>

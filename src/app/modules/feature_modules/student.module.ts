@@ -9,6 +9,8 @@ import { StudenthomeComponent } from "../../pages/student/home/studenthome/stude
 import { CoursedetailsComponent } from "../../pages/student/course/coursedetails/coursedetails.component";
 import { CoursepreviewvideoComponent } from "../../pages/student/course/coursepreviewvideo/coursepreviewvideo.component";
 import { CourseenrollComponent } from "../../pages/student/course/courseenroll/courseenroll.component";
+import { NgxStripeModule } from 'ngx-stripe';
+import { environment } from "../../../environments/environment";
 
 
 
@@ -27,6 +29,7 @@ import { CourseenrollComponent } from "../../pages/student/course/courseenroll/c
     imports: [
         ReusableComponentsModule,
         SharedModules,
+        NgxStripeModule.forRoot(environment.PAYMENT_PUBLISHABLE_KEY)
         
     ]
 })
