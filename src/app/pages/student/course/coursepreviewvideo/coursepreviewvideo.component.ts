@@ -20,7 +20,8 @@ export class CoursepreviewvideoComponent {
   currentSection: SectionDb | null = null;
   currentLesson: LessonDb | null = null;
   activeIndex: number | null = null;
-  sections: SectionDb[] = []
+  sections: SectionDb[] = [];
+  isEnrolled: boolean = false;
   @ViewChild('videoPlayer', { static: true }) videoPlayer: any;
   player: any;
 
@@ -54,6 +55,9 @@ export class CoursepreviewvideoComponent {
       this.courseId = params['courseId'];
       this.sectionId = params['sectionId'];
       this.lessonIndex = parseInt(params['lessonIndex']);
+      if (this.courseId) {
+        this.checkEnrollment();
+      }
     });
 
     this.service.getCourse(this.courseId).subscribe({
@@ -65,6 +69,16 @@ export class CoursepreviewvideoComponent {
         if (this.currentLesson?.video) {
           this.initVideoPlayer();
         }
+      }
+    })
+  }
+
+  checkEnrollment() {
+    const studentId = JSON.parse(localStorage.getItem('user')!)._id
+
+    this.service.isEnrolled(this.courseId, studentId).subscribe({
+      next: (res) => {
+        this.isEnrolled = res.isEnrolled
       }
     })
   }

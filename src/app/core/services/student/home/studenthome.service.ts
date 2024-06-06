@@ -20,11 +20,19 @@ export class StudentHomeService {
         return this.http.post(`${BASE_URL}/student/search`, { query } );
     }
 
+    isEnrolled(courseId: string, studentId: string): Observable<any> {
+        return this.http.post(`${BASE_URL}/student/isenrolled`, { courseId, studentId });
+    }
+
     getCourses(): Observable<any> {
         return this.http.get(`${BASE_URL}/student/getcourses`);
     }
 
     getCourse(courseId: string): Observable<any> {
         return this.http.post(`${BASE_URL}/student/getcourse`, { courseId });
+    }
+
+    getMyCourse(userId: string): Observable<any> {
+        return this.http.post(`${BASE_URL}/student/getmycourse`, { userId });
     }
 }

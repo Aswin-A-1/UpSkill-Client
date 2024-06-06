@@ -2,16 +2,9 @@
 <div class="min-h-screen flex flex-col">
     <!-- Navbar -->
     <app-navbar [isloggedin]="true" />
-    <div *ngIf="course && !enrolled && paymentId == null" class="flex flex-col lg:flex-row h-full mx-16 mb-20 py-5 px-20">
-        <!-- <div class="w-3/5 mr-5">
-      <img class="object-cover w-full" [src]="course.thumbnailimage" alt="Product Image">
-      <p class="mb-3 text-gray-700">{{ course.description }}</p>
-     </div> -->
-
-
-
-        <div class="w-4/6 p-4">
-            <div class="flex">
+    <div class="flex flex-col lg:flex-row h-full mx-16 mb-20 py-5 px-20">
+        <div class="w-full p-4">
+            <div *ngFor="let course of mycourses; let i = index" class="flex">
                 <div class="mt-4 px-1 border-2 border-indigo-50 border-solid rounded-lg">
                     <img class="w-full h-20 object-cover" [src]="course.thumbnailimage" alt="Product Image">
                 </div>
@@ -20,52 +13,18 @@
                         <div>
                             <span class="text-base font-bold">{{ course.coursename }}</span>
                         </div>
-                        <div>
+                        <!-- <div>
                             <span class="text-xs px-0">By, {{ instructor }}</span>
-                        </div>
+                        </div> -->
                     </div>
-                    <span class="text-base font-bold text-indigo-500 mr-8">₹ {{ course.price }}</span>
-                </div>
-            </div>
-        </div>
-        <div class="w-2/6 h-fit p-5 mt-8 border-2 border-indigo-200 border-solid rounded-lg ml-4">
-            <div *ngIf="!isEnrolled">
-                <div class="flex" *ngIf="course">
-                    <h1 class="text-2xl font-bold mb-4">Total:</h1>
-                    <h1 class="text-2xl font-bold text-indigo-600 ml-2 mb-4">₹ {{ course.price }}</h1>
-                </div>
-                <div class="flex flex-col">
-                    <button (click)="checkout()"
-                        class="w-full bg-indigo-500 mt-5 text-white text-base p-3 rounded-md hover:cursor-pointer border-none border-blue-100 hover: hover:bg-indigo-700 focus:outline-none">Checkout</button>
-                </div>
-            </div>
-            <div *ngIf="isEnrolled">
-                <div class="flex flex-col">
-                    <button (click)="playVideo()"
-                        class="w-full bg-indigo-500 text-white text-base p-3 rounded-md hover:cursor-pointer border-none border-blue-100 hover: hover:bg-indigo-700 focus:outline-none">Learn</button>
+                    <div>
+                        <button (click)="learn(course._id, i)"
+                                            class="w-full px-4 border-none font-bold text-sm text-white bg-[#3b28fe] hover:bg-[#5930ff] hover:cursor-pointer py-3 rounded-lg">Learn</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-        <div *ngIf="enrolled && paymentId != null" class="flex">
-            <div class="bg-white p-6  md:mx-auto">
-                <svg viewBox="0 0 24 24" class="text-[#66ff00] flex justify-center w-32 h-32 mx-auto mt-10 mb-2">
-                    <path fill="currentColor"
-                        d="M12,0A12,12,0,1,0,24,12,12.014,12.014,0,0,0,12,0Zm6.927,8.2-6.845,9.289a1.011,1.011,0,0,1-1.43.188L5.764,13.769a1,1,0,1,1,1.25-1.562l4.076,3.261,6.227-8.451A1,1,0,1,1,18.927,8.2Z">
-                    </path>
-                </svg>
-                <div class="text-center">
-                    <h3 class="md:text-2xl text-base text-gray-900 font-semibold text-center">Payment Done!</h3>
-                    <p class="text-gray-600 my-2">Enrollment sucess, Payment ID: {{ paymentId }}</p>
-                    <div class="py-4 flex justify-center text-center">
-                        <button type="submit" (click)="continue()"
-                            class="px-6 mr-2 bg-white border-2 border-indigo-600 border-solid text-indigo-600 text-base p-3 rounded-md hover:cursor-pointer hover: hover:bg-indigo-100 focus:outline-none">Continue</button>
-                        <button type="submit" (click)="playVideo()"
-                            class="px-6 bg-indigo-600 text-white text-base p-3 rounded-md hover:cursor-pointer border-none border-blue-100 hover: hover:bg-indigo-700 focus:outline-none">Start learning</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
     <!-- Courses Section -->
     <div class="px-10 mt-4 mb-8">
@@ -159,34 +118,6 @@
             <div class="container mt-20 text-center">
                 <p>&copy; 2024 UpSkill. All rights reserved.</p>
             </div>
-
-            <!-- Social Media Links -->
-            <!-- <div class="mt-8 text-center">
-            <h2 class="text-xl font-bold mb-4">Follow Us</h2>
-            <div class="flex justify-center space-x-4">
-                <a href="#" class="hover:text-indigo-300 text-white">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M22.46 6.003a8.589 8.589 0 01-2.481.682A4.252 4.252 0 0021.86 4.6a8.563 8.563 0 01-2.713 1.038A4.245 4.245 0 0016.1 4a4.245 4.245 0 00-4.245 4.245c0 .333.04.659.11.97A12.064 12.064 0 013.18 4.24a4.245 4.245 0 001.317 5.66 4.25 4.25 0 01-1.922-.53v.054a4.245 4.245 0 003.41 4.166 4.22 4.22 0 01-1.912.073 4.245 4.245 0 003.97 2.95A8.523 8.523 0 012 19.54 12.04 12.04 0 006.29 21c7.548 0 11.675-6.253 11.675-11.675 0-.18-.004-.357-.013-.534a8.354 8.354 0 002.047-2.12z">
-                        </path>
-                    </svg>
-                </a>
-                <a href="#" class="hover:text-indigo-300 text-white">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M22.675 0H1.326C.593 0 0 .593 0 1.326v21.348C0 23.407.593 24 1.326 24h11.494v-9.294H9.693V11.02h3.127V8.414c0-3.1 1.893-4.787 4.655-4.787 1.325 0 2.463.099 2.794.144v3.24h-1.918c-1.504 0-1.795.715-1.795 1.764v2.31h3.59l-.468 3.686h-.022v9.294H20.84V23.408h-.022l-.468-3.686h-.022v-9.294H20.84V8.414h-.022l-.468-3.686h-.022v9.294H20.84v3.094h.022v9.294h.022l.468-3.686H20.84v3.686h-.022V8.414h.022V23.408z">
-                        </path>
-                    </svg>
-                </a>
-                <a href="#" class="hover:text-indigo-300 text-white">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M18.36 5.64a1.795 1.795 0 100-3.59 1.795 1.795 0 000 3.59zM15.97 8.41c-1.203-.312-1.923-.469-2.825-.469-1.291 0-2.223.48-2.916.896-.707.428-1.155.805-2.091.805-.796 0-1.232-.212-1.7-.467l-.022.022-.446.893c.428.286 1.5.808 2.591.811.573 0 1.29-.024 1.843-.317.535-.286.831-.685 1.616-.685.796 0 1.155.428 1.746.428.61 0 1.07-.256 1.55-.513.5-.256 1.041-.756 2.324-.756 1.067 0 1.596.427 2.01.792.446.378.667.834.667 1.378 0 .707-.67 1.274-1.524 1.274-.718 0-1.346-.287-2.258-.787-1.29-.707-1.717-1.21-3.066-1.21-1.013 0-1.406.285-1.896.682-.495.4-.835.937-2.516.937-1.478 0-2.102-.795-2.916-1.223-1.03-.558-1.867-1.25-3.656-1.25-1.428 0-2.475.428-3.125.893-.682.49-1.05.97-1.05 1.835">
-                        </path>
-                    </svg>
-                </a>
-            </div>
-        </div> -->
         </div>
     </footer>
 </div>

@@ -1,6 +1,6 @@
 <div class="">
     <div class="flex flex-row justify-between items-center p-0">
-        <div class="text-2xl font-bold text-indigo-600 w-2/12 py-4 pl-8">UpSkill</div>
+        <div (click)="navigateToHome()" class="text-2xl font-bold text-indigo-600 hover:cursor-pointer w-2/12 py-4 pl-8">UpSkill</div>
         <div class="w-5/12 py-4 pl-6 mr-12 relative">
             <div class="w-full px-4 py-3 flex border-none text-sm font-medium bg-indigo-100 text-indigo-400 placeholder:text-indigo-500 rounded-full">
                 <div class="w-1/12 flex justify-center items-center">
@@ -23,7 +23,7 @@
                 class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full">Cart</button>
             <button
                 class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full">Wishlist</button>
-            <button
+            <button (click)="navigateToMyLearnings()"
                 class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full">My
                 Learnings</button>
             <button

@@ -20,7 +20,9 @@ export class CourseenrollComponent {
   courseId!: string;
   course!: Courses;
   courses: Courses[] = [];
+  isEnrolled: boolean = false;
   enrolled: boolean = false;
+  paymentId: string | null = null;
 
   constructor(
     private router: Router,
@@ -35,6 +37,14 @@ export class CourseenrollComponent {
     this.route.queryParams.subscribe(params => {
       this.courseId = params['courseId'];
     });
+
+    const studentId = JSON.parse(localStorage.getItem('user')!)._id
+
+    this.service.isEnrolled(this.courseId, studentId).subscribe({
+      next: (res) => {
+        this.isEnrolled = res.isEnrolled
+      }
+    })
 
     this.service.getCourse(this.courseId).subscribe({
       next: (res) => {
@@ -56,7 +66,7 @@ export class CourseenrollComponent {
     const razorPayOptions = {
       currency: 'INR',
       // amount: this.course.price * 100,
-      amount: 1000,
+      amount: this.course.price * 100,
       name: 'UpSkill',
       key: environment.RAZORPAY_KEY,
       theme: {
@@ -81,6 +91,7 @@ export class CourseenrollComponent {
     const userId = JSON.parse(localStorage.getItem('user')!)._id
     this.courseservice.courseEnroll(paymentId, this.courseId, userId, this.course.price).subscribe({
       next: (successResponse: any) => {
+        this.paymentId = paymentId
         this.enrolled = true
         this.ngZone.run(() => {
           // this.customToastService.setToast('success', successResponse.message);
@@ -91,6 +102,14 @@ export class CourseenrollComponent {
         this.customToastService.setToast('error', error.error.error);
       }
     });
+  }
+
+  playVideo() {
+    this.router.navigate(['coursepreview'], { queryParams: { courseId: this.courseId, sectionId: this.course.sections[0], lessonIndex: 0 } });
+  }
+
+  continue() {
+    this.router.navigate(['home']);
   }
 
   enroll(courseId: string) {

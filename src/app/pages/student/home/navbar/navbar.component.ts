@@ -56,8 +56,15 @@ export class NavbarComponent {
     event.stopPropagation();
   }
 
+  navigateToHome() {
+    this.router.navigate(['home']);
+  }
+
+  navigateToMyLearnings() {
+    this.router.navigate(['mylearnings']);
+  }
+
   navigatToCourse(courseId: string) {
-    console.log('redirecting')
     this.router.navigate(['course'], { queryParams: { id: courseId } });
   }
 

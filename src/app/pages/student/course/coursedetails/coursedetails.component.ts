@@ -14,6 +14,7 @@ export class CoursedetailsComponent {
   courseId!: string;
   course!: Course;
   sections: SectionDb[] = []
+  isEnrolled: boolean = false
   
   activeIndex: number | null = null;
 
@@ -32,13 +33,21 @@ export class CoursedetailsComponent {
     this.router.navigate(['coursepreview'], { queryParams: { courseId: this.courseId, sectionId: sectionId, lessonIndex: lessonIndex } });
   }
 
+  learn() {
+    this.router.navigate(['coursepreview'], { queryParams: { courseId: this.courseId, sectionId: this.course.sections[0], lessonIndex: 0 } });
+  }
+
   enroll() {
     this.router.navigate(['enroll'], { queryParams: { courseId: this.courseId } });
   }
   
   ngOnInit() {
+
     this.route.queryParams.subscribe(params => {
       this.courseId = params['id'];
+      if (this.courseId) {
+        this.checkEnrollment();
+      }
     });
 
     this.service.getCourse(this.courseId).subscribe({
@@ -48,4 +57,15 @@ export class CoursedetailsComponent {
       }
     })
   }
+
+  checkEnrollment() {
+    const studentId = JSON.parse(localStorage.getItem('user')!)._id
+
+    this.service.isEnrolled(this.courseId, studentId).subscribe({
+      next: (res) => {
+        this.isEnrolled = res.isEnrolled
+      }
+    })
+  }
+
 }

@@ -8,7 +8,7 @@ import { MessagesModule } from 'primeng/messages';
 import { InputOtpModule } from 'primeng/inputotp';
 import { TableModule } from 'primeng/table';
 import { RatingModule } from 'primeng/rating';
-import { LucideAngularModule, File, Home, Menu, UserCheck, ArrowLeft, Trash2, EllipsisVertical, Pencil, Plus, Search, ShoppingCart, Heart, Shield, ShieldCheck, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause } from 'lucide-angular';
+import { LucideAngularModule, File, Home, Menu, UserCheck, ArrowLeft, Trash2, EllipsisVertical, Pencil, Plus, Search, ShoppingCart, Heart, Shield, ShieldCheck, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause, Book } from 'lucide-angular';
 
 @NgModule({
     imports : [
@@ -22,7 +22,7 @@ import { LucideAngularModule, File, Home, Menu, UserCheck, ArrowLeft, Trash2, El
         InputOtpModule,
         TableModule,
         RatingModule,
-        LucideAngularModule.pick({Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Search, ShoppingCart, Heart, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause})
+        LucideAngularModule.pick({Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Search, ShoppingCart, Heart, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause, Book})
     ],
     exports : [
         FormsModule,
