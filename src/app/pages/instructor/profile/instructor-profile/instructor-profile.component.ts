@@ -8,7 +8,7 @@ import { CustomToastService } from '../../../../core/services/customtoast.servic
 })
 export class InstructorProfileComponent {
   constructor(
-    public customToastService: CustomToastService
+    public _customToastService: CustomToastService
   ) {}
 
 }

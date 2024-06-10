@@ -10,23 +10,23 @@ import { loginCredentials } from '../../../../core/models/auth';
 })
 export class AdminLoginComponent {
   constructor(
-    public customToastService: CustomToastService,
-    private service: AuthService
+    public _customToastService: CustomToastService,
+    private _service: AuthService
   ) { }
 
 
   onSubmitClick(userData: loginCredentials) {
-    this.service.adminLogin(userData).subscribe({
+    this._service.adminLogin(userData).subscribe({
       next: (successResponse: any) => {
         if (successResponse.message) {
           sessionStorage.setItem('admin_token', successResponse.token)
           localStorage.setItem('admin_token', successResponse.token);
           localStorage.setItem('admin', JSON.stringify(successResponse.admin));
-          this.customToastService.setToast('success', successResponse.message, ['admin/student']);
+          this._customToastService.setToast('success', successResponse.message, ['admin/student']);
         }
       },
       error: (error: any) => {
-        this.customToastService.setToast('error', error.error.message);
+        this._customToastService.setToast('error', error.error.message);
       }
     });
   }

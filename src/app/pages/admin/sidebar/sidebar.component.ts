@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent {
   constructor(
-    private router: Router,
+    private _router: Router,
   ) {}
 
   click(){
@@ -17,6 +17,6 @@ export class SidebarComponent {
 
   logout() {
     localStorage.removeItem('admin_token');
-    this.router.navigateByUrl('/admin-login');
+    this._router.navigateByUrl('/admin-login');
   }
 }

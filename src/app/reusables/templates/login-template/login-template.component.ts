@@ -23,9 +23,6 @@ export class LoginTemplateComponent {
   constructor(
     public customToastService: CustomToastService,
     private cookieService: CookieService,
-    private service: AuthService,
-    private route: ActivatedRoute,
-    private router: Router,
   ) {
     this.signinForm = new FormGroup({
       email: new FormControl('', [

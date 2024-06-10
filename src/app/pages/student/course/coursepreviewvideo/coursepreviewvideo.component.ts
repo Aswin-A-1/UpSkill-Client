@@ -26,9 +26,8 @@ export class CoursepreviewvideoComponent {
   player: any;
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private service: StudentHomeService,
+    private _route: ActivatedRoute,
+    private _service: StudentHomeService,
     public customToastService: CustomToastService,
   ) { }
 
@@ -51,7 +50,7 @@ export class CoursepreviewvideoComponent {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
+    this._route.queryParams.subscribe(params => {
       this.courseId = params['courseId'];
       this.sectionId = params['sectionId'];
       this.lessonIndex = parseInt(params['lessonIndex']);
@@ -60,7 +59,7 @@ export class CoursepreviewvideoComponent {
       }
     });
 
-    this.service.getCourse(this.courseId).subscribe({
+    this._service.getCourse(this.courseId).subscribe({
       next: (res) => {
         this.course = res.course
         this.sections = res.sections
@@ -76,7 +75,7 @@ export class CoursepreviewvideoComponent {
   checkEnrollment() {
     const studentId = JSON.parse(localStorage.getItem('user')!)._id
 
-    this.service.isEnrolled(this.courseId, studentId).subscribe({
+    this._service.isEnrolled(this.courseId, studentId).subscribe({
       next: (res) => {
         this.isEnrolled = res.isEnrolled
       }

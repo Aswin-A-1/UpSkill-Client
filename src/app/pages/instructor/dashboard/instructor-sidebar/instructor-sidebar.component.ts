@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
 export class InstructorSidebarComponent {
 
   constructor(
-    private router: Router,
+    private _router: Router,
   ) {}
   
   logout() {
     localStorage.removeItem('instructor_token');
-    this.router.navigateByUrl('/instructor-login');
+    this._router.navigateByUrl('/instructor-login');
   }
 }

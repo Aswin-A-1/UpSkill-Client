@@ -21,10 +21,10 @@ export class SignupTemplateComponent {
   signinForm!: FormGroup;
 
   constructor(
-    private store: Store<{ auth: AuthState }>,
+    private _store: Store<{ auth: AuthState }>,
     public customToastService: CustomToastService
   ) {
-    this.errorMessage$ = this.store.select(state => state.auth.error);
+    this.errorMessage$ = this._store.select(state => state.auth.error);
   }
 
   ngOnInit() {

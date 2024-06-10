@@ -20,15 +20,15 @@ export class InstructorComponent {
 
   instructors: Instructor[] = []
   constructor(
-    private router: Router,
-    private service: AdminInstructorService,
-    private profileService: InstructorProfileService,
-    public customToastService: CustomToastService
+    private _router: Router,
+    private _service: AdminInstructorService,
+    private _profileService: InstructorProfileService,
+    public _customToastService: CustomToastService
   ) { }
   
   ngOnInit(): void {
     // this.store.dispatch(getStudent())
-    this.service.getInstructors().subscribe({
+    this._service.getInstructors().subscribe({
       next: (res) => {
         if (res) {
           this.instructors = res.instructors
@@ -38,7 +38,7 @@ export class InstructorComponent {
   }
 
   openProfile(instructorId: string) {
-    this.router.navigate(['admin/instructor-profile'], { queryParams: { id: instructorId } });
+    this._router.navigate(['admin/instructor-profile'], { queryParams: { id: instructorId } });
   }
 
   blockInstuctor(instructorId: string, instructorIndex: number) {
@@ -109,12 +109,12 @@ export class InstructorComponent {
 
   block() {
     if(this.instructorBlockId != null && this.instructorBlockIndex != null) {
-      this.profileService.updateblock(this.instructorBlockId).subscribe({
+      this._profileService.updateblock(this.instructorBlockId).subscribe({
         next: (res) => {
           if (res) {
             this.instructors[this.instructorBlockIndex as number].isBlocked = res.instructor.isBlocked
             this.blockModal = false;
-            this.customToastService.setToast('success', res.message);
+            this._customToastService.setToast('success', res.message);
           }
         }
       })
@@ -123,12 +123,12 @@ export class InstructorComponent {
 
   unBlock() {
     if(this.instructorBlockId != null && this.instructorBlockIndex != null) {
-      this.profileService.updateblock(this.instructorBlockId).subscribe({
+      this._profileService.updateblock(this.instructorBlockId).subscribe({
         next: (res) => {
           if (res) {
             this.instructors[this.instructorBlockIndex as number].isBlocked = res.instructor.isBlocked
             this.unBlockModal = false;
-            this.customToastService.setToast('success', res.message);
+            this._customToastService.setToast('success', res.message);
           }
         }
       })

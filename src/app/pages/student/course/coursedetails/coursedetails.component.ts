@@ -23,34 +23,34 @@ export class CoursedetailsComponent {
   }
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private service: StudentHomeService,
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _service: StudentHomeService,
     public customToastService: CustomToastService,
   ) {}
 
   playVideo(sectionId: string, lessonIndex: number) {
-    this.router.navigate(['coursepreview'], { queryParams: { courseId: this.courseId, sectionId: sectionId, lessonIndex: lessonIndex } });
+    this._router.navigate(['coursepreview'], { queryParams: { courseId: this.courseId, sectionId: sectionId, lessonIndex: lessonIndex } });
   }
 
   learn() {
-    this.router.navigate(['coursepreview'], { queryParams: { courseId: this.courseId, sectionId: this.course.sections[0], lessonIndex: 0 } });
+    this._router.navigate(['coursepreview'], { queryParams: { courseId: this.courseId, sectionId: this.course.sections[0], lessonIndex: 0 } });
   }
 
   enroll() {
-    this.router.navigate(['enroll'], { queryParams: { courseId: this.courseId } });
+    this._router.navigate(['enroll'], { queryParams: { courseId: this.courseId } });
   }
   
   ngOnInit() {
 
-    this.route.queryParams.subscribe(params => {
+    this._route.queryParams.subscribe(params => {
       this.courseId = params['id'];
       if (this.courseId) {
         this.checkEnrollment();
       }
     });
 
-    this.service.getCourse(this.courseId).subscribe({
+    this._service.getCourse(this.courseId).subscribe({
       next: (res) => {
         this.course = res.course
         this.sections = res.sections
@@ -61,7 +61,7 @@ export class CoursedetailsComponent {
   checkEnrollment() {
     const studentId = JSON.parse(localStorage.getItem('user')!)._id
 
-    this.service.isEnrolled(this.courseId, studentId).subscribe({
+    this._service.isEnrolled(this.courseId, studentId).subscribe({
       next: (res) => {
         this.isEnrolled = res.isEnrolled
       }

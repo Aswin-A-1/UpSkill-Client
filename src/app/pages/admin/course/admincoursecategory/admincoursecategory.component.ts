@@ -21,9 +21,9 @@ export class AdmincoursecategoryComponent {
   deleteCategoryIndex!: number | null;
 
   constructor(
-    private router: Router,
-    private service: AdminCourseService,
-    public customToastService: CustomToastService
+    private _router: Router,
+    private _service: AdminCourseService,
+    public _customToastService: CustomToastService
   ) {
     this.newCategoryForm = new FormGroup({
       categoryName: new FormControl('', [
@@ -35,7 +35,7 @@ export class AdmincoursecategoryComponent {
   }
 
   ngOnInit(): void {
-    this.service.getCategory().subscribe({
+    this._service.getCategory().subscribe({
       next: (res) => {
         if (res) {
           this.categorys = res.categorys
@@ -72,7 +72,7 @@ export class AdmincoursecategoryComponent {
   }
 
   navigatToCourses() {
-    this.router.navigate(['admin/courses']);
+    this._router.navigate(['admin/courses']);
   }
 
   openAddCategoryModal() {
@@ -100,18 +100,18 @@ export class AdmincoursecategoryComponent {
 
   deleteCategory() {
     if(this.deleteCategoryId != null) {
-      this.service.deleteCategory(this.deleteCategoryId).subscribe({
+      this._service.deleteCategory(this.deleteCategoryId).subscribe({
         next: (successResponse: any) => {
           if (this.deleteCategoryIndex != null) {
             this.categorys.splice(this.deleteCategoryIndex, 1)
             this.deleteCategoryId = null
             this.deleteCategoryIndex = null
             this.showDeleteCategoryModal = false
-            this.customToastService.setToast('success', successResponse.message);
+            this._customToastService.setToast('success', successResponse.message);
           }
         },
         error: (error: any) => {
-          this.customToastService.setToast('error', error.error.error);
+          this._customToastService.setToast('error', error.error.error);
         }
       });
     }
@@ -122,15 +122,15 @@ export class AdmincoursecategoryComponent {
       this.newCategoryForm.get(control)?.markAsTouched();
     });
     if(this.newCategoryForm.valid) {
-      this.service.addCategory(this.newCategoryForm.value.categoryName).subscribe({
+      this._service.addCategory(this.newCategoryForm.value.categoryName).subscribe({
         next: (successResponse: any) => {
           this.showNewCategoryModal = false
           this.categorys.push(successResponse.newCategory)
-          this.customToastService.setToast('success', successResponse.message);
+          this._customToastService.setToast('success', successResponse.message);
   
         },
         error: (error: any) => {
-          this.customToastService.setToast('error', error.error.error);
+          this._customToastService.setToast('error', error.error.error);
         }
       });
     }

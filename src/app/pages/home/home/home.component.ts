@@ -14,13 +14,13 @@ export class HomeComponent {
   courses: Courses[] = [];
   
   constructor(
-    private service: StudentHomeService,
+    private _service: StudentHomeService,
     public customToastService: CustomToastService,
-    private router: Router,
+    private _router: Router,
   ) {}
 
   ngOnInit(): void {
-    this.service.getCourses().subscribe({
+    this._service.getCourses().subscribe({
       next: (res) => {
         if (res) {
           this.courses = res.courses
@@ -31,7 +31,7 @@ export class HomeComponent {
   }
 
   enroll(courseId: string) {
-    this.router.navigate(['course'], { queryParams: { id: courseId } });
+    this._router.navigate(['course'], { queryParams: { id: courseId } });
   }
 
 }

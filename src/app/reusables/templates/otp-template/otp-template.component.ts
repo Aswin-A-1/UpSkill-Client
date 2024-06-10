@@ -15,9 +15,7 @@ export class OtpTemplateComponent {
   private timer: any;
   
   constructor(
-    private service: AuthService,
-    private router: Router,
-    private toastService: ToastService,
+    private _service: AuthService,
     public customToastServices  : CustomToastService
   ) { }
 
@@ -31,7 +29,7 @@ export class OtpTemplateComponent {
     if (this.value !== 0) {
       const userData: string | null = localStorage.getItem('userData');
       if (userData !== null) {
-        this.service.veriftOtp(userData, this.value).subscribe({
+        this._service.veriftOtp(userData, this.value).subscribe({
           next: (successResponse: any) => {
             if (successResponse.message) {
               localStorage.removeItem('userData');
@@ -54,7 +52,7 @@ export class OtpTemplateComponent {
       const userData: string | null = localStorage.getItem('userData');
       if (userData !== null) {
         const parsedUserData = JSON.parse(userData);
-        this.service.resendOtp(parsedUserData).subscribe({
+        this._service.resendOtp(parsedUserData).subscribe({
           next: (successResponse: any) => {
             if (successResponse.message) {
               this.customToastServices.setToast('success', successResponse.message);

@@ -16,8 +16,8 @@ interface signinFormData {
 })
 
 export class StudentSignupComponent {
-  constructor(private store : Store){}
+  constructor(private _store : Store){}
   onSubmitClick(userData: SignUpCredentials) {
-    this.store.dispatch(studentSignup({ userData }))
+    this._store.dispatch(studentSignup({ userData }))
   }
 }

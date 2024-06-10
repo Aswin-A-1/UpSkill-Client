@@ -8,6 +8,6 @@ import { CustomToastService } from '../../../core/services/customtoast.service';
 })
 export class AdminDashboardComponent {
   constructor(
-    public customToastService: CustomToastService
+    public _customToastService: CustomToastService
   ) {}
 }

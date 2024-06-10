@@ -17,14 +17,14 @@ export class InstructorAddcourseComponent {
   isVerified!: boolean
   categorys!: Category[]
   constructor(
-    private router: Router,
-    private service: InstructorCourseService,
-    private categoryservice: AdminCourseService,
-    public customToastService: CustomToastService
+    private _router: Router,
+    private _service: InstructorCourseService,
+    private _categoryservice: AdminCourseService,
+    public _customToastService: CustomToastService
   ) {
     
     const instructor = JSON.parse(localStorage.getItem('instructor')!)
-    this.service.getVerification(instructor._id).subscribe({
+    this._service.getVerification(instructor._id).subscribe({
       next: (res) => {
         if (res) {
           this.isVerified = res.verification
@@ -62,7 +62,7 @@ export class InstructorAddcourseComponent {
   
 
   ngOnInit(): void {
-    this.categoryservice.getCategory().subscribe({
+    this._categoryservice.getCategory().subscribe({
       next: (res) => {
         if (res) {
           this.categorys = res.categorys
@@ -72,7 +72,7 @@ export class InstructorAddcourseComponent {
   }
 
   navigateToCourseList() {
-    this.router.navigate(['instructor/courses']);
+    this._router.navigate(['instructor/courses']);
   }
 
 
@@ -95,7 +95,7 @@ export class InstructorAddcourseComponent {
   }
 
   navigateToProfile() {
-    this.router.navigate(['instructor/profile']);
+    this._router.navigate(['instructor/profile']);
   }
 
   onSubmit() {
@@ -103,14 +103,14 @@ export class InstructorAddcourseComponent {
       console.log()
       let instructor_id = JSON.parse(localStorage.getItem('instructor')!)
       if(instructor_id) {
-        this.service.addCourseDetails(this.courseForm.value, this.file,  instructor_id._id).subscribe({
+        this._service.addCourseDetails(this.courseForm.value, this.file,  instructor_id._id).subscribe({
           next: (successResponse: any) => {
             if (successResponse.message) {
-              this.customToastService.setToastAndNavigateWithQueryparams('success', successResponse.message, 'instructor/courses/addsection', successResponse.courseId);
+              this._customToastService.setToastAndNavigateWithQueryparams('success', successResponse.message, 'instructor/courses/addsection', successResponse.courseId);
             }
           },
           error: (error: any) => {
-            this.customToastService.setToast('error', error.error.error);
+            this._customToastService.setToast('error', error.error.error);
           }
         });
       }

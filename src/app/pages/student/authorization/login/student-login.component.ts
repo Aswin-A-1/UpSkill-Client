@@ -14,11 +14,11 @@ import { ActivatedRoute } from '@angular/router';
 export class StudentLoginComponent {
   toastMessage: string = '';
   constructor(
-    private store : Store,
+    private _store : Store,
     public customToastService: CustomToastService,
   ){}
   onSubmitClick(userData: loginCredentials) {
-    this.store.dispatch(studentLogin({ userData }))
+    this._store.dispatch(studentLogin({ userData }))
   }
 
   ngOnInit(): void {

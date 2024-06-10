@@ -11,21 +11,21 @@ import { CustomToastService } from '../../../../core/services/customtoast.servic
 })
 export class InstructorSignupComponent {
   constructor(
-    private service: AuthService,
-    public customToastService  : CustomToastService
+    private _service: AuthService,
+    public _customToastService  : CustomToastService
   ) { }
 
   onSubmitClick(userData: SignUpCredentials) {
-    this.service.instructorRegister(userData).subscribe({
+    this._service.instructorRegister(userData).subscribe({
       next: (successResponse: any) => {
         if (successResponse.message) {
           const userDataString = JSON.stringify(userData);
           localStorage.setItem('instructorData', userDataString);
-          this.customToastService.setToast('success', successResponse.message, ['instructor-signup/verify-otp']);
+          this._customToastService.setToast('success', successResponse.message, ['instructor-signup/verify-otp']);
         }
       },
       error: (error: any) => {
-        this.customToastService.setToast('error', error.error.error);
+        this._customToastService.setToast('error', error.error.error);
       }
     });
   }

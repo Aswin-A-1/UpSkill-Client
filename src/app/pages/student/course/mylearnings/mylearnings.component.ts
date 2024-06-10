@@ -14,14 +14,14 @@ export class MylearningsComponent {
   courses: Courses[] = [];
   
   constructor(
-    private router: Router,
-    private service: StudentHomeService,
+    private _router: Router,
+    private _service: StudentHomeService,
     public customToastService: CustomToastService,
   ) { }
 
   ngOnInit() {
 
-    this.service.getCourses().subscribe({
+    this._service.getCourses().subscribe({
       next: (res) => {
         if (res) {
           this.courses = res.courses
@@ -31,7 +31,7 @@ export class MylearningsComponent {
 
     const studentId = JSON.parse(localStorage.getItem('user')!)._id
 
-    this.service.getMyCourse(studentId).subscribe({
+    this._service.getMyCourse(studentId).subscribe({
       next: (res) => {
         if (res) {
           this.mycourses = res.courses
@@ -42,10 +42,10 @@ export class MylearningsComponent {
   }
 
   learn(courseId: string, courseIndex: number) {
-    this.router.navigate(['coursepreview'], { queryParams: { courseId: courseId, sectionId: this.mycourses[courseIndex].sections[0], lessonIndex: 0 } });
+    this._router.navigate(['coursepreview'], { queryParams: { courseId: courseId, sectionId: this.mycourses[courseIndex].sections[0], lessonIndex: 0 } });
   }
   
   enroll(courseId: string) {
-    this.router.navigate(['course'], { queryParams: { id: courseId } });
+    this._router.navigate(['course'], { queryParams: { id: courseId } });
   }
 }

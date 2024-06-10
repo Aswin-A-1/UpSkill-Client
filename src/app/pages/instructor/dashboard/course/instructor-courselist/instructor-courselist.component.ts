@@ -15,14 +15,14 @@ export class InstructorCourselistComponent {
   lastOpenedDropdown: string = '';
 
   constructor(
-    private router: Router,
-    private service: InstructorCourseService,
+    private _router: Router,
+    private _service: InstructorCourseService,
     public customToastService: CustomToastService
   ) { }
 
   ngOnInit(): void {
     const instructor = JSON.parse(localStorage.getItem('instructor')!)
-    this.service.getCourses(instructor._id).subscribe({
+    this._service.getCourses(instructor._id).subscribe({
       next: (res) => {
         if (res) {
           this.courses = res.courses
@@ -35,7 +35,7 @@ export class InstructorCourselistComponent {
     console.log('id to edit: ', id)
   }
   addSection(id: string) {
-    this.router.navigate(['instructor/courses/addsection'], { queryParams: { id: id } });
+    this._router.navigate(['instructor/courses/addsection'], { queryParams: { id: id } });
   }
   deletecourse(id: string) {
     console.log('id to delete: ', id)
@@ -69,6 +69,6 @@ export class InstructorCourselistComponent {
   }
 
   navigateToAddCourse() {
-    this.router.navigate(['instructor/courses/addcourse']);
+    this._router.navigate(['instructor/courses/addcourse']);
   }
 }

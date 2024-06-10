@@ -25,35 +25,35 @@ export class CourseenrollComponent {
   paymentId: string | null = null;
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private service: StudentHomeService,
-    private courseservice: StudentCourseService,
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _service: StudentHomeService,
+    private _courseservice: StudentCourseService,
     public customToastService: CustomToastService,
-    private ngZone: NgZone
+    private _ngZone: NgZone
   ) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
+    this._route.queryParams.subscribe(params => {
       this.courseId = params['courseId'];
     });
 
     const studentId = JSON.parse(localStorage.getItem('user')!)._id
 
-    this.service.isEnrolled(this.courseId, studentId).subscribe({
+    this._service.isEnrolled(this.courseId, studentId).subscribe({
       next: (res) => {
         this.isEnrolled = res.isEnrolled
       }
     })
 
-    this.service.getCourse(this.courseId).subscribe({
+    this._service.getCourse(this.courseId).subscribe({
       next: (res) => {
         this.course = res.course
         this.instructor = res.instructor
       }
     })
 
-    this.service.getCourses().subscribe({
+    this._service.getCourses().subscribe({
       next: (res) => {
         if (res) {
           this.courses = res.courses
@@ -89,11 +89,11 @@ export class CourseenrollComponent {
 
   handlePaymentSucess(paymentId: string) {
     const userId = JSON.parse(localStorage.getItem('user')!)._id
-    this.courseservice.courseEnroll(paymentId, this.courseId, userId, this.course.price).subscribe({
+    this._courseservice.courseEnroll(paymentId, this.courseId, userId, this.course.price).subscribe({
       next: (successResponse: any) => {
         this.paymentId = paymentId
         this.enrolled = true
-        this.ngZone.run(() => {
+        this._ngZone.run(() => {
           // this.customToastService.setToast('success', successResponse.message);
         })
         // this.customToastService.setToastAndNavigate('success', successResponse.message, ['login']);
@@ -105,14 +105,14 @@ export class CourseenrollComponent {
   }
 
   playVideo() {
-    this.router.navigate(['coursepreview'], { queryParams: { courseId: this.courseId, sectionId: this.course.sections[0], lessonIndex: 0 } });
+    this._router.navigate(['coursepreview'], { queryParams: { courseId: this.courseId, sectionId: this.course.sections[0], lessonIndex: 0 } });
   }
 
   continue() {
-    this.router.navigate(['home']);
+    this._router.navigate(['home']);
   }
 
   enroll(courseId: string) {
-    this.router.navigate(['course'], { queryParams: { id: courseId } });
+    this._router.navigate(['course'], { queryParams: { id: courseId } });
   }
 }

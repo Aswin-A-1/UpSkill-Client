@@ -14,13 +14,13 @@ export class InstructorProfiledetailsComponent {
   profileForm!: FormGroup;
   
   constructor(
-    private router: Router,
-    private service: InstructorProfileService,
+    private _router: Router,
+    private _service: InstructorProfileService,
   ) {}
 
   ngOnInit(): void {
     const instructorId = JSON.parse(localStorage.getItem('instructor')!)._id
-    this.service.getInstructor(instructorId).subscribe({
+    this._service.getInstructor(instructorId).subscribe({
       next: (res) => {
         if (res) {
           this.instructor = res.instructor
@@ -34,7 +34,7 @@ export class InstructorProfiledetailsComponent {
   }
 
   navigateToAddProfile() {
-    this.router.navigate(['instructor/profile/addprofile']);
+    this._router.navigate(['instructor/profile/addprofile']);
   }
 
 }

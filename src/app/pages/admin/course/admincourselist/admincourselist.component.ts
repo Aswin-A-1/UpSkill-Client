@@ -11,16 +11,16 @@ import { Course } from '../../../../core/models/student';
 export class AdmincourselistComponent {
   courses!: Course[]
   constructor(
-    private router: Router,
-    private service: AdminCourseService,
+    private _router: Router,
+    private _service: AdminCourseService,
   ) {}
 
   navigateToCategory() {
-    this.router.navigate(['admin/category']);
+    this._router.navigate(['admin/category']);
   }
   
   ngOnInit(): void {
-    this.service.getCourses().subscribe({
+    this._service.getCourses().subscribe({
       next: (res) => {
         if (res) {
           this.courses = res.courses

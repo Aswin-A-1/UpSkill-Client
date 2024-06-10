@@ -10,23 +10,23 @@ import { AuthService } from '../../../../core/services/auth.service';
 })
 export class InstructorLoginComponent {
   constructor(
-    public customToastService: CustomToastService,
-    private service: AuthService
+    public _customToastService: CustomToastService,
+    private _service: AuthService
   ) { }
 
 
   onSubmitClick(userData: loginCredentials) {
-    this.service.instructorLogin(userData).subscribe({
+    this._service.instructorLogin(userData).subscribe({
       next: (successResponse: any) => {
         if (successResponse.message) {
           sessionStorage.setItem('instructor_token', successResponse.token)
           localStorage.setItem('instructor_token', successResponse.token);
           localStorage.setItem('instructor', JSON.stringify(successResponse.instructor));
-          this.customToastService.setToast('success', successResponse.message, ['instructor/courses']);
+          this._customToastService.setToast('success', successResponse.message, ['instructor/courses']);
         }
       },
       error: (error: any) => {
-        this.customToastService.setToast('error', error.error.message);
+        this._customToastService.setToast('error', error.error.message);
       }
     });
   }

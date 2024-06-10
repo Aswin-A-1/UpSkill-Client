@@ -13,13 +13,12 @@ import { User } from '../../../core/models/student';
 export class StudentsComponent {
   users: User[] = []
   constructor(
-    private store: Store,
-    private service: AdminStudentService
+    private _service: AdminStudentService
   ) { }
 
   ngOnInit(): void {
     // this.store.dispatch(getStudent())
-    this.service.getStudents().subscribe({
+    this._service.getStudents().subscribe({
       next: (res) => {
         if (res) {
           this.users = res.students
@@ -29,7 +28,7 @@ export class StudentsComponent {
   }
 
   toggleBlockStatus(user: any) {
-    this.service.manageStudents(user._id).subscribe({
+    this._service.manageStudents(user._id).subscribe({
       next: (res) => {
         if (res) {
           // this.users = res.updateStudent

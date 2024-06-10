@@ -17,8 +17,8 @@ export class NavbarComponent {
   isFocused = false;
   
   constructor(
-    private router: Router,
-    private service: StudentHomeService,
+    private _router: Router,
+    private _service: StudentHomeService,
     public customToastService: CustomToastService,
   ) {}
 
@@ -29,7 +29,7 @@ export class NavbarComponent {
   }
 
   performSearch(query: string) {
-    this.service.search(query).subscribe({
+    this._service.search(query).subscribe({
       next: (res) => {
         if (res.courses) {
           this.serachResult = res.courses
@@ -57,27 +57,27 @@ export class NavbarComponent {
   }
 
   navigateToHome() {
-    this.router.navigate(['home']);
+    this._router.navigate(['home']);
   }
 
   navigateToMyLearnings() {
-    this.router.navigate(['mylearnings']);
+    this._router.navigate(['mylearnings']);
   }
 
   navigatToCourse(courseId: string) {
-    this.router.navigate(['course'], { queryParams: { id: courseId } });
+    this._router.navigate(['course'], { queryParams: { id: courseId } });
   }
 
   logout() {
     localStorage.removeItem('token');
-    this.router.navigateByUrl('/');
+    this._router.navigateByUrl('/');
   }
 
   login() {
-    this.router.navigateByUrl('/login');
+    this._router.navigateByUrl('/login');
   }
 
   instructor() {
-    this.router.navigateByUrl('/instructor-login');
+    this._router.navigateByUrl('/instructor-login');
   }
 }

@@ -15,17 +15,17 @@ export class AdmininstructorprofileComponent {
   verificationModal = false;
   unVerificationModal = false;
   constructor(
-    private router: Router,
-    private routes: ActivatedRoute,
-    private service: InstructorProfileService,
-    public customToastService: CustomToastService
+    private _router: Router,
+    private _routes: ActivatedRoute,
+    private _service: InstructorProfileService,
+    public _customToastService: CustomToastService
   ) { }
   
   ngOnInit(): void {
-    this.routes.queryParams.subscribe(params => {
+    this._routes.queryParams.subscribe(params => {
       this.instructorId = params['id'];
     });
-    this.service.getInstructor(this.instructorId).subscribe({
+    this._service.getInstructor(this.instructorId).subscribe({
       next: (res) => {
         if (res) {
           this.instructor = res.instructor
@@ -35,19 +35,19 @@ export class AdmininstructorprofileComponent {
   }
 
   verify() {
-    this.service.updateVerfication(this.instructorId).subscribe({
+    this._service.updateVerfication(this.instructorId).subscribe({
       next: (res) => {
         if (res) {
           this.instructor.isVerified = res.instructor.isVerified
           this.verificationModal = false;
-          this.customToastService.setToast('success', res.message);
+          this._customToastService.setToast('success', res.message);
         }
       }
     })
   }
 
   navigateToInstructors() {
-    this.router.navigate(['admin/instructor']);
+    this._router.navigate(['admin/instructor']);
   }
 
   openVerificationModal() {
@@ -59,12 +59,12 @@ export class AdmininstructorprofileComponent {
   }
 
   unVerify() {
-    this.service.updateVerfication(this.instructorId).subscribe({
+    this._service.updateVerfication(this.instructorId).subscribe({
       next: (res) => {
         if (res) {
           this.instructor.isVerified = res.instructor.isVerified
           this.unVerificationModal = false;
-          this.customToastService.setToast('success', res.message);
+          this._customToastService.setToast('success', res.message);
         }
       }
     })

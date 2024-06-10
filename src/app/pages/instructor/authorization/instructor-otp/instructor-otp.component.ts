@@ -14,9 +14,8 @@ export class InstructorOtpComponent {
   private timer: any;
 
   constructor(
-    private service: AuthService,
-    private router: Router,
-    public customToastServices: CustomToastService,
+    private _service: AuthService,
+    public _customToastServices: CustomToastService,
   ) { }
 
   ngOnInit(): void {
@@ -29,15 +28,15 @@ export class InstructorOtpComponent {
     if (this.value !== 0) {
       const instructorData: string | null = localStorage.getItem('instructorData');
       if (instructorData !== null) {
-        this.service.verifyinstructortOtp(instructorData, this.value).subscribe({
+        this._service.verifyinstructortOtp(instructorData, this.value).subscribe({
           next: (successResponse: any) => {
             if (successResponse.message) {
               localStorage.removeItem('userData');
-              this.customToastServices.setToast('success', successResponse.message, ['instructor-login']);
+              this._customToastServices.setToast('success', successResponse.message, ['instructor-login']);
             }
           },
           error: (error: any) => {
-            this.customToastServices.setToast('error', error.error.error);
+            this._customToastServices.setToast('error', error.error.error);
           }
         });
       } else {
@@ -50,14 +49,14 @@ export class InstructorOtpComponent {
     const userData: string | null = localStorage.getItem('instructorData');
     if (userData !== null) {
       const parsedUserData = JSON.parse(userData);
-      this.service.resendOtp(parsedUserData).subscribe({
+      this._service.resendOtp(parsedUserData).subscribe({
         next: (successResponse: any) => {
           if (successResponse.message) {
-            this.customToastServices.setToast('success', successResponse.message);
+            this._customToastServices.setToast('success', successResponse.message);
           }
         },
         error: (error: any) => {
-          this.customToastServices.setToast('error', error.error.error);
+          this._customToastServices.setToast('error', error.error.error);
         }
       });
     } else {
