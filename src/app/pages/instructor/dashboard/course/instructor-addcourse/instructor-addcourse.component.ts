@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { InstructorCourseService } from '../../../../../core/services/instructor/course/instructorcourse.service';
 import { CustomToastService } from '../../../../../core/services/customtoast.service';
 import { Category } from '../../../../../core/models/student';
-import { AdminCourseService } from '../../../../../core/services/admin/course/admincourse.service';
 
 @Component({
   selector: 'app-instructor-addcourse',
@@ -19,7 +18,7 @@ export class InstructorAddcourseComponent {
   constructor(
     private _router: Router,
     private _service: InstructorCourseService,
-    private _categoryservice: AdminCourseService,
+    private _categoryservice: InstructorCourseService,
     public _customToastService: CustomToastService
   ) {
     
@@ -66,6 +65,7 @@ export class InstructorAddcourseComponent {
       next: (res) => {
         if (res) {
           this.categorys = res.categorys
+          console.log('categories: ', this.categorys)
         }
       }
     })

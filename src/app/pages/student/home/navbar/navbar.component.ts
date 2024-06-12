@@ -70,6 +70,7 @@ export class NavbarComponent {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('refresh_token');
     this._router.navigateByUrl('/');
   }
 

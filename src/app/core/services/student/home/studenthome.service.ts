@@ -28,6 +28,10 @@ export class StudentHomeService {
         return this.http.get(`${BASE_URL}/student/getcourses`);
     }
 
+    getCoursesOutside(): Observable<any> {
+        return this.http.get(`${BASE_URL}/student/getcoursesoutside`);
+    }
+
     getCourse(courseId: string): Observable<any> {
         return this.http.post(`${BASE_URL}/student/getcourse`, { courseId });
     }

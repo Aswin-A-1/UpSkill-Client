@@ -33,6 +33,10 @@ export class InstructorCourseService {
         return this.http.get(`${BASE_URL}/instructor/getcourse/${instructorid}`);
     }
 
+    getCategory(): Observable<any> {
+        return this.http.get(`${BASE_URL}/instructor/getcategory`);
+    }
+
     getVerification(instructorid: string): Observable<any> {
         return this.http.get(`${BASE_URL}/instructor/getverification/${instructorid}`);
     }

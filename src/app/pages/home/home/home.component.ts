@@ -20,7 +20,7 @@ export class HomeComponent {
   ) {}
 
   ngOnInit(): void {
-    this._service.getCourses().subscribe({
+    this._service.getCoursesOutside().subscribe({
       next: (res) => {
         if (res) {
           this.courses = res.courses

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CustomToastService } from '../../../../core/services/customtoast.service';
 import { loginCredentials } from '../../../../core/models/auth';
 import { AuthService } from '../../../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-instructor-login',
@@ -10,6 +11,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 })
 export class InstructorLoginComponent {
   constructor(
+    private router: Router,
     public _customToastService: CustomToastService,
     private _service: AuthService
   ) { }
@@ -22,7 +24,8 @@ export class InstructorLoginComponent {
           sessionStorage.setItem('instructor_token', successResponse.token)
           localStorage.setItem('instructor_token', successResponse.token);
           localStorage.setItem('instructor', JSON.stringify(successResponse.instructor));
-          this._customToastService.setToast('success', successResponse.message, ['instructor/courses']);
+          // this._customToastService.setToast('success', successResponse.message, ['instructor/courses']);
+          this.router.navigate(['instructor/courses']);
         }
       },
       error: (error: any) => {

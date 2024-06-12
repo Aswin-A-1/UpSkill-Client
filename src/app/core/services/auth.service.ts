@@ -72,6 +72,11 @@ export class AuthService {
         return this.http.post(`${BASE_URL}/student/signup/resend-otp`, requestBody)
     }
 
+    refreshToken(refreshToken: string): Observable<any> {
+        const requestBody = { refreshToken };
+        return this.http.post(`${BASE_URL}/student/refresh-token`, requestBody)
+    }
+
     test(requestBody: any): Observable<any> {
         return this.http.post(`${BASE_URL}/student/test`, requestBody)
     }

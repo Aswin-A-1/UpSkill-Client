@@ -6,6 +6,7 @@ import { AuthService } from "../../services/auth.service";
 import { ToastService } from "../../services/toast.service";
 import { Router } from '@angular/router';
 import { CustomToastService } from "../../services/customtoast.service";
+import { HttpErrorResponse } from "@angular/common/http";
 
 
 @Injectable()
@@ -48,9 +49,10 @@ export class AuthEffects {
             exhaustMap((action) =>
                 this.service.userLogin(action.userData).pipe(
                     map((successResponse) => {
-                        if (successResponse.message) {
+                        if (successResponse) {
                             sessionStorage.setItem('token', successResponse.token)
                             localStorage.setItem('token', successResponse.token);
+                            localStorage.setItem('refresh_token', successResponse.refreshToken);
                             const user = successResponse.student
                             localStorage.setItem('user', JSON.stringify(successResponse.student));
                             // this.customToastService.setToastAndNavigate('success', successResponse.message, ['home']);
@@ -60,6 +62,7 @@ export class AuthEffects {
                         return AuthActions.submitSuccess({ successResponse })
                     }),
                     catchError((error) => {
+                        console.log('error: ', error)
                         this.customToastService.setToast('error', error.error.message)
                         return of(AuthActions.submitFail({ error: error.error.message || 'An error occurred' }));
                     })
