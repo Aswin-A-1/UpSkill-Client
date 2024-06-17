@@ -29,11 +29,12 @@ export class LoginTemplateComponent {
         Validators.required,
         this.emailValidator.bind(this)
       ]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.maxLength(20),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)
-      ])
+      password: new FormControl('', Validators.required)
+      // password: new FormControl('', [
+      //   Validators.required,
+      //   Validators.maxLength(20),
+      //   Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)
+      // ])
     });
   }
 

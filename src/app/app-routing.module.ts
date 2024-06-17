@@ -31,6 +31,9 @@ import { AdmincoursecategoryComponent } from './pages/admin/course/admincourseca
 import { CoursepreviewvideoComponent } from './pages/student/course/coursepreviewvideo/coursepreviewvideo.component';
 import { CourseenrollComponent } from './pages/student/course/courseenroll/courseenroll.component';
 import { MylearningsComponent } from './pages/student/course/mylearnings/mylearnings.component';
+import { InstructorstudentsComponent } from './pages/instructor/dashboard/students/instructorstudents/instructorstudents.component';
+import { InstructorstudentlistComponent } from './pages/instructor/dashboard/students/instructorstudentlist/instructorstudentlist.component';
+import { InstructorstudentmessagesComponent } from './pages/instructor/dashboard/students/instructorstudentmessages/instructorstudentmessages.component';
 
 const routes: Routes = [
   // student
@@ -81,6 +84,13 @@ const routes: Routes = [
         children: [
           { path: 'addprofile', component:InstructorAddprofileComponent },
           { path: '', component: InstructorProfiledetailsComponent }
+        ]
+      },
+      {
+        path: 'student', component: InstructorstudentsComponent,
+        children: [
+          { path: 'messages', component:InstructorstudentmessagesComponent },
+          { path: '', component: InstructorstudentlistComponent }
         ]
       },
     ],

@@ -10,6 +10,7 @@ import { SharedModules } from "../shared.module";
 import { OtpTemplateComponent } from "../../reusables/templates/otp-template/otp-template.component";
 import { CustomToastComponent } from "../../reusables/reusable-components/toast.component";
 import { FormButtonComponent } from "../../reusables/buttons/form-button";
+import { PasswordValidatorDirective } from "../../directives/password-validator.directive";
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { FormButtonComponent } from "../../reusables/buttons/form-button";
         LoginTemplateComponent,
         SignupTemplateComponent,
         OtpTemplateComponent,
-        FormButtonComponent
+        FormButtonComponent,
+        PasswordValidatorDirective
     ],
     exports: [
         FormInputReusableComponent,

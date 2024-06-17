@@ -1,0 +1,29 @@
+<div class="flex flex-col p-4 h-screen">
+
+  <div class="overflow-y-auto messages bg-indigo-50 p-4">
+    <div *ngFor="let chatmessage of chatmessages" [ngClass]="{'justify-end': chatmessage.senderId === instructorId}"
+      class="flex mb-2">
+      <div *ngIf="chatmessage.senderId === instructorId; else otherMessage"
+        class="bg-white shadow rounded-lg rounded-tr-sm px-4 py-3 max-w-xs text-gray-800">
+        <span>{{ chatmessage.message }}</span>
+      </div>
+      <ng-template #otherMessage>
+        <div class="bg-indigo-500 text-white shadow rounded-lg rounded-tl-sm px-4 py-3 max-w-xs">
+          <span>{{ chatmessage.message }}</span>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="border-t border-gray-200 p-4 bg-indigo-50">
+    <div class="flex">
+      <div
+        class="w-full mr-2 px-4 py-3 flex border-none text-sm font-medium bg-indigo-100 text-indigo-400 placeholder:text-indigo-500 rounded-lg">
+        <input [(ngModel)]="newMessage" type="text" placeholder="Type your message..."
+          class="w-11/12 border-none text-sm font-medium bg-indigo-100 text-indigo-500 placeholder:text-indigo-500 rounded-full">
+      </div>
+      <button (click)="sendMessage()"
+        class="bg-indigo-400 border-none text-white px-3 pt-2 rounded-full hover:cursor-pointer hover:bg-indigo-500"><lucide-icon
+          name="send"></lucide-icon></button>
+    </div>
+  </div>
+</div>
