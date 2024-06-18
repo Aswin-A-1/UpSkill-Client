@@ -98,4 +98,8 @@ export class InstructorCourseService {
     getSection(courseId: string): Observable<any> {
         return this.http.get(`${BASE_URL}/instructor/getsection/${courseId}`);
     }
+
+    getStudents(instructorId: string): Observable<any> {
+        return this.http.get(`${BASE_URL}/instructor/getstudents/${instructorId}`);
+    }
 }

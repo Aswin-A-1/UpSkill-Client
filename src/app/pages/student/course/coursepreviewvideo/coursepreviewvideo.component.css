@@ -35,3 +35,7 @@
   color: #4f46e5 !important;
   color: white !important; /* White text */
 }
+
+.text-xxs {
+  font-size: 0.6rem;
+}

@@ -138,7 +138,6 @@ export class CoursepreviewvideoComponent {
       this.chatService.sendMessage(this.studentId, this.course?.instructorid, this.newMessage);
       this.newMessage = '';
       this.chatmessages.push(newMessageObject);
-      console.log('new messages: ', this.chatmessages)
       this.chatContainer.nativeElement.scrollHeight = this.chatContainer.nativeElement.scrollHeight;
     }
   }

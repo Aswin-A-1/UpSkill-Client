@@ -103,7 +103,7 @@ export class AuthTokenInterceptorService implements HttpInterceptor {
             const refreshToken = localStorage.getItem('refresh_token');
             return this.authService.refreshToken(refreshToken as string).pipe(
                 switchMap((token: any) => {
-                    this.customToastService.setToast('success', 'token refreshed');
+                    // this.customToastService.setToast('success', 'token refreshed');
                     localStorage.setItem('token', token.accessToken);
                     this.isRefreshing = false;
                     this.refreshTokenSubject.next(token.accessToken);

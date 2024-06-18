@@ -31,6 +31,10 @@ export class ChatService {
   joinRoom(roomId: string) {
     this._socket.emit('joinRoom', roomId);
   }
+  
+  leaveRoom(roomId: string) {
+    this._socket.emit('leaveRoom', roomId);
+  }
 
   sendMessage(senderId: string, receiverId: string, message: string) {
     this._socket.emit('sendMessage', { senderId, receiverId, message });

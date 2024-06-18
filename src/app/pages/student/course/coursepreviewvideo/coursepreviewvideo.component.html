@@ -22,7 +22,7 @@
         <div class="lg:w-9/12 w-full">
             <div class="m-6 rounded-lg">
                 <div data-vjs-player class="">
-                    <video #videoPlayer class="video-js vjs-default-skin w-full lg:h-[500px] h-[300px]" controls
+                    <video #videoPlayer class="video-js vjs-default-skin w-full lg:h-[500px] h-[300px]" autoplay controls
                         preload="auto">
                         <source type="video/mp4">
                         <p class="vjs-no-js">
@@ -77,41 +77,27 @@
             </div> -->
 
             <div *ngIf="isEnrolled" class="flex flex-col px-6 h-96">
-                <div #chatContainer class="overflow-y-auto p-4 space-y-4 bg-indigo-50">
-                    <!-- <div class="flex">
-                    <div class="bg-white shadow rounded-lg px-4 py-2 max-w-xs">
-                      <p class="text-gray-800">Hello, how can I help you today?</p>
-                    </div>
-                  </div>
-                  <div class="flex justify-end">
-                    <div class="bg-indigo-500 text-white shadow rounded-lg px-4 py-2 max-w-xs">
-                      <p class="text-white">I'm looking for some information on your services.</p>
-                    </div>
-                  </div>
-                  <div class="flex justify-end">
-                    <div class="bg-indigo-500 text-white shadow rounded-lg px-4 py-2 max-w-xs">
-                      <p class="text-white">Please share the information.</p>
-                    </div>
-                  </div> -->
+                <div #chatContainer class="overflow-y-auto p-4 space-y-4 bg-indigo-50 h-96">
                     <div class="messages">
                         <div *ngFor="let chatmessage of chatmessages"
-                            [ngClass]="{'justify-end': chatmessage.senderId === studentId}" class="flex mb-2 ">
+                            [ngClass]="{'justify-end': chatmessage.senderId === studentId}" class="flex mb-2">
                             <div *ngIf="chatmessage.senderId === studentId; else otherMessage"
-                                class="bg-white shadow rounded-lg rounded-tr-sm px-4 py-3 max-w-xs text-gray-800">
-                                <span>{{ chatmessage.message }}</span>
+                                class="bg-white shadow rounded-lg rounded-tr-sm py-1 pl-4 min-w-16 max-w-lg text-gray-800 break-words">
+                                <span class="pr-4">{{ chatmessage.message }}</span>
+                                <div class="text-end text-xxs mr-1 text-gray-500 mt-1">{{ chatmessage.timestamp |
+                                    date:'shortTime' }}</div>
                             </div>
                             <ng-template #otherMessage>
-                                <div class="bg-indigo-500 text-white shadow rounded-lg rounded-tl-sm px-4 py-3 max-w-xs">
-                                    <span>{{ chatmessage.message }}</span>
+                                <div
+                                    class="bg-indigo-500 text-white shadow rounded-lg rounded-tl-sm py-1 pl-2 min-w-16 max-w-lg break-words">
+                                    <span class="pr-4">{{ chatmessage.message }}</span>
+                                    <div class="text-end text-xxs mr-2 text-indigo-200 mt-1">{{ chatmessage.timestamp |
+                                        date:'shortTime' }}
+                                    </div>
                                 </div>
                             </ng-template>
                         </div>
                     </div>
-                    <!-- <div *ngFor="let chatmessage of chatmessages" class="flex">
-                    <div class="bg-white shadow rounded-lg px-4 py-2 max-w-xs">
-                      <p class="text-gray-800">{{ chatmessage.message }}</p>
-                    </div>
-                  </div> -->
                 </div>
                 <div class="border-t border-gray-200 p-4  bg-indigo-50">
                     <div class="flex">
