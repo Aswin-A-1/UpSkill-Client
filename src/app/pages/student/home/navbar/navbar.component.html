@@ -18,7 +18,7 @@
             </div>
         </div>
         
-        <div *ngIf="isloggedin" class="w-5/12 flex justify-center gap-6">
+        <div *ngIf="isLoggedIn" class="w-5/12 flex justify-center gap-6">
             <button
                 class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full">Cart</button>
             <button
@@ -30,7 +30,7 @@
                 class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full"
                 (click)="logout()">Logout</button>
         </div>
-        <div *ngIf="!isloggedin" class="w-5/12 mr-20 flex justify-end gap-6">
+        <div *ngIf="!isLoggedIn" class="w-5/12 mr-20 flex justify-end gap-6">
             <!-- <button
                 class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full">Admin</button> -->
             <button
@@ -39,7 +39,7 @@
             <!-- <button
                 class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full">My
                 Learnings</button> -->
-            <button *ngIf="!isloggedin"
+            <button *ngIf="!isLoggedIn"
                 class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full"
                 (click)="login()">Login</button>
         </div>

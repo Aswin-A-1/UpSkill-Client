@@ -24,6 +24,14 @@ export class StudentHomeService {
         return this.http.post(`${BASE_URL}/student/isenrolled`, { courseId, studentId });
     }
 
+    isCompleted(courseId: string, studentId: string, lessonId: string): Observable<any> {
+        return this.http.post(`${BASE_URL}/student/iscompleted`, { courseId, studentId, lessonId });
+    }
+
+    changeCompletionStatus(courseId: string, studentId: string, lessonId: string): Observable<any> {
+        return this.http.post(`${BASE_URL}/student/changecompletion`, { courseId, studentId, lessonId });
+    }
+
     getCourses(): Observable<any> {
         return this.http.get(`${BASE_URL}/student/getcourses`);
     }

@@ -1,7 +1,7 @@
 <custom-toast [customToastService]="customToastService"></custom-toast>
 <div class="min-h-screen flex flex-col">
     <!-- Navbar -->
-    <app-navbar [isloggedin]="true" />
+    <app-navbar/>
     <div *ngIf="course && !enrolled && paymentId == null" class="flex flex-col lg:flex-row h-full mx-16 mb-20 py-5 px-20">
         <!-- <div class="w-3/5 mr-5">
       <img class="object-cover w-full" [src]="course.thumbnailimage" alt="Product Image">

@@ -22,7 +22,7 @@
         <div class="lg:w-9/12 w-full">
             <div class="m-6 rounded-lg">
                 <div data-vjs-player class="">
-                    <video #videoPlayer class="video-js vjs-default-skin w-full lg:h-[500px] h-[300px]" autoplay controls
+                    <video #videoPlayer class="video-js vjs-default-skin w-full lg:h-[500px] h-[300px]" controls
                         preload="auto">
                         <source type="video/mp4">
                         <p class="vjs-no-js">
@@ -32,83 +32,105 @@
                         </p>
                     </video>
                 </div>
-                <!-- <video id="my-video" class="video-js vjs-default-skin w-full" controls preload="auto" data-setup='{}'>
-              <p class="vjs-no-js">
-                To view this video please enable JavaScript, and consider upgrading to a
-                web browser that
-                <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-              </p>
-            </video> -->
             </div>
-            <!-- <div class="py-4 px-10">
-                <h2 class="text-xl font-bold mb-2">{{ currentLesson?.title }}</h2>
-                <p class="mb-4">{{ currentLesson?.description }}</p>
-                <div class="w-full mx-auto mt-10">
-                    <div *ngFor="let section of sections; let i = index" class="">
-                        <button (click)="toggleAccordion(i)"
-                            class="w-full px-4 py-3 text-left hover:cursor-pointer hover:bg-indigo-100 border-2 border-indigo-100 border-solid focus:outline-none transition-colors duration-300 bg-white"
-                            [ngClass]="{'rounded-t-lg': i === 0, 'rounded-b-lg': i === sections.length - 1}">
-                            <div class="flex justify-between items-center">
-                                <span class="text-lg font-medium">{{ section.sectionname }}</span>
-                                <svg class="w-6 h-6 transform transition-transform duration-200"
-                                    [ngClass]="{'rotate-180': activeIndex === i}" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                            </div>
-                        </button>
-                        <div *ngIf="activeIndex === i" class="px-4 py-2 bg-indigo-50 transition-all duration-300">
-                            <div (click)="lesson.free || isEnrolled ? playVideo(section._id, j) : null"
-                                *ngFor="let lesson of section.lessons; let j = index"
-                                class="flex justify-between p-2 bg-indigo-50 border-2 border-indigo-200 border-solid transition-all duration-300"
-                                [ngClass]="{'border-t-transparent': j != 0, 'rounded-t-lg': j === 0, 'rounded-b-lg': j === section.lessons.length - 1, 'hover:cursor-pointer hover:bg-indigo-100': lesson.free || isEnrolled}">
-                                <div>
-                                    <span class="text-lg font-medium">{{ lesson.title }}</span>
+
+            <div class="py-2 px-10 flex justify-between">
+                <div>
+                    <h2 class="text-xl font-bold mb-2">{{ currentLesson?.title }}</h2>
+                    <p class="mb-4">{{ currentLesson?.description }}</p>
+                </div>
+                <div *ngIf="isEnrolled" class="p-6">
+                    <button (click)="changeCompletedStatus()"
+                      class="pt-3 pb-2 px-3 bg-white text-indigo-400 text-xs rounded-full hover:cursor-pointer border-none border-blue-100 hover:bg-indigo-100 hover:text-indigo-400 focus:outline-none">
+                      <lucide-icon *ngIf="isCompleted" name="circle-check-big" class="my-icon"></lucide-icon>
+                      <lucide-icon *ngIf="!isCompleted" name="circle" class="my-icon"></lucide-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <nav class="py-4 px-10 flex">
+                    <a (click)="navigateTo('content')" [ngClass]="{'text-indigo-600': location == 'content' && isEnrolled}"
+                        class="flex items-center rounded-md mt-4 mx-2 p-2 no-underline text-indigo-600 hover:cursor-pointer hover:bg-indigo-100 hover:text-indigo-600">
+                        <span class="mx-3 text-lg font-semibold">Content</span>
+                    </a>
+                    <a *ngIf="isEnrolled" (click)="navigateTo('chat')" [ngClass]="{'text-indigo-600': location == 'chat' && isEnrolled}"
+                        class="flex items-center rounded-md mt-4 mx-2 p-2 no-underline text-indigo-600 hover:cursor-pointer hover:bg-indigo-100 hover:text-indigo-600">
+                        <span class="mx-3 text-lg font-semibold">Chat</span>
+                    </a>
+                    <a *ngIf="isEnrolled" (click)="navigateTo('notes')" [ngClass]="{'text-indigo-600': location == 'notes' && isEnrolled}"
+                        class="flex items-center rounded-md mt-4 mx-2 p-2 no-underline text-indigo-600 hover:cursor-pointer hover:bg-indigo-100 hover:text-indigo-600">
+                        <span class="mx-3 text-lg font-semibold">Notes</span>
+                    </a>
+                </nav>
+                <div *ngIf="isEnrolled && location == 'chat'" class="flex flex-col px-6 h-96">
+                    <div #chatContainer class="overflow-y-auto p-4 space-y-4 bg-indigo-50 h-96 rounded-t-lg">
+                        <div class="messages">
+                            <div *ngFor="let chatmessage of chatmessages"
+                                [ngClass]="{'justify-end': chatmessage.senderId === studentId}" class="flex mb-2">
+                                <div *ngIf="chatmessage.senderId === studentId; else otherMessage"
+                                    class="bg-white shadow rounded-lg rounded-tr-sm py-1 pl-4 min-w-16 max-w-lg text-gray-800 break-words">
+                                    <span class="pr-4">{{ chatmessage.message }}</span>
+                                    <div class="text-end text-xxs mr-1 text-gray-500 mt-1">{{ chatmessage.timestamp |
+                                        date:'shortTime' }}</div>
                                 </div>
-                                <div>
-                                    <lucide-icon *ngIf="!isEnrolled && !lesson.free" name="lock"
-                                        class="my-icon pt-1 mr-1"></lucide-icon>
-                                </div>
+                                <ng-template #otherMessage>
+                                    <div
+                                        class="bg-indigo-500 text-white shadow rounded-lg rounded-tl-sm py-1 pl-2 min-w-16 max-w-lg break-words">
+                                        <span class="pr-4">{{ chatmessage.message }}</span>
+                                        <div class="text-end text-xxs mr-2 text-indigo-200 mt-1">{{
+                                            chatmessage.timestamp |
+                                            date:'shortTime' }}
+                                        </div>
+                                    </div>
+                                </ng-template>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div> -->
-
-            <div *ngIf="isEnrolled" class="flex flex-col px-6 h-96">
-                <div #chatContainer class="overflow-y-auto p-4 space-y-4 bg-indigo-50 h-96">
-                    <div class="messages">
-                        <div *ngFor="let chatmessage of chatmessages"
-                            [ngClass]="{'justify-end': chatmessage.senderId === studentId}" class="flex mb-2">
-                            <div *ngIf="chatmessage.senderId === studentId; else otherMessage"
-                                class="bg-white shadow rounded-lg rounded-tr-sm py-1 pl-4 min-w-16 max-w-lg text-gray-800 break-words">
-                                <span class="pr-4">{{ chatmessage.message }}</span>
-                                <div class="text-end text-xxs mr-1 text-gray-500 mt-1">{{ chatmessage.timestamp |
-                                    date:'shortTime' }}</div>
+                    <div class="border-gray-200 p-4 bg-indigo-50 rounded-b-lg">
+                        <div class="flex rounded-b-lg">
+                            <div
+                                class="w-full mr-4 px-4 py-4 flex border-none text-sm font-medium bg-indigo-100 text-indigo-400 placeholder:text-indigo-500 rounded-lg">
+                                <input [(ngModel)]="newMessage" type="text" placeholder="Type your message..."
+                                    class="w-11/12 border-none text-sm font-medium bg-indigo-100 text-indigo-500 placeholder:text-indigo-500 rounded-full">
                             </div>
-                            <ng-template #otherMessage>
-                                <div
-                                    class="bg-indigo-500 text-white shadow rounded-lg rounded-tl-sm py-1 pl-2 min-w-16 max-w-lg break-words">
-                                    <span class="pr-4">{{ chatmessage.message }}</span>
-                                    <div class="text-end text-xxs mr-2 text-indigo-200 mt-1">{{ chatmessage.timestamp |
-                                        date:'shortTime' }}
+                            <button (click)="sendMessage()"
+                                class="bg-indigo-400 border-none text-white px-4 pt-2 rounded-full hover:cursor-pointer hover:bg-indigo-500"><lucide-icon
+                                    name="send"></lucide-icon></button>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="location == 'content'" class="py-2 px-10">
+                    <div class="w-full mx-auto">
+                        <div *ngFor="let section of sections; let i = index" class="">
+                            <button (click)="toggleAccordion(i)"
+                                class="w-full px-4 py-3 text-left hover:cursor-pointer hover:bg-indigo-100 border-2 border-indigo-100 border-solid focus:outline-none transition-colors duration-300 bg-white"
+                                [ngClass]="{'rounded-t-lg': i === 0, 'rounded-b-lg': i === sections.length - 1}">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-medium">{{ section.sectionname }}</span>
+                                    <svg class="w-6 h-6 transform transition-transform duration-200"
+                                        [ngClass]="{'rotate-180': activeIndex === i}" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            </button>
+                            <div *ngIf="activeIndex === i" class="px-4 py-2 bg-indigo-50 transition-all duration-300">
+                                <div (click)="lesson.free || isEnrolled ? playVideo(section._id, j) : null"
+                                    *ngFor="let lesson of section.lessons; let j = index"
+                                    class="flex justify-between p-2 bg-indigo-50 border-2 border-indigo-200 border-solid transition-all duration-300"
+                                    [ngClass]="{'border-t-transparent': j != 0, 'rounded-t-lg': j === 0, 'rounded-b-lg': j === section.lessons.length - 1, 'hover:cursor-pointer hover:bg-indigo-100': lesson.free || isEnrolled}">
+                                    <div>
+                                        <span class="text-lg font-medium">{{ lesson.title }}</span>
+                                    </div>
+                                    <div>
+                                        <lucide-icon *ngIf="!isEnrolled && !lesson.free" name="lock"
+                                            class="my-icon pt-1 mr-1"></lucide-icon>
                                     </div>
                                 </div>
-                            </ng-template>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="border-t border-gray-200 p-4  bg-indigo-50">
-                    <div class="flex">
-                        <div
-                            class="w-full mr-4 px-4 py-4 flex border-none text-sm font-medium bg-indigo-100 text-indigo-400 placeholder:text-indigo-500 rounded-lg">
-                            <input [(ngModel)]="newMessage" type="text" placeholder="Type your message..."
-                                class="w-11/12 border-none text-sm font-medium bg-indigo-100 text-indigo-500 placeholder:text-indigo-500 rounded-full">
-                        </div>
-                        <button (click)="sendMessage()"
-                            class="bg-indigo-400 border-none text-white px-4 pt-2 rounded-full hover:cursor-pointer hover:bg-indigo-500"><lucide-icon
-                                name="send"></lucide-icon></button>
                     </div>
                 </div>
             </div>

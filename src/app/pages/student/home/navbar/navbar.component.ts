@@ -12,9 +12,10 @@ import { Courses } from '../../../../core/models/course';
 })
 export class NavbarComponent {
   searchControl: FormControl = new FormControl('');
-  @Input()isloggedin: boolean = false;
+  // @Input()isloggedin: boolean = false;
   serachResult: Courses[] = [];
   isFocused = false;
+  isLoggedIn: boolean = false;
   
   constructor(
     private _router: Router,
@@ -23,6 +24,9 @@ export class NavbarComponent {
   ) {}
 
   ngOnInit(): void {
+
+    if(localStorage.getItem('refresh_token') != null) this.isLoggedIn = true
+
     this.searchControl.valueChanges.subscribe(value => {
       this.performSearch(value);
     });
@@ -57,7 +61,11 @@ export class NavbarComponent {
   }
 
   navigateToHome() {
-    this._router.navigate(['home']);
+    if(this.isLoggedIn) {
+      this._router.navigate(['home']);
+    } else {
+      this._router.navigate(['']);
+    }
   }
 
   navigateToMyLearnings() {
@@ -71,6 +79,7 @@ export class NavbarComponent {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('refresh_token');
+    localStorage.removeItem('user')
     this._router.navigateByUrl('/');
   }
 

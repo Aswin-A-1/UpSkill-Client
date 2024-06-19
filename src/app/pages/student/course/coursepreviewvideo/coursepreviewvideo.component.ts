@@ -26,10 +26,12 @@ export class CoursepreviewvideoComponent {
   activeIndex: number | null = null;
   sections: SectionDb[] = [];
   isEnrolled: boolean = false;
+  isCompleted: boolean = false;
   @ViewChild('videoPlayer', { static: true }) videoPlayer: any;
   player: any;
   chatmessages: ChatMessage[] = [];
   newMessage: string = '';
+  location: string = 'content';
   @ViewChild('chatContainer') private chatContainer!: ElementRef;
 
   constructor(
@@ -75,19 +77,20 @@ export class CoursepreviewvideoComponent {
         this.currentLesson = this.currentSection?.lessons[this.lessonIndex] || null;
         if (this.currentLesson?.video) {
           this.initVideoPlayer();
+          this.checkCompletion(this.currentLesson._id)
         }
-        this.joinRoom();
-        this.loadMessages();
+        // this.joinRoom();
+        // this.loadMessages();
       }
     })
 
     this.studentId = JSON.parse(localStorage.getItem('user')!)._id
 
 
-    this.chatService.receiveMessage().subscribe((message) => {
-      this.chatmessages.push(message);
-      this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
-    });
+    // this.chatService.receiveMessage().subscribe((message) => {
+    //   this.chatmessages.push(message);
+    //   this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+    // });
 
 
     // this.chatService.hello().subscribe({
@@ -150,6 +153,20 @@ export class CoursepreviewvideoComponent {
         this.isEnrolled = res.isEnrolled
       }
     })
+    
+  }
+
+  checkCompletion(currentlesson: string) {
+    if(this.isEnrolled) {
+      const studentId = JSON.parse(localStorage.getItem('user')!)._id
+      
+      this._service.isCompleted(this.courseId, studentId, currentlesson).subscribe({
+        next: (res) => {
+          this.isCompleted = res.isCompleted
+        }
+      })
+    }
+    
   }
 
   updateVideoSource(videoUrl: string): void {
@@ -200,6 +217,9 @@ export class CoursepreviewvideoComponent {
           }
         }
       }
+      if(this.currentLesson?._id) {
+        this.checkCompletion(this.currentLesson._id)
+      }
     } else {
       if (lessonIndex != this.lessonIndex) {
         this.lessonIndex = lessonIndex;
@@ -215,7 +235,40 @@ export class CoursepreviewvideoComponent {
             this.player.play();
           }
         }
+        if(this.currentLesson?._id) {
+          this.checkCompletion(this.currentLesson._id)
+        }
       }
+    }
+  }
+
+  navigateTo(location: string) {
+    if(location == 'content') {
+      this.location = location
+    } else if (location == 'notes') {
+      this.location = location
+    } else if (location == 'chat') {
+      this.location = location
+      this.chatmessages = []
+      this.joinRoom();
+      this.loadMessages();
+      this.chatService.receiveMessage().subscribe((message) => {
+        this.chatmessages.push(message);
+        // this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+      });
+    }
+  }
+  
+  changeCompletedStatus() {
+    const currentLesson = this.currentLesson?._id
+    const studentId = JSON.parse(localStorage.getItem('user')!)._id
+
+    if(currentLesson && studentId && this.isEnrolled) {
+      this._service.changeCompletionStatus(this.courseId, studentId, currentLesson).subscribe({
+        next: (res) => {
+          this.isCompleted = res.isCompleted
+        }
+      })
     }
   }
 
@@ -232,6 +285,9 @@ export class CoursepreviewvideoComponent {
           this.player.load();
           this.player.play();
         }
+      }
+      if(this.currentLesson?._id) {
+        this.checkCompletion(this.currentLesson._id)
       }
     }
   }

@@ -15,6 +15,7 @@ export class CoursedetailsComponent {
   course!: Course;
   sections: SectionDb[] = []
   isEnrolled: boolean = false
+  isLoggedIn: boolean = false
   
   activeIndex: number | null = null;
 
@@ -43,6 +44,8 @@ export class CoursedetailsComponent {
   
   ngOnInit() {
 
+    if(localStorage.getItem('refresh_token') != null) this.isLoggedIn = true
+
     this._route.queryParams.subscribe(params => {
       this.courseId = params['id'];
       if (this.courseId) {
@@ -59,13 +62,16 @@ export class CoursedetailsComponent {
   }
 
   checkEnrollment() {
-    const studentId = JSON.parse(localStorage.getItem('user')!)._id
-
-    this._service.isEnrolled(this.courseId, studentId).subscribe({
-      next: (res) => {
-        this.isEnrolled = res.isEnrolled
-      }
-    })
+    const studentData = localStorage.getItem('user')
+    if(studentData != null) {
+      const studentId = JSON.parse(studentData)._id
+      this._service.isEnrolled(this.courseId, studentId).subscribe({
+        next: (res) => {
+          this.isEnrolled = res.isEnrolled
+          console.log('enrollement sataus: ', this.isEnrolled)
+        }
+      })
+    }
   }
 
 }
