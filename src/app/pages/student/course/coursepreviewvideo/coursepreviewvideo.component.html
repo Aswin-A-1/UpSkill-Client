@@ -41,24 +41,27 @@
                 </div>
                 <div *ngIf="isEnrolled" class="p-6">
                     <button (click)="changeCompletedStatus()"
-                      class="pt-3 pb-2 px-3 bg-white text-indigo-400 text-xs rounded-full hover:cursor-pointer border-none border-blue-100 hover:bg-indigo-100 hover:text-indigo-400 focus:outline-none">
-                      <lucide-icon *ngIf="isCompleted" name="circle-check-big" class="my-icon"></lucide-icon>
-                      <lucide-icon *ngIf="!isCompleted" name="circle" class="my-icon"></lucide-icon>
+                        class="pt-3 pb-2 px-3 bg-white text-indigo-400 text-xs rounded-full hover:cursor-pointer border-none border-blue-100 hover:bg-indigo-100 hover:text-indigo-400 focus:outline-none">
+                        <lucide-icon *ngIf="isCompleted" name="circle-check-big" class="my-icon"></lucide-icon>
+                        <lucide-icon *ngIf="!isCompleted" name="circle" class="my-icon"></lucide-icon>
                     </button>
                 </div>
             </div>
 
             <div>
                 <nav class="py-4 px-10 flex">
-                    <a (click)="navigateTo('content')" [ngClass]="{'text-indigo-600': location == 'content' && isEnrolled}"
+                    <a (click)="navigateTo('content')"
+                        [ngClass]="{'text-indigo-600': location == 'content' && isEnrolled}"
                         class="flex items-center rounded-md mt-4 mx-2 p-2 no-underline text-indigo-600 hover:cursor-pointer hover:bg-indigo-100 hover:text-indigo-600">
                         <span class="mx-3 text-lg font-semibold">Content</span>
                     </a>
-                    <a *ngIf="isEnrolled" (click)="navigateTo('chat')" [ngClass]="{'text-indigo-600': location == 'chat' && isEnrolled}"
+                    <a *ngIf="isEnrolled" (click)="navigateTo('chat')"
+                        [ngClass]="{'text-indigo-600': location == 'chat' && isEnrolled}"
                         class="flex items-center rounded-md mt-4 mx-2 p-2 no-underline text-indigo-600 hover:cursor-pointer hover:bg-indigo-100 hover:text-indigo-600">
                         <span class="mx-3 text-lg font-semibold">Chat</span>
                     </a>
-                    <a *ngIf="isEnrolled" (click)="navigateTo('notes')" [ngClass]="{'text-indigo-600': location == 'notes' && isEnrolled}"
+                    <a *ngIf="isEnrolled" (click)="navigateTo('notes')"
+                        [ngClass]="{'text-indigo-600': location == 'notes' && isEnrolled}"
                         class="flex items-center rounded-md mt-4 mx-2 p-2 no-underline text-indigo-600 hover:cursor-pointer hover:bg-indigo-100 hover:text-indigo-600">
                         <span class="mx-3 text-lg font-semibold">Notes</span>
                     </a>
@@ -139,6 +142,7 @@
             <div class="w-full mx-auto mt-10">
             </div>
         </div>
+
 
         <!-- List of Sections and Lessons -->
         <div

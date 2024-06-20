@@ -45,6 +45,7 @@ export interface Course {
   instructorid: {
     $oid: string;
   };
+  lessoncount: number,
   isBlocked: boolean;
   isActive: boolean;
   __v: number;

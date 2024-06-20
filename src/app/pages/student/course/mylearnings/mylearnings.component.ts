@@ -1,17 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CustomToastService } from '../../../../core/services/customtoast.service';
 import { Router } from '@angular/router';
 import { StudentHomeService } from '../../../../core/services/student/home/studenthome.service';
-import { Courses } from '../../../../core/models/course';
+import { Courses, CoursesWithCompletion } from '../../../../core/models/course';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-mylearnings',
   templateUrl: './mylearnings.component.html',
-  styleUrl: './mylearnings.component.css'
+  styleUrls: ['./mylearnings.component.css']
 })
 export class MylearningsComponent {
-  mycourses: Courses[] = [];
+  @ViewChild('certificate', { static: false }) certificateElement!: ElementRef;
+  mycourses: CoursesWithCompletion[] = [];
   courses: Courses[] = [];
+  completedCourse: string | null = null;
+  courseInstructor: string | null = null;
+  student: string = JSON.parse(localStorage.getItem('user')!).username;
   
   constructor(
     private _router: Router,
@@ -20,25 +26,54 @@ export class MylearningsComponent {
   ) { }
 
   ngOnInit() {
-
     this._service.getCourses().subscribe({
       next: (res) => {
         if (res) {
-          this.courses = res.courses
+          this.courses = res.courses;
         }
       }
-    })
+    });
 
-    const studentId = JSON.parse(localStorage.getItem('user')!)._id
+    const studentId = JSON.parse(localStorage.getItem('user')!)._id;
 
     this._service.getMyCourse(studentId).subscribe({
       next: (res) => {
         if (res) {
-          this.mycourses = res.courses
+          this.mycourses = res.coursesWithCompletion;
         }
       }
-    })
+    });
+  }
 
+  generatePDF(courseId: string) {
+    this._service.getCourse(courseId).subscribe({
+      next: (res) => {
+        if (res) {
+          console.log('get response')
+          this.completedCourse = res.course.coursename;
+          this.courseInstructor = res.instructor;
+
+          // Generate the PDF
+          setTimeout(() => {
+            const certificate = this.certificateElement.nativeElement;
+            html2canvas(certificate).then(canvas => {
+              const imgData = canvas.toDataURL('image/png');
+              const pdf = new jsPDF({
+                orientation: 'landscape',
+                unit: 'px',
+                format: [canvas.width, canvas.height]
+              });
+              pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+              pdf.save('certificate.pdf');
+
+              // Reset the values
+              this.completedCourse = null;
+              this.courseInstructor = null;
+            });
+          }, 0);
+        }
+      }
+    });
   }
 
   learn(courseId: string, courseIndex: number) {

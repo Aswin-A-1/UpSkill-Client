@@ -14,8 +14,25 @@ export interface Courses {
     thumbnailimage: string;
     sections: string[];
     instructorid: string,
+    lessoncount: number,
     isBlocked: boolean;
     isActive: boolean;
+    __v: number;
+    _id: string;
+}
+
+export interface CoursesWithCompletion {
+    coursename: string;
+    description: string;
+    category: string,
+    price: number;
+    thumbnailimage: string;
+    sections: string[];
+    instructorid: string,
+    lessoncount: number,
+    isBlocked: boolean;
+    isActive: boolean;
+    completionPercentage: number;
     __v: number;
     _id: string;
 }

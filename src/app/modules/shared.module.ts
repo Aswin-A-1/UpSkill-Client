@@ -8,9 +8,13 @@ import { MessagesModule } from 'primeng/messages';
 import { InputOtpModule } from 'primeng/inputotp';
 import { TableModule } from 'primeng/table';
 import { RatingModule } from 'primeng/rating';
-import { LucideAngularModule, Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Search, ShoppingCart, Heart, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause, Book, MessageSquareText, Send, Circle, CircleCheckBig } from 'lucide-angular';
+import { LucideAngularModule, Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Search, ShoppingCart, Heart, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause, Book, MessageSquareText, Send, Circle, CircleCheckBig, ArrowDownToLine } from 'lucide-angular';
+import { CapitalizePipe } from "../core/pipes/capitialize.pipe";
 
 @NgModule({
+    declarations: [
+        CapitalizePipe,
+    ],
     imports : [
         FormsModule,
         CommonModule,
@@ -22,7 +26,7 @@ import { LucideAngularModule, Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Searc
         InputOtpModule,
         TableModule,
         RatingModule,
-        LucideAngularModule.pick({Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Search, ShoppingCart, Heart, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause, Book, MessageSquareText, Send, Circle, CircleCheckBig})
+        LucideAngularModule.pick({Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Search, ShoppingCart, Heart, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause, Book, MessageSquareText, Send, Circle, CircleCheckBig, ArrowDownToLine})
     ],
     exports : [
         FormsModule,
@@ -35,7 +39,8 @@ import { LucideAngularModule, Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Searc
         InputOtpModule,
         TableModule,
         RatingModule,
-        LucideAngularModule
+        LucideAngularModule,
+        CapitalizePipe,
     ],
   
 })
