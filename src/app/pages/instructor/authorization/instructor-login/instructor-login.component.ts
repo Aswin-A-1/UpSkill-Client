@@ -3,6 +3,7 @@ import { CustomToastService } from '../../../../core/services/customtoast.servic
 import { loginCredentials } from '../../../../core/models/auth';
 import { AuthService } from '../../../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { ErrorResponse, InsturcorLoginSuccessResponse } from '../../../../core/models/instructor_response.model';
 
 @Component({
   selector: 'app-instructor-login',
@@ -19,7 +20,7 @@ export class InstructorLoginComponent {
 
   onSubmitClick(userData: loginCredentials) {
     this._service.instructorLogin(userData).subscribe({
-      next: (successResponse: any) => {
+      next: (successResponse: InsturcorLoginSuccessResponse) => {
         if (successResponse.message) {
           sessionStorage.setItem('instructor_token', successResponse.token)
           localStorage.setItem('instructor_token', successResponse.token);
@@ -28,7 +29,7 @@ export class InstructorLoginComponent {
           this.router.navigate(['instructor/courses']);
         }
       },
-      error: (error: any) => {
+      error: (error: ErrorResponse) => {
         this._customToastService.setToast('error', error.error.message);
       }
     });

@@ -8,8 +8,12 @@ import { MessagesModule } from 'primeng/messages';
 import { InputOtpModule } from 'primeng/inputotp';
 import { TableModule } from 'primeng/table';
 import { RatingModule } from 'primeng/rating';
-import { LucideAngularModule, Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Search, ShoppingCart, Heart, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause, Book, MessageSquareText, Send, Circle, CircleCheckBig, ArrowDownToLine } from 'lucide-angular';
+import { LucideAngularModule, Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Search, ShoppingCart, Heart, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause, Book, MessageSquareText, Send, Circle, CircleCheckBig, ArrowDownToLine, IndianRupee, UsersRound, TrendingUp, ChevronLeft, ChevronRight } from 'lucide-angular';
 import { CapitalizePipe } from "../core/pipes/capitialize.pipe";
+import { BaseChartDirective } from 'ng2-charts';
+import { ChartModule } from 'primeng/chart';
+// import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 
 @NgModule({
     declarations: [
@@ -26,7 +30,9 @@ import { CapitalizePipe } from "../core/pipes/capitialize.pipe";
         InputOtpModule,
         TableModule,
         RatingModule,
-        LucideAngularModule.pick({Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Search, ShoppingCart, Heart, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause, Book, MessageSquareText, Send, Circle, CircleCheckBig, ArrowDownToLine})
+        BaseChartDirective,
+        ChartModule,
+        LucideAngularModule.pick({Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Search, ShoppingCart, Heart, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause, Book, MessageSquareText, Send, Circle, CircleCheckBig, ArrowDownToLine, IndianRupee, UsersRound, TrendingUp, ChevronLeft, ChevronRight})
     ],
     exports : [
         FormsModule,
@@ -39,6 +45,8 @@ import { CapitalizePipe } from "../core/pipes/capitialize.pipe";
         InputOtpModule,
         TableModule,
         RatingModule,
+        BaseChartDirective,
+        ChartModule,
         LucideAngularModule,
         CapitalizePipe,
     ],

@@ -4,6 +4,7 @@ import { Observable, of } from "rxjs";
 import { environment } from "../../../../../environments/environment";
 import { loginCredentials } from "../../../models/auth";
 import { CustomToastService } from "../../customtoast.service";
+import { AdminManageStudentResponse } from "../../../models/admin_response.model";
 
 const BASE_URL = environment.BASE_URL
 
@@ -22,8 +23,8 @@ export class AdminStudentService {
         return this.http.get(`${BASE_URL}/admin/getStudent`);
     }
 
-    manageStudents(userid: string): Observable<any> {
-        return this.http.put(`${BASE_URL}/admin/manageStudent/${userid}`, {});
+    manageStudents(userid: string): Observable<AdminManageStudentResponse> {
+        return this.http.put<AdminManageStudentResponse>(`${BASE_URL}/admin/manageStudent/${userid}`, {});
     }
 
     // userLogin(requestBody: loginCredentials): Observable<any> {

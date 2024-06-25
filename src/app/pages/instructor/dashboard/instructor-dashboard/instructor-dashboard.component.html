@@ -1,1 +1,58 @@
-<h2 class="text-2xl font-semibold text-indigo-600">Dashboard</h2>
+<div>
+    <div class="overflow-y-auto px-4 py-4 bg-white flex flex-col min-h-screen">
+        <!-- <div class="p-0">
+            <h2 class="text-2xl font-semibold text-indigo-600">Dashboard</h2>
+        </div> -->
+
+        <div class="grid gap-7 lg:grid-cols-3">
+            <div class="p-5 bg-gray-50 flex rounded shadow-sm">
+                <div
+                    class="bg-green-100 px-4 pt-1 flex justify-between items-center text-green-400 text-xs rounded-full hover:cursor-pointer border-none border-blue-100">
+                    <lucide-icon name="indian-rupee" class="my-icon"></lucide-icon>
+                </div>
+                <div class="flex flex-col pl-6">
+                    <div class="text-base text-gray-400 ">Total Revanue</div>
+                    <div class="flex items-center pt-1">
+                        <div class="text-xl font-bold text-gray-900 ">₹ {{ totalRevenue }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-5 bg-gray-50 flex rounded shadow-sm">
+                <div
+                    class="bg-rose-100 px-4 pt-1 flex justify-between items-center text-rose-400 text-xs rounded-full hover:cursor-pointer border-none border-blue-100">
+                    <lucide-icon name="trending-up" class="my-icon"></lucide-icon>
+                </div>
+                <div class="flex flex-col pl-6">
+                    <div class="text-base text-gray-400 ">Trending Course</div>
+                    <div class="flex items-center pt-1">
+                        <div class="text-xl font-bold text-gray-900 ">{{ trendingCourse }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-5 bg-gray-50 flex rounded shadow-sm">
+                <div
+                    class="bg-indigo-100 px-4 pt-1 flex justify-between items-center text-indigo-400 text-xs rounded-full hover:cursor-pointer border-none border-blue-100">
+                    <lucide-icon name="users-round" class="my-icon"></lucide-icon>
+                </div>
+                <div class="flex flex-col pl-6">
+                    <div class="text-base text-gray-400 ">Total Students</div>
+                    <div class="flex items-center pt-1">
+                        <div class="text-xl font-bold text-gray-900 ">{{ totalStudents }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex mt-12">
+            <!-- Overall Chart -->
+            <div class="card w-full lg:w-1/2 p-4">
+              <p-chart class="h-80" type="line" [data]="overallData" [options]="options"></p-chart>
+            </div>
+            <!-- Individual Course Chart -->
+            <div class="card w-full lg:w-1/2 p-4">
+              <p-chart class="h-80" type="line" [data]="individualData" [options]="options"></p-chart>
+            </div>
+        </div>
+    </div>
+
+</div>

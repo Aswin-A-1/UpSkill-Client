@@ -37,6 +37,21 @@
           </div>
         </ng-template>
       </div>
+      <div *ngFor="let chatmessage of unreadmessages" [ngClass]="{'justify-end': chatmessage.senderId === instructorId}"
+        class="flex mb-2">
+        <div *ngIf="chatmessage.senderId === instructorId; else otherMessage"
+          class="bg-white shadow rounded-lg rounded-tr-sm py-1 pl-4 min-w-16 max-w-lg text-gray-800 break-words">
+          <span class="pr-4">{{ chatmessage.message }}</span>
+          <div class="text-end text-xxs mr-1 text-gray-500 mt-1">{{ chatmessage.timestamp | date:'shortTime' }}</div>
+        </div>
+        <ng-template #otherMessage>
+          <div class="bg-indigo-700 text-white shadow rounded-lg rounded-tl-sm py-1 pl-2 min-w-16 max-w-lg break-words">
+            <span class="pr-4">{{ chatmessage.message }}</span>
+            <div class="text-end text-xxs mr-2 text-indigo-200 mt-1">{{ chatmessage.timestamp | date:'shortTime' }}
+            </div>
+          </div>
+        </ng-template>
+      </div>
 
     </div>
     <div class="border-t border-gray-200 p-4 bg-indigo-50">

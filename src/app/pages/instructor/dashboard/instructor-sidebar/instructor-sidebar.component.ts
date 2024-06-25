@@ -8,9 +8,20 @@ import { Router } from '@angular/router';
 })
 export class InstructorSidebarComponent {
 
+  isSidebarOpen = false;
+
+
   constructor(
     private _router: Router,
   ) {}
+
+
+    
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
   
   logout() {
     localStorage.removeItem('instructor_token');

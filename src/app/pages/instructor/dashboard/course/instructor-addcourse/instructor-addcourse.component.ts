@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { InstructorCourseService } from '../../../../../core/services/instructor/course/instructorcourse.service';
 import { CustomToastService } from '../../../../../core/services/customtoast.service';
 import { Category } from '../../../../../core/models/student';
+import { InsturcorAddCourseResponse } from '../../../../../core/models/instructor_response.model';
 
 @Component({
   selector: 'app-instructor-addcourse',
@@ -104,12 +105,12 @@ export class InstructorAddcourseComponent {
       let instructor_id = JSON.parse(localStorage.getItem('instructor')!)
       if(instructor_id) {
         this._service.addCourseDetails(this.courseForm.value, this.file,  instructor_id._id).subscribe({
-          next: (successResponse: any) => {
+          next: (successResponse: InsturcorAddCourseResponse) => {
             if (successResponse.message) {
               this._customToastService.setToastAndNavigateWithQueryparams('success', successResponse.message, 'instructor/courses/addsection', successResponse.courseId);
             }
           },
-          error: (error: any) => {
+          error: (error) => {
             this._customToastService.setToast('error', error.error.error);
           }
         });

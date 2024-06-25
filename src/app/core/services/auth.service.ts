@@ -4,6 +4,10 @@ import { SignUpCredentials, loginCredentials } from "../models/auth";
 import { Observable, of } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { CustomToastService } from "./customtoast.service";
+import { StudentLoginSuccessResponse, StudentRefreshTokenResponse, StudentRegisterResponse } from "../models/student_response.model";
+import { InstructorRegisterResponse, InsturcorLoginSuccessResponse } from "../models/instructor_response.model";
+import { AdminLoginSuccessResponse } from "../models/admin_response.model";
+import { MessageResponse } from "../models/response.model";
 
 const BASE_URL = environment.BASE_URL
 const GOOGLE_URL = environment.GOOGLE_URL
@@ -20,12 +24,12 @@ export class AuthService {
         private customToastServices: CustomToastService
     ) { }
 
-    userRegister(requestBody: SignUpCredentials): Observable<any> {
-        return this.http.post(`${BASE_URL}/student/signup`, requestBody)
+    userRegister(requestBody: SignUpCredentials): Observable<StudentRegisterResponse> {
+        return this.http.post<StudentRegisterResponse>(`${BASE_URL}/student/signup`, requestBody)
     }
 
-    instructorRegister(requestBody: SignUpCredentials): Observable<any> {
-        return this.http.post(`${BASE_URL}/instructor/signup`, requestBody)
+    instructorRegister(requestBody: SignUpCredentials): Observable<InstructorRegisterResponse> {
+        return this.http.post<InstructorRegisterResponse>(`${BASE_URL}/instructor/signup`, requestBody)
     }
 
     // googleAuth(): Observable<any>{
@@ -46,38 +50,38 @@ export class AuthService {
         return this.http.get(`${GOOGLE_URL}auth/google`);
     }
 
-    userLogin(requestBody: loginCredentials): Observable<any> {
-        return this.http.post(`${BASE_URL}/student/login`, requestBody)
+    userLogin(requestBody: loginCredentials): Observable<StudentLoginSuccessResponse> {
+        return this.http.post<StudentLoginSuccessResponse>(`${BASE_URL}/student/login`, requestBody)
     }
 
-    instructorLogin(requestBody: loginCredentials): Observable<any> {
-        return this.http.post(`${BASE_URL}/instructor/login`, requestBody)
+    instructorLogin(requestBody: loginCredentials): Observable<InsturcorLoginSuccessResponse> {
+        return this.http.post<InsturcorLoginSuccessResponse>(`${BASE_URL}/instructor/login`, requestBody)
     }
 
-    adminLogin(requestBody: loginCredentials): Observable<any> {
-        return this.http.post(`${BASE_URL}/admin/login`, requestBody)
+    adminLogin(requestBody: loginCredentials): Observable<AdminLoginSuccessResponse> {
+        return this.http.post<AdminLoginSuccessResponse>(`${BASE_URL}/admin/login`, requestBody)
     }
 
-    veriftOtp(userData: string, otp: number): Observable<any> {
+    veriftOtp(userData: string, otp: number): Observable<MessageResponse> {
         const requestBody = { userData: userData, enteredOtp: otp };
-        return this.http.post(`${BASE_URL}/student/signup/verify-otp`, requestBody)
+        return this.http.post<MessageResponse>(`${BASE_URL}/student/signup/verify-otp`, requestBody)
     }
 
-    verifyinstructortOtp(userData: string, otp: number): Observable<any> {
+    verifyinstructortOtp(userData: string, otp: number): Observable<MessageResponse> {
         const requestBody = { userData: userData, enteredOtp: otp };
-        return this.http.post(`${BASE_URL}/instructor/signup/verify-otp`, requestBody)
+        return this.http.post<MessageResponse>(`${BASE_URL}/instructor/signup/verify-otp`, requestBody)
     }
 
-    resendOtp(requestBody: SignUpCredentials): Observable<any> {
-        return this.http.post(`${BASE_URL}/student/signup/resend-otp`, requestBody)
+    resendOtp(requestBody: SignUpCredentials): Observable<StudentRegisterResponse> {
+        return this.http.post<StudentRegisterResponse>(`${BASE_URL}/student/signup/resend-otp`, requestBody)
     }
 
-    refreshToken(refreshToken: string): Observable<any> {
+    refreshToken(refreshToken: string): Observable<StudentRefreshTokenResponse> {
         const requestBody = { refreshToken };
-        return this.http.post(`${BASE_URL}/student/refresh-token`, requestBody)
+        return this.http.post<StudentRefreshTokenResponse>(`${BASE_URL}/student/refresh-token`, requestBody)
     }
 
-    test(requestBody: any): Observable<any> {
-        return this.http.post(`${BASE_URL}/student/test`, requestBody)
-    }
+    // test(requestBody: any): Observable<any> {
+    //     return this.http.post(`${BASE_URL}/student/test`, requestBody)
+    // }
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "../../../../../environments/environment";
@@ -29,8 +29,11 @@ export class InstructorCourseService {
         return this.http.post(`${BASE_URL}/instructor/coursedetails`, formData);
     }
 
-    getCourses(instructorid: string): Observable<any> {
-        return this.http.get(`${BASE_URL}/instructor/getcourse/${instructorid}`);
+    getCourses(instructorid: string, page: number, limit: number): Observable<any> {
+        const params = new HttpParams()
+        .set('page', page.toString())
+        .set('limit', limit.toString());
+        return this.http.get(`${BASE_URL}/instructor/getcourse/${instructorid}`, { params });
     }
 
     getCategory(): Observable<any> {
@@ -56,7 +59,7 @@ export class InstructorCourseService {
 
     editLesson(title: string, description: string, free: boolean, sectionId: string, lessonIndex: number): Observable<any> {
         const requestBody = { title: title, description: description,  free: free, sectionId: sectionId, lessonIndex: lessonIndex };
-        return this.http.post(`${BASE_URL}/instructor/editlesson`, requestBody);
+        return this.http.put(`${BASE_URL}/instructor/editlesson`, requestBody);
     }
 
     editLessonWithVideo(title: string, description: string, free: string, videofile: File, sectionId: string, lessonIndex: number): Observable<any> {
@@ -82,17 +85,29 @@ export class InstructorCourseService {
 
     editSection(title: string, description: string, sectionId: string): Observable<any> {
         const requestBody = { title: title, description: description, sectionId: sectionId };
-        return this.http.post(`${BASE_URL}/instructor/editsection`, requestBody);
+        return this.http.put(`${BASE_URL}/instructor/editsection`, requestBody);
     }
 
     deleteSection(sectionId: string, courseId: string): Observable<any> {
         const requestBody = { sectionId: sectionId, courseId: courseId };
-        return this.http.post(`${BASE_URL}/instructor/deletesection`, requestBody);
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            }),
+            body: requestBody
+        };
+        return this.http.delete(`${BASE_URL}/instructor/deletesection`, options);
     }
 
     deleteLesson(sectionId: string, lessonIndex: number): Observable<any> {
         const requestBody = { sectionId: sectionId, lessonIndex: lessonIndex };
-        return this.http.post(`${BASE_URL}/instructor/deletelesson`, requestBody);
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            }),
+            body: requestBody
+        };
+        return this.http.delete(`${BASE_URL}/instructor/deletelesson`, options);
     }
 
     getSection(courseId: string): Observable<any> {
@@ -101,5 +116,9 @@ export class InstructorCourseService {
 
     getStudents(instructorId: string): Observable<any> {
         return this.http.get(`${BASE_URL}/instructor/getstudents/${instructorId}`);
+    }
+    
+    getDashboardData(instructorId: string): Observable<any> {
+        return this.http.get(`${BASE_URL}/instructor/getdashboarddata/${instructorId}`);
     }
 }

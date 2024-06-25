@@ -16,6 +16,7 @@ export class InstructorstudentmessagesComponent {
   selectedStudentId!: string;
   students: Student[] = [];
   chatmessages: ChatMessage[] = [];
+  unreadmessages: ChatMessage[] = [];
   currentRoomId!: string;
   @ViewChild('chatContainer') private chatContainer!: ElementRef;
 
@@ -33,7 +34,8 @@ export class InstructorstudentmessagesComponent {
         if (res) {
           this.students = res.students
           this.selectedStudentId = res.students[0]._id
-          this.joinRoom(this.selectedStudentId);
+          // this.joinRoom(this.selectedStudentId);
+          this.joinAllRooms();
           this.loadMessages();
         }
       }
@@ -44,7 +46,8 @@ export class InstructorstudentmessagesComponent {
 
 
     this.chatService.receiveMessage().subscribe((message) => {
-      this.chatmessages.push(message);
+      // this.chatmessages.push(message);
+      this.unreadmessages.push(message);
       this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
     });
   }
@@ -68,6 +71,13 @@ export class InstructorstudentmessagesComponent {
     this.loadMessages();
   }
 
+  joinAllRooms() {
+    this.students.forEach(student => {
+      const roomId = this.getRoomId(student._id, this.instructorId);
+      this.chatService.joinRoom(roomId);
+    });
+  }
+
   loadMessages() {
     this.chatService.getMessages(this.selectedStudentId, this.instructorId).subscribe({
       next: (res) => {
@@ -86,7 +96,8 @@ export class InstructorstudentmessagesComponent {
         _id: ''
       };
       this.chatService.sendMessage(this.instructorId, this.selectedStudentId, this.newMessage);
-      this.chatmessages.push(newMessageObject);
+      // this.chatmessages.push(newMessageObject);
+      this.unreadmessages.push(newMessageObject);
       this.newMessage = '';
       this.chatContainer.nativeElement.scrollHeight = this.chatContainer.nativeElement.scrollHeight;
     }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CustomToastService } from '../../../../../core/services/customtoast.service';
 import { InstructorCourseService } from '../../../../../core/services/instructor/course/instructorcourse.service';
 import { Courses } from '../../../../../core/models/course';
+import { InsturcorCoutsesResponse } from '../../../../../core/models/instructor_response.model';
 
 @Component({
   selector: 'app-instructor-courselist',
@@ -13,6 +14,9 @@ export class InstructorCourselistComponent {
   courses: Courses[] = [];
   isDropdownOpen: { [key: string]: boolean } = {};
   lastOpenedDropdown: string = '';
+  currentPage = 1;
+  itemsPerPage = 2;
+  totalPages = 0;
 
   constructor(
     private _router: Router,
@@ -21,24 +25,27 @@ export class InstructorCourselistComponent {
   ) { }
 
   ngOnInit(): void {
+    this.fetchCourses();
+  }
+
+  async fetchCourses() {
     const instructor = JSON.parse(localStorage.getItem('instructor')!)
-    this._service.getCourses(instructor._id).subscribe({
-      next: (res) => {
+    this._service.getCourses(instructor._id, this.currentPage, this.itemsPerPage).subscribe({
+      next: (res: InsturcorCoutsesResponse) => {
         if (res) {
           this.courses = res.courses
+          this.totalPages = Math.ceil(res.totalcount / this.itemsPerPage);
         }
       }
     })
   }
 
   edit(id: string) {
-    console.log('id to edit: ', id)
   }
   addSection(id: string) {
     this._router.navigate(['instructor/courses/addsection'], { queryParams: { id: id } });
   }
   deletecourse(id: string) {
-    console.log('id to delete: ', id)
   }
 
   toggleDropdown(courseId: any, event: MouseEvent) {
@@ -70,5 +77,19 @@ export class InstructorCourselistComponent {
 
   navigateToAddCourse() {
     this._router.navigate(['instructor/courses/addcourse']);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.fetchCourses();
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.fetchCourses();
+    }
   }
 }

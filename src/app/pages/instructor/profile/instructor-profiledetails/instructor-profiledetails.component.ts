@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Instructor } from '../../../../core/models/student';
 import { FormControl, FormGroup } from '@angular/forms';
 import { InstructorProfileService } from '../../../../core/services/instructor/profile/instructorprofile.service';
+import { InsturcorProfileDetails } from '../../../../core/models/instructor_response.model';
+import { Instructor } from '../../../../core/models/instructor.model';
 
 @Component({
   selector: 'app-instructor-profiledetails',
@@ -21,7 +22,7 @@ export class InstructorProfiledetailsComponent {
   ngOnInit(): void {
     const instructorId = JSON.parse(localStorage.getItem('instructor')!)._id
     this._service.getInstructor(instructorId).subscribe({
-      next: (res) => {
+      next: (res: InsturcorProfileDetails) => {
         if (res) {
           this.instructor = res.instructor
         }

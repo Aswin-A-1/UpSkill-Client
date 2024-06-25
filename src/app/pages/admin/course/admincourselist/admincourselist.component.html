@@ -53,9 +53,9 @@
               <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                 Status
               </th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+              <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
                 Action
-              </th>
+              </th> -->
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
@@ -84,7 +84,7 @@
                 <span *ngIf="course.isBlocked"
                   class="bg-red-100 text-red-500 text-xs font-medium me-2 px-2.5 py-0.5 rounded">BLOCKED</span>
               </td>
-              <td class="px-6 py-3 whitespace-pre-wrap flex">
+              <!-- <td class="px-6 py-3 whitespace-pre-wrap flex">
                 <div class="relative">
                   <button id="dropdownDefaultButton{{i+1}}" type="button"
                     class="bg-white hover:bg-indigo-100 hover:cursor-pointer border-none focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2">
@@ -95,7 +95,7 @@
                       <circle cx="2" cy="14" r="2" fill="currentColor" class="text-gray-500" />
                     </svg>
                     <span class="sr-only">Icon description</span>
-                  </button>
+                  </button> -->
                   <!-- <div id="dropdown{{i+1}}"
                                         class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-10 border-2 border-solid border-indigo-100">
                                         <div class="m-1 rounded-sm hover:bg-indigo-100 flex flex-row hover:cursor-pointer">
@@ -111,10 +111,10 @@
                                             <a (click)="$event.preventDefault()" class="block px-4 py-2 text-sm text-indigo-600">Delete</a>
                                         </div>
                                     </div> -->
-                </div>
+                <!-- </div> -->
                 <!-- <button *ngIf="course.isBlocked" type="button" class="px-3 py-2 text-sm font-medium text-center cursor-pointer text-white bg-green-500 rounded-lg border-none hover:bg-green-600 focus:ring-4 focus:outline-none">Unblock</button>
                                         <button *ngIf="!course.isBlocked" type="button" class="px-3 py-2 text-sm font-medium text-center cursor-pointer text-white bg-red-500 rounded-lg border-none hover:bg-red-600 focus:ring-4 focus:outline-none">Block</button> -->
-              </td>
+              <!-- </td> -->
 
             </tr>
           </tbody>
