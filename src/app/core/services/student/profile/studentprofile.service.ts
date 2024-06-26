@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { environment } from "../../../../../environments/environment";
 import { CustomToastService } from "../../customtoast.service";
 import { CourseDetails, Sections } from "../../../models/course";
+import { StudentProfileResponse } from "../../../models/student_response.model";
 
 const BASE_URL = environment.BASE_URL
 
@@ -18,7 +19,7 @@ export class StudentProfileService {
         private customToastServices: CustomToastService
     ) { }
 
-    getStudent(studentId: string): Observable<any> {
-        return this.http.get(`${BASE_URL}/student/getprofile/${studentId}`);
+    getStudent(studentId: string): Observable<StudentProfileResponse> {
+        return this.http.get<StudentProfileResponse>(`${BASE_URL}/student/getprofile/${studentId}`);
     }
 }

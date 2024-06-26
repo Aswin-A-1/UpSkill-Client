@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { environment } from "../../../../../environments/environment";
+import { StudentCourseWithCompletionResponse, StudentCoursesResponse, StudentIsCompletedResponse, StudentIsEnrolledResponse } from "../../../models/student_response.model";
 
 const BASE_URL = environment.BASE_URL
 
@@ -16,35 +17,35 @@ export class StudentHomeService {
         private http: HttpClient,
     ) { }
 
-    search(query: string): Observable<any> {
-        return this.http.post(`${BASE_URL}/student/search`, { query } );
+    search(query: string): Observable<StudentCoursesResponse> {
+        return this.http.post<StudentCoursesResponse>(`${BASE_URL}/student/search`, { query } );
     }
 
-    isEnrolled(courseId: string, studentId: string): Observable<any> {
-        return this.http.post(`${BASE_URL}/student/isenrolled`, { courseId, studentId });
+    isEnrolled(courseId: string, studentId: string): Observable<StudentIsEnrolledResponse> {
+        return this.http.post<StudentIsEnrolledResponse>(`${BASE_URL}/student/isenrolled`, { courseId, studentId });
     }
 
-    isCompleted(courseId: string, studentId: string, lessonId: string): Observable<any> {
-        return this.http.post(`${BASE_URL}/student/iscompleted`, { courseId, studentId, lessonId });
+    isCompleted(courseId: string, studentId: string, lessonId: string): Observable<StudentIsCompletedResponse> {
+        return this.http.post<StudentIsCompletedResponse>(`${BASE_URL}/student/iscompleted`, { courseId, studentId, lessonId });
     }
 
-    changeCompletionStatus(courseId: string, studentId: string, lessonId: string): Observable<any> {
-        return this.http.post(`${BASE_URL}/student/changecompletion`, { courseId, studentId, lessonId });
+    changeCompletionStatus(courseId: string, studentId: string, lessonId: string): Observable<StudentIsCompletedResponse> {
+        return this.http.post<StudentIsCompletedResponse>(`${BASE_URL}/student/changecompletion`, { courseId, studentId, lessonId });
     }
 
-    getCourses(): Observable<any> {
-        return this.http.get(`${BASE_URL}/student/getcourses`);
+    getCourses(): Observable<StudentCoursesResponse> {
+        return this.http.get<StudentCoursesResponse>(`${BASE_URL}/student/getcourses`);
     }
 
-    getCoursesOutside(): Observable<any> {
-        return this.http.get(`${BASE_URL}/student/getcoursesoutside`);
+    getCoursesOutside(): Observable<StudentCoursesResponse> {
+        return this.http.get<StudentCoursesResponse>(`${BASE_URL}/student/getcoursesoutside`);
     }
 
     getCourse(courseId: string): Observable<any> {
         return this.http.post(`${BASE_URL}/student/getcourse`, { courseId });
     }
 
-    getMyCourse(userId: string): Observable<any> {
-        return this.http.post(`${BASE_URL}/student/getmycourse`, { userId });
+    getMyCourse(userId: string): Observable<StudentCourseWithCompletionResponse> {
+        return this.http.post<StudentCourseWithCompletionResponse>(`${BASE_URL}/student/getmycourse`, { userId });
     }
 }
