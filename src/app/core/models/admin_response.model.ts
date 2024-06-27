@@ -33,6 +33,12 @@ export interface AdminAddCategoryResponse {
     newCategory: Category;
 }
 
+export interface CourseCompletion {
+    courseName: string;
+    completionRate: number;
+}
+
+
 export interface AdminDashboardDataResponse {
     message: string;
     totalRevenue: number;
@@ -40,4 +46,6 @@ export interface AdminDashboardDataResponse {
     trendingCourse: string;
     monthlyEnrollments: { [key: string]: number };
     individualCourseMonthlyEnrollments: { [key: string]: { [key: string]: number } };
+    revenuePerCourse: { [key: string]: number };
+    courseCompletionRates: { [key: string]: number };
 }

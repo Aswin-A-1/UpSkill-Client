@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AdminCourseService } from '../../../core/services/admin/course/admincourse.service';
+import { CourseCompletion } from '../../../core/models/admin_response.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,13 +11,15 @@ export class DashboardComponent {
 
   overallData: any;
   individualData: any;
+  revenueData: any; 
   options: any;
   totalRevenue: number = 0;
   totalStudents: number = 0;
   trendingCourse: string = 'No course';
   monthlyEnrollments: { [key: string]: number } = {};
   individualCourseMonthlyEnrollments: { [key: string]: { [key: string]: number } } = {};
-
+  revenuePerCourse: { [key: string]: number } = {}
+  courseCompletionRates: CourseCompletion[] | null = null
   constructor(
     private courseService: AdminCourseService,
   ) {}
@@ -32,6 +35,11 @@ export class DashboardComponent {
           this.trendingCourse = res.trendingCourse;
           this.monthlyEnrollments = res.monthlyEnrollments;
           this.individualCourseMonthlyEnrollments = res.individualCourseMonthlyEnrollments;
+          this.revenuePerCourse = res.revenuePerCourse;
+          this.courseCompletionRates = Object.keys(res.courseCompletionRates).map(courseName => ({
+            courseName: courseName,
+            completionRate: res.courseCompletionRates[courseName]
+          }));
           this.setupChartData();
         }
       }
@@ -82,6 +90,7 @@ export class DashboardComponent {
     const colors = ['--blue-500', '--green-500', '--pink-500', '--orange-500', '--purple-500'];
 
     const overallLabels = Object.keys(this.monthlyEnrollments).sort();
+    const revenuePerCourseLabels = Object.keys(this.revenuePerCourse).sort();
     const overallDataPoints = overallLabels.map(label => this.monthlyEnrollments[label]);
 
     this.overallData = {
@@ -120,6 +129,36 @@ export class DashboardComponent {
       labels: overallLabels,
       datasets
     };
+
+    const revenueDataPoints = revenuePerCourseLabels.map(label => this.revenuePerCourse[label]);
+    const revenueColors = revenuePerCourseLabels.map((_, index) => documentStyle.getPropertyValue(colors[index % colors.length]));
+
+    this.revenueData = {
+      labels: revenuePerCourseLabels,
+      datasets: [
+        {
+          label: 'Revenue Per Course',
+          data: revenueDataPoints,
+          backgroundColor: revenueColors,
+          borderColor: revenueColors,
+          borderWidth: 1,
+        }
+      ]
+    };
+
+    // const revenueDataPoints = revenuePerCourseLabels.map(label => this.revenuePerCourse[label]);
+
+    // this.revenueData = {
+    //   labels: revenuePerCourseLabels,
+    //   datasets: [
+    //     {
+    //       label: 'Revenue per Course',
+    //       data: revenueDataPoints,
+    //       backgroundColor: documentStyle.getPropertyValue('--blue-500'),
+    //       borderWidth: 2,
+    //     }
+    //   ]
+    // };
   }
 
 }
