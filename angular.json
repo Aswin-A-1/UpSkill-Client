@@ -36,7 +36,12 @@
               "node_modules/primeng/resources/primeng.min.css"
               
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "mux.js",
+              "dompurify",
+              "url-toolkit"
+            ]
           },
           "configurations": {
             "production": {
