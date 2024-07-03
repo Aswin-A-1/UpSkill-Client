@@ -16,6 +16,7 @@ export class InstructorstudentmessagesComponent {
   selectedStudentId!: string;
   students: Student[] = [];
   chatmessages: ChatMessage[] = [];
+  sendedChatmessages: ChatMessage[] = [];
   unreadmessages: ChatMessage[] = [];
   unreadMessages: { [key: string]: ChatMessage[] } = {};
   currentRoomId!: string;
@@ -103,6 +104,7 @@ export class InstructorstudentmessagesComponent {
       this.chatService.sendMessage(this.instructorId, this.selectedStudentId, this.newMessage);
       // this.chatmessages.push(newMessageObject);
       this.unreadmessages.push(newMessageObject);
+      this.unreadMessages[newMessageObject.receiverId].push(newMessageObject);
       this.newMessage = '';
       this.chatContainer.nativeElement.scrollHeight = this.chatContainer.nativeElement.scrollHeight;
     }
@@ -111,6 +113,7 @@ export class InstructorstudentmessagesComponent {
   selectStudent(studentId: string) {
     this.unreadMessages[this.selectedStudentId] = [];
     this.selectedStudentId = studentId
+    this.unreadMessages[this.selectedStudentId] = [];
     const roomId = this.getRoomId(this.selectedStudentId, this.instructorId);
     // this.chatService.joinRoom(roomId);
     // this.joinRoom(this.selectedStudentId);
