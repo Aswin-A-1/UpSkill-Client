@@ -57,7 +57,7 @@
           class="text-indigo-600 no-underline hover:text-indigo-800">Forgot password?</a></p>
       <auth-form-btn [value]="'Login'" [bg]="'bg-indigo-600'"></auth-form-btn>
       <!-- <button type="submit" class="text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full" style="outline: none;">Login</button> -->
-      <div *ngIf="type === 'student'" class="flex items-center mt-1">
+      <!-- <div *ngIf="type === 'student'" class="flex items-center mt-1">
         <hr class="w-2/6">
         <p class="text-xs">Or, Login with</p>
         <hr class="w-2/6">
@@ -71,7 +71,7 @@
             clip-rule="evenodd" />
         </svg>
         Sign in with Google
-      </button>
+      </button> -->
       <p *ngIf="type === 'student'" class="text-xs text-gray-600 font-semibold text-center">Dont have an account? <a routerLink="/signup"
           class="text-indigo-600 no-underline hover:text-indigo-800">Register here</a></p>
       <p *ngIf="type === 'instructor'" class="text-xs text-gray-600 font-semibold text-center">Dont have an account? <a routerLink="/instructor-signup"
