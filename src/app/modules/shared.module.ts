@@ -8,7 +8,7 @@ import { MessagesModule } from 'primeng/messages';
 import { InputOtpModule } from 'primeng/inputotp';
 import { TableModule } from 'primeng/table';
 import { RatingModule } from 'primeng/rating';
-import { LucideAngularModule, Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Search, ShoppingCart, Heart, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause, Book, MessageSquareText, Send, Circle, CircleCheckBig, ArrowDownToLine, IndianRupee, UsersRound, TrendingUp, ChevronLeft, ChevronRight } from 'lucide-angular';
+import { LucideAngularModule, Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Search, ShoppingCart, Heart, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause, Book, MessageSquareText, Send, Circle, CircleCheckBig, ArrowDownToLine, IndianRupee, UsersRound, TrendingUp, ChevronLeft, ChevronRight, BookMarked, GraduationCap } from 'lucide-angular';
 import { CapitalizePipe } from "../core/pipes/capitialize.pipe";
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartModule } from 'primeng/chart';
@@ -32,7 +32,7 @@ import { ChartModule } from 'primeng/chart';
         RatingModule,
         BaseChartDirective,
         ChartModule,
-        LucideAngularModule.pick({Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Search, ShoppingCart, Heart, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause, Book, MessageSquareText, Send, Circle, CircleCheckBig, ArrowDownToLine, IndianRupee, UsersRound, TrendingUp, ChevronLeft, ChevronRight})
+        LucideAngularModule.pick({Home, Menu, ArrowLeft, Trash2, Pencil, Plus, Search, ShoppingCart, Heart, BadgeCheck, BadgeX, CircleUserRound, ShoppingBag, Lock, ShieldBan, MapPin, Phone, Play, Pause, Book, MessageSquareText, Send, Circle, CircleCheckBig, ArrowDownToLine, IndianRupee, UsersRound, TrendingUp, ChevronLeft, ChevronRight, BookMarked, GraduationCap})
     ],
     exports : [
         FormsModule,

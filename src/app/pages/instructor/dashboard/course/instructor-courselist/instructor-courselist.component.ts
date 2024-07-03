@@ -17,6 +17,7 @@ export class InstructorCourselistComponent {
   currentPage = 1;
   itemsPerPage = 2;
   totalPages = 0;
+  index = 1;
 
   constructor(
     private _router: Router,
@@ -83,6 +84,7 @@ export class InstructorCourselistComponent {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.fetchCourses();
+      this.index += this.itemsPerPage;
     }
   }
 
@@ -90,6 +92,7 @@ export class InstructorCourselistComponent {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.fetchCourses();
+      this.index -= this.itemsPerPage;
     }
   }
 }

@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { environment } from "../../../../../environments/environment";
 import { CustomToastService } from "../../customtoast.service";
 import { CourseDetails, Sections } from "../../../models/course";
-import { InstructorGetDashboardData, InsturcorAddCourseResponse, InsturcorCategoryResponse, InsturcorCoutsesResponse, InsturcorEditLessonResponse, InsturcorEditSectionResponse, InsturcorGetSectionResponse, InsturcorGetStudentsResponse, InsturcorSaveSectionResponse, InsturcorVerificationResponse } from "../../../models/instructor_response.model";
+import { InstructorGetDashboardData, InsturcorAddCourseResponse, InsturcorCategoryResponse, InsturcorCoutsesResponse, InsturcorEditLessonResponse, InsturcorEditSectionResponse, InsturcorGetSectionResponse, InsturcorGetStudentsResponse, InsturcorGetStudentsResponseList, InsturcorSaveSectionResponse, InsturcorVerificationResponse } from "../../../models/instructor_response.model";
 import { MessageResponse } from "../../../models/response.model";
 
 const BASE_URL = environment.BASE_URL
@@ -118,6 +118,13 @@ export class InstructorCourseService {
 
     getStudents(instructorId: string): Observable<InsturcorGetStudentsResponse> {
         return this.http.get<InsturcorGetStudentsResponse>(`${BASE_URL}/instructor/getstudents/${instructorId}`);
+    }
+
+    getStudentsList(instructorId: string, page: number, limit: number): Observable<InsturcorGetStudentsResponseList> {
+        const params = new HttpParams()
+        .set('page', page.toString())
+        .set('limit', limit.toString());
+        return this.http.get<InsturcorGetStudentsResponseList>(`${BASE_URL}/instructor/getstudentslist/${instructorId}`, { params });
     }
     
     getDashboardData(instructorId: string): Observable<InstructorGetDashboardData> {

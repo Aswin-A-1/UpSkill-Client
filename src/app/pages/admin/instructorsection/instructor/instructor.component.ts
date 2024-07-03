@@ -17,6 +17,10 @@ export class InstructorComponent {
   instructorBlockIndex: number | null = null;
   isDropdownOpen: { [key: string]: boolean } = {};
   lastOpenedDropdown: string = '';
+  currentPage = 1;
+  itemsPerPage = 2;
+  totalPages = 0;
+  index = 1;
 
   instructors: Instructor[] = []
   constructor(
@@ -28,13 +32,34 @@ export class InstructorComponent {
   
   ngOnInit(): void {
     // this.store.dispatch(getStudent())
-    this._service.getInstructors().subscribe({
+    this.fetchInstructors()
+  }
+
+  async fetchInstructors() {
+    this._service.getInstructors(this.currentPage, this.itemsPerPage).subscribe({
       next: (res) => {
         if (res) {
           this.instructors = res.instructors
+          this.totalPages = Math.ceil(res.totalcount / this.itemsPerPage);
         }
       }
     })
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.fetchInstructors();
+      this.index += this.itemsPerPage;
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.fetchInstructors();
+      this.index -= this.itemsPerPage;
+    }
   }
 
   openProfile(instructorId: string) {

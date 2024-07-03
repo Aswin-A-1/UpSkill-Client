@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { environment } from "../../../../../environments/environment";
@@ -16,8 +16,11 @@ export class AdminInstructorService {
         private http: HttpClient
     ) { }
 
-    getInstructors(): Observable<AdminGetInstructorsResponse> {
-        return this.http.get<AdminGetInstructorsResponse>(`${BASE_URL}/admin/getInstructors`);
+    getInstructors(page: number, limit: number): Observable<AdminGetInstructorsResponse> {
+        const params = new HttpParams()
+        .set('page', page.toString())
+        .set('limit', limit.toString());
+        return this.http.get<AdminGetInstructorsResponse>(`${BASE_URL}/admin/getInstructors`, { params });
     }
 
     manageStudents(userid: string): Observable<AdminManageStudentResponse> {

@@ -1,10 +1,10 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { environment } from "../../../../../environments/environment";
 import { loginCredentials } from "../../../models/auth";
 import { CustomToastService } from "../../customtoast.service";
-import { AdminManageStudentResponse } from "../../../models/admin_response.model";
+import { AdminManageStudentResponse, AdminStudentsResponse } from "../../../models/admin_response.model";
 
 const BASE_URL = environment.BASE_URL
 
@@ -21,6 +21,13 @@ export class AdminStudentService {
 
     getStudents(): Observable<any> {
         return this.http.get(`${BASE_URL}/admin/getStudent`);
+    }
+
+    getStudentsForAdmin(page: number, limit: number): Observable<AdminStudentsResponse> {
+        const params = new HttpParams()
+        .set('page', page.toString())
+        .set('limit', limit.toString());
+        return this.http.get<AdminStudentsResponse>(`${BASE_URL}/admin/getStudentlist`, { params });
     }
 
     manageStudents(userid: string): Observable<AdminManageStudentResponse> {

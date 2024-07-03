@@ -47,9 +47,9 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         <tr #tablerow id="tablerow" *ngFor="let course of courses; let i = index">
-                            <!-- <td class="px-6 py-3 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-500">{{ i + 1 }}</div>
-                            </td> -->
+                            <td class="px-6 py-3 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-500">{{ index + i }}</div>
+                            </td>
                             <td class="px-6 py-3 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-500">{{ course.coursename }}</div>
                             </td>
@@ -112,25 +112,11 @@
                         class="bg-indigo-100 pt-3 pb-2 px-3 text-indigo-400 text-xs rounded-full hover:cursor-pointer border-none border-blue-100 hover:bg-indigo-200 hover:text-indigo-400 focus:outline-none">
                         <lucide-icon name="chevron-left" class="my-icon"></lucide-icon>
                       </button>
-                    <!-- <button
-                      type="button"
-                      class="px-4 py-2 border border-gray-300  text-red-500 transition duration-150 ease-in-out"
-                      (click)="prevPage()"
-                    >
-                      Previous
-                    </button> -->
                     <span class="mx-6 pt-1">Page {{ currentPage }} of {{ totalPages }}</span>
                     <button (click)="nextPage()"
                       class="bg-indigo-100 pt-3 pb-2 px-3 text-indigo-400 text-xs rounded-full hover:cursor-pointer border-none border-blue-100 hover:bg-indigo-200 hover:text-indigo-400 focus:outline-none">
                       <lucide-icon name="chevron-right" class="my-icon"></lucide-icon>
                     </button>
-                    <!-- <button
-                      type="button"
-                      class="px-4 py-2 border border-gray-300  text-red-500 transition duration-150 ease-in-out"
-                      (click)="nextPage()"
-                    >
-                      Next
-                    </button> -->
                 </div>
             </div>
         </div>

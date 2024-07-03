@@ -13,37 +13,52 @@
 </div>
 <div class="p-4 bg-white">
     <div class="px-4">
-        <table *ngIf="students.length != 0; else elseBlock" class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
-                        No
-                    </th>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
-                        Name
-                    </th>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
-                        Email
-                    </th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                <tr #tablerow id="tablerow" *ngFor="let student of students; let i = index">
-                    <td class="px-6 py-3 whitespace-nowrap">
-                        <div class="text-sm font-medium text-gray-500">{{ i + 1 }}</div>
-                    </td>
-                    <td class="px-6 py-3 whitespace-nowrap">
-                        <div class="text-sm font-medium text-gray-500">{{ student.username }}</div>
-                    </td>
-                    <td class="px-6 py-3 whitespace-nowrap">
-                        <div class="text-sm font-medium text-gray-500">{{ student.email }}</div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div *ngIf="students.length != 0; else elseBlock">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                            No
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                            Name
+                        </th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">
+                            Email
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr #tablerow id="tablerow" *ngFor="let student of students; let i = index">
+                        <td class="px-6 py-3 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-500">{{ index + i }}</div>
+                        </td>
+                        <td class="px-6 py-3 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-500">{{ student.username }}</div>
+                        </td>
+                        <td class="px-6 py-3 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-500">{{ student.email }}</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="pagination" class="pagination-controls flex justify-center mt-3">
+                <div class="flex items-center">
+                        <button (click)="prevPage()"
+                        class="bg-indigo-100 pt-3 pb-2 px-3 text-indigo-400 text-xs rounded-full hover:cursor-pointer border-none border-blue-100 hover:bg-indigo-200 hover:text-indigo-400 focus:outline-none">
+                        <lucide-icon name="chevron-left" class="my-icon"></lucide-icon>
+                      </button>
+                    <span class="mx-6 pt-1">Page {{ currentPage }} of {{ totalPages }}</span>
+                    <button (click)="nextPage()"
+                      class="bg-indigo-100 pt-3 pb-2 px-3 text-indigo-400 text-xs rounded-full hover:cursor-pointer border-none border-blue-100 hover:bg-indigo-200 hover:text-indigo-400 focus:outline-none">
+                      <lucide-icon name="chevron-right" class="my-icon"></lucide-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
         <ng-template #elseBlock>
             <div class="py-10  flex flex-col items-center justify-center">
                 <div class="w-1/3 h-1/3">

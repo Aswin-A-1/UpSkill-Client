@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "../../../../../environments/environment";
@@ -17,12 +17,18 @@ export class AdminCourseService {
         private http: HttpClient
     ) { }
 
-    getCourses(): Observable<AdminGetCourseResponse> {
-        return this.http.get<AdminGetCourseResponse>(`${BASE_URL}/admin/getCourses`);
+    getCourses(page: number, limit: number): Observable<AdminGetCourseResponse> {
+        const params = new HttpParams()
+        .set('page', page.toString())
+        .set('limit', limit.toString());
+        return this.http.get<AdminGetCourseResponse>(`${BASE_URL}/admin/getCourses`, { params });
     }
 
-    getCategory(): Observable<AdminGetCategoryResponse> {
-        return this.http.get<AdminGetCategoryResponse>(`${BASE_URL}/admin/getCategory`);
+    getCategory(page: number, limit: number): Observable<AdminGetCategoryResponse> {
+        const params = new HttpParams()
+        .set('page', page.toString())
+        .set('limit', limit.toString());
+        return this.http.get<AdminGetCategoryResponse>(`${BASE_URL}/admin/getCategory`, { params });
     }
 
     addCategory(name: string): Observable<AdminAddCategoryResponse> {

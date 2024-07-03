@@ -16,6 +16,7 @@ export class NavbarComponent {
   serachResult: Courses[] = [];
   isFocused = false;
   isLoggedIn: boolean = false;
+  isToggled: boolean = false;
   
   constructor(
     private _router: Router,
@@ -58,6 +59,10 @@ export class NavbarComponent {
   stopBlur(event: MouseEvent) {
     event.preventDefault();
     event.stopPropagation();
+  }
+
+  toggleMenu() {
+    this.isToggled = !this.isToggled
   }
 
   navigateToHome() {

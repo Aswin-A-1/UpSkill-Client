@@ -9,11 +9,13 @@
         <span class="text-2xl mx-2 pt-2 font-semibold  text-indigo-600">Students</span>
       </div>
       <nav class="p-4">
-        <a (click)="selectStudent(student._id)" *ngFor="let student of students"
-          [ngClass]="{'bg-indigo-100': selectedStudentId == student._id}"
-          class="flex items-center rounded-md mt-4 py-4 pl-2 no-underline text-indigo-500 hover:bg-indigo-50 hover:text-indigo-600 hover:cursor-pointer">
-          <span class="mx-3 text-lg font-semibold">{{ student.username }}</span>
-        </a>
+        <div (click)="selectStudent(student._id)" *ngFor="let student of students">
+          <div [ngClass]="{'bg-indigo-100': selectedStudentId == student._id}"
+            class="flex justify-between items-center rounded-md mt-4 py-4 pl-2 text-indigo-500 hover:bg-indigo-50 hover:text-indigo-600 hover:cursor-pointer">
+            <span class="mx-3 text-lg font-semibold">{{ student.username }}</span>
+            <div *ngIf="unreadMessages[student._id].length != 0" class="bg-indigo-500 w-5 h-5 mx-4 rounded-full text-white flex justify-center items-center">{{ unreadMessages[student._id].length }}</div>
+          </div>
+        </div>
       </nav>
     </div>
   </div>
@@ -37,8 +39,12 @@
           </div>
         </ng-template>
       </div>
-      <div *ngFor="let chatmessage of unreadmessages" [ngClass]="{'justify-end': chatmessage.senderId === instructorId}"
-        class="flex mb-2">
+      <!-- <div *ngIf="unreadMessages[selectedStudentId].length != 0"
+        class="bg-white shadow rounded-lg justify-center rounded-tr-sm py-1 pl-4 min-w-16 max-w-lg text-gray-800 break-words">
+        <span class="pr-4">Unread Messages</span>
+      </div> -->
+      <div *ngFor="let chatmessage of unreadMessages[selectedStudentId]"
+        [ngClass]="{'justify-end': chatmessage.senderId === instructorId}" class="flex mb-2">
         <div *ngIf="chatmessage.senderId === instructorId; else otherMessage"
           class="bg-white shadow rounded-lg rounded-tr-sm py-1 pl-4 min-w-16 max-w-lg text-gray-800 break-words">
           <span class="pr-4">{{ chatmessage.message }}</span>

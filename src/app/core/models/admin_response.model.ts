@@ -1,4 +1,4 @@
-import { Student as Admin, Category, Course, Instructor, Student } from "./student";
+import { Student as Admin, Category, Course, Instructor, Student, User } from "./student";
 
 export interface AdminLoginSuccessResponse {
     message: string;
@@ -8,15 +8,18 @@ export interface AdminLoginSuccessResponse {
 export interface AdminGetCourseResponse {
     message: string;
     courses: Course[];
+    totalcount: number;
 }
 export interface AdminGetCategoryResponse {
     message: string;
     categorys: Category[];
+    totalcount: number;
 }
 
 export interface AdminGetInstructorsResponse {
     message: string;
     instructors: Instructor[];
+    totalcount: number;
 }
 
 export interface AdminGetStudentsResponse {
@@ -24,10 +27,17 @@ export interface AdminGetStudentsResponse {
     students: Student;
 }
 
+export interface AdminStudentsResponse {
+    message: string;
+    students: User[];
+    totalcount: number;
+}
+
 export interface AdminManageStudentResponse {
     message: string;
     updatedStudent: Student;
 }
+
 export interface AdminAddCategoryResponse {
     message: string;
     newCategory: Category;

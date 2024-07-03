@@ -60,6 +60,12 @@ export interface InsturcorGetStudentsResponse {
     students: Student[];
 }
 
+export interface InsturcorGetStudentsResponseList {
+    message: string;
+    students: Student[];
+    totalcount: number;
+}
+
 export interface InstructorGetDashboardData {
     message: string;
     totalRevenue: number;

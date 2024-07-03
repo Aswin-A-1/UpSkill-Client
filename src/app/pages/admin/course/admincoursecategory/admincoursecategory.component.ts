@@ -19,6 +19,10 @@ export class AdmincoursecategoryComponent {
   lastOpenedDropdown: string = '';
   deleteCategoryId!: string | null;
   deleteCategoryIndex!: number | null;
+  currentPage = 1;
+  itemsPerPage = 2;
+  totalPages = 0;
+  index = 1;
 
   constructor(
     private _router: Router,
@@ -35,13 +39,34 @@ export class AdmincoursecategoryComponent {
   }
 
   ngOnInit(): void {
-    this._service.getCategory().subscribe({
+    this.fetchCategory();
+  }
+
+  async fetchCategory() {
+    this._service.getCategory(this.currentPage, this.itemsPerPage).subscribe({
       next: (res) => {
         if (res) {
           this.categorys = res.categorys
+          this.totalPages = Math.ceil(res.totalcount / this.itemsPerPage);
         }
       }
     })
+  }
+  
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.fetchCategory();
+      this.index += this.itemsPerPage;
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.fetchCategory();
+      this.index -= this.itemsPerPage;
+    }
   }
 
   toggleDropdown(categoryId: any, event: MouseEvent) {

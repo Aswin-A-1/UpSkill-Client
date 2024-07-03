@@ -12,19 +12,45 @@ import { User } from '../../../core/models/student';
 
 export class StudentsComponent {
   users: User[] = []
+  currentPage = 1;
+  itemsPerPage = 2;
+  totalPages = 0;
+  index = 1;
+
   constructor(
     private _service: AdminStudentService
   ) { }
 
   ngOnInit(): void {
     // this.store.dispatch(getStudent())
-    this._service.getStudents().subscribe({
+    this.fetchStudents()
+  }
+
+  async fetchStudents() {
+    this._service.getStudentsForAdmin(this.currentPage, this.itemsPerPage).subscribe({
       next: (res) => {
         if (res) {
           this.users = res.students
+          this.totalPages = Math.ceil(res.totalcount / this.itemsPerPage);
         }
       }
     })
+  }
+  
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.fetchStudents();
+      this.index += this.itemsPerPage;
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.fetchStudents();
+      this.index -= this.itemsPerPage;
+    }
   }
 
   toggleBlockStatus(user: any) {
