@@ -1,4 +1,4 @@
-import { Courses, CoursesWithCompletion, SectionDb, Sections } from "./course";
+import { Category, Courses, CoursesWithCompletion, SectionDb, Sections } from "./course";
 import { Student } from "./student";
 
 export interface StudentRegisterResponse {
@@ -14,6 +14,11 @@ export interface StudentProfileResponse {
 export interface StudentCoursesResponse {
     message: string;
     courses: Courses[];
+}
+
+export interface StudentCategoryResponse {
+    message: string;
+    categories: Category[];
 }
 
 export interface StudentCourseResponse {

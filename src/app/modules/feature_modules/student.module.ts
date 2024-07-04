@@ -12,6 +12,7 @@ import { CourseenrollComponent } from "../../pages/student/course/courseenroll/c
 import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from "../../../environments/environment";
 import { MylearningsComponent } from "../../pages/student/course/mylearnings/mylearnings.component";
+import { CourseexploreComponent } from "../../pages/student/course/courseexplore/courseexplore.component";
 
 
 
@@ -26,6 +27,7 @@ import { MylearningsComponent } from "../../pages/student/course/mylearnings/myl
         CoursepreviewvideoComponent,
         CourseenrollComponent,
         MylearningsComponent,
+        CourseexploreComponent,
     ],
     exports: [],
     imports: [

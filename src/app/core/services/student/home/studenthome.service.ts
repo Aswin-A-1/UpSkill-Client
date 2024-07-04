@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { environment } from "../../../../../environments/environment";
-import { StudentCourseWithCompletionResponse, StudentCoursesResponse, StudentIsCompletedResponse, StudentIsEnrolledResponse } from "../../../models/student_response.model";
+import { StudentCategoryResponse, StudentCourseWithCompletionResponse, StudentCoursesResponse, StudentIsCompletedResponse, StudentIsEnrolledResponse } from "../../../models/student_response.model";
 
 const BASE_URL = environment.BASE_URL
 
@@ -35,6 +35,14 @@ export class StudentHomeService {
 
     getCourses(): Observable<StudentCoursesResponse> {
         return this.http.get<StudentCoursesResponse>(`${BASE_URL}/student/getcourses`);
+    }
+
+    getCategorys(): Observable<StudentCategoryResponse> {
+        return this.http.get<StudentCategoryResponse>(`${BASE_URL}/student/getcategories`);
+    }
+
+    getCourseByCategory(category: string): Observable<StudentCoursesResponse> {
+        return this.http.post<StudentCoursesResponse>(`${BASE_URL}/student/getcoursebycategory`, { category });
     }
 
     getCoursesOutside(): Observable<StudentCoursesResponse> {

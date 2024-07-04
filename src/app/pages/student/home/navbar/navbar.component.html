@@ -18,10 +18,12 @@
     </div>
     
     <div *ngIf="isLoggedIn" class="hidden md:flex sm:flex w-full md:w-5/12 md:flex-row justify-end gap-6 mt-4 md:mt-0 md:mr-20">
+        <button class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full" (click)="categories()">Categories</button>
         <button (click)="navigateToMyLearnings()" class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full">My Learnings</button>
         <button class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full" (click)="logout()">Logout</button>
     </div>
     <div *ngIf="!isLoggedIn" class="hidden md:flex sm:flex w-full md:w-5/12 md:flex-row justify-end gap-6 mt-4 md:mt-0 md:mr-20">
+        <button class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full" (click)="categories()">Categories</button>
         <button class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full" (click)="instructor()">Instructor</button>
         <button *ngIf="!isLoggedIn" class="border-none bg-white font-bold text-lg text-indigo-600 hover:bg-indigo-100 hover:cursor-pointer px-4 py-2 rounded-full" (click)="login()">Login</button>
     </div>
@@ -32,6 +34,10 @@
         </button>
         <div *ngIf="isToggled && isLoggedIn" [ngClass]="{ 'hidden': false, 'dropdown-menu': true }"
             class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-10 border-2 border-solid border-indigo-100">
+            <div (click)="categories()" class="m-1 rounded-sm hover:bg-indigo-100 flex flex-row hover:cursor-pointer">
+                <lucide-icon name="layout-dashboard" class="my-icon pl-1 py-1 text-indigo-600"></lucide-icon>
+                <a (click)="$event.preventDefault()" class="block px-4 py-2 text-sm text-indigo-600">Categories</a>
+            </div>
             <div (click)="navigateToMyLearnings()" class="m-1 rounded-sm hover:bg-indigo-100 flex flex-row hover:cursor-pointer">
                 <lucide-icon name="book-marked" class="my-icon pl-1 py-1 text-indigo-600"></lucide-icon>
                 <a (click)="$event.preventDefault()" class="block px-4 py-2 text-sm text-indigo-600">My Learnings</a>
@@ -43,6 +49,10 @@
         </div>
         <div *ngIf="isToggled && !isLoggedIn" [ngClass]="{ 'hidden': false, 'dropdown-menu': true }"
             class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-10 border-2 border-solid border-indigo-100">
+            <div (click)="categories()" class="m-1 rounded-sm hover:bg-indigo-100 flex flex-row hover:cursor-pointer">
+                <lucide-icon name="layout-dashboard" class="my-icon pl-1 py-1 text-indigo-600"></lucide-icon>
+                <a (click)="$event.preventDefault()" class="block px-4 py-2 text-sm text-indigo-600">Categories</a>
+            </div>
             <div (click)="instructor()" class="m-1 rounded-sm hover:bg-indigo-100 flex flex-row hover:cursor-pointer">
                 <lucide-icon name="graduation-cap" class="my-icon pl-1 py-1 text-indigo-600"></lucide-icon>
                 <a (click)="$event.preventDefault()" class="block px-4 py-2 text-sm text-indigo-600">Instructor</a>

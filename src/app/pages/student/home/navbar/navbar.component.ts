@@ -95,4 +95,8 @@ export class NavbarComponent {
   instructor() {
     this._router.navigateByUrl('/instructor-login');
   }
+
+  categories() {
+    this._router.navigateByUrl('/courseexplore');
+  }
 }

@@ -21,6 +21,13 @@ export interface Courses {
     _id: string;
 }
 
+export interface Category {
+    name: string;
+    isBlocked: boolean;
+    __v: number;
+    _id: string;
+}
+
 export interface CoursesWithCompletion {
     coursename: string;
     description: string;

@@ -34,6 +34,7 @@ import { MylearningsComponent } from './pages/student/course/mylearnings/mylearn
 import { InstructorstudentsComponent } from './pages/instructor/dashboard/students/instructorstudents/instructorstudents.component';
 import { InstructorstudentlistComponent } from './pages/instructor/dashboard/students/instructorstudentlist/instructorstudentlist.component';
 import { InstructorstudentmessagesComponent } from './pages/instructor/dashboard/students/instructorstudentmessages/instructorstudentmessages.component';
+import { CourseexploreComponent } from './pages/student/course/courseexplore/courseexplore.component';
 
 const routes: Routes = [
   // student
@@ -44,6 +45,7 @@ const routes: Routes = [
   { path: 'home', component: StudenthomeComponent, canActivate: [studentAuthGuard] },
   { path: 'course', component: CoursedetailsComponent },
   { path: 'coursepreview', component: CoursepreviewvideoComponent },
+  { path: 'courseexplore', component: CourseexploreComponent },
   { path: 'enroll', component: CourseenrollComponent, canActivate: [studentAuthGuard] },
   { path: 'mylearnings', component: MylearningsComponent, canActivate: [studentAuthGuard] },
 
