@@ -31,7 +31,7 @@ export class HomeComponent {
   }
 
   explore() {
-    this._router.navigate(['courseexplore']);
+    this._router.navigate(['/courseexplore']);
   }
 
   enroll(courseId: string) {

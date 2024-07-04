@@ -20,7 +20,6 @@ export class CourseexploreComponent {
   categories: Category[] = [];
   completedCourse: string | null = null;
   courseInstructor: string | null = null;
-  student: string = JSON.parse(localStorage.getItem('user')!).username;
   
   constructor(
     private _router: Router,
