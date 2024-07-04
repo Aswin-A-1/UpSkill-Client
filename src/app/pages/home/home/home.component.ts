@@ -34,6 +34,10 @@ export class HomeComponent {
     this._router.navigate(['/courseexplore']);
   }
 
+  wishList() {
+    this.customToastService.setToastAndNavigate('error', 'Please login', ['login']);
+  }
+
   enroll(courseId: string) {
     this._router.navigate(['course'], { queryParams: { id: courseId } });
   }

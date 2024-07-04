@@ -17,7 +17,7 @@ export class AdminLoginComponent {
 
   onSubmitClick(userData: loginCredentials) {
     this._service.adminLogin(userData).subscribe({
-      next: (successResponse: any) => {
+      next: (successResponse) => {
         if (successResponse.message) {
           sessionStorage.setItem('admin_token', successResponse.token)
           localStorage.setItem('admin_token', successResponse.token);
@@ -25,7 +25,7 @@ export class AdminLoginComponent {
           this._customToastService.setToast('success', successResponse.message, ['admin/student']);
         }
       },
-      error: (error: any) => {
+      error: (error) => {
         this._customToastService.setToast('error', error.error.message);
       }
     });

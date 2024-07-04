@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { environment } from "../../../../../environments/environment";
-import { StudentCategoryResponse, StudentCourseWithCompletionResponse, StudentCoursesResponse, StudentIsCompletedResponse, StudentIsEnrolledResponse } from "../../../models/student_response.model";
+import { StudentCategoryResponse, StudentCourseWithCompletionResponse, StudentCoursesResponse, StudentIsCompletedResponse, StudentIsEnrolledResponse, StudentWishlistCoursesResponse, StudentWishlistResponse } from "../../../models/student_response.model";
 
 const BASE_URL = environment.BASE_URL
 
@@ -27,6 +27,18 @@ export class StudentHomeService {
 
     isCompleted(courseId: string, studentId: string, lessonId: string): Observable<StudentIsCompletedResponse> {
         return this.http.post<StudentIsCompletedResponse>(`${BASE_URL}/student/iscompleted`, { courseId, studentId, lessonId });
+    }
+
+    wishlist(courseId: string, studentId: string): Observable<StudentWishlistResponse> {
+        return this.http.post<StudentWishlistResponse>(`${BASE_URL}/student/wishlist`, { courseId, studentId });
+    }
+
+    getWishlist(studentId: string): Observable<StudentWishlistCoursesResponse> {
+        return this.http.get<StudentWishlistCoursesResponse>(`${BASE_URL}/student/wishlist/${studentId}`);
+    }
+
+    getWishlistCourses(studentId: string): Observable<StudentCoursesResponse> {
+        return this.http.get<StudentCoursesResponse>(`${BASE_URL}/student/wishlistcourses/${studentId}`);
     }
 
     changeCompletionStatus(courseId: string, studentId: string, lessonId: string): Observable<StudentIsCompletedResponse> {

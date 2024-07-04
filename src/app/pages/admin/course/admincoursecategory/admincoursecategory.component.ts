@@ -126,7 +126,7 @@ export class AdmincoursecategoryComponent {
   deleteCategory() {
     if(this.deleteCategoryId != null) {
       this._service.deleteCategory(this.deleteCategoryId).subscribe({
-        next: (successResponse: any) => {
+        next: (successResponse) => {
           if (this.deleteCategoryIndex != null) {
             this.categorys.splice(this.deleteCategoryIndex, 1)
             this.deleteCategoryId = null
@@ -135,7 +135,7 @@ export class AdmincoursecategoryComponent {
             this._customToastService.setToast('success', successResponse.message);
           }
         },
-        error: (error: any) => {
+        error: (error) => {
           this._customToastService.setToast('error', error.error.error);
         }
       });
@@ -148,13 +148,13 @@ export class AdmincoursecategoryComponent {
     });
     if(this.newCategoryForm.valid) {
       this._service.addCategory(this.newCategoryForm.value.categoryName).subscribe({
-        next: (successResponse: any) => {
+        next: (successResponse) => {
           this.showNewCategoryModal = false
           this.categorys.push(successResponse.newCategory)
           this._customToastService.setToast('success', successResponse.message);
   
         },
-        error: (error: any) => {
+        error: (error) => {
           this._customToastService.setToast('error', error.error.error);
         }
       });

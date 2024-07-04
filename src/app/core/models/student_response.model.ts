@@ -16,6 +16,11 @@ export interface StudentCoursesResponse {
     courses: Courses[];
 }
 
+export interface StudentWishlistCoursesResponse {
+    message: string;
+    courses: string[];
+}
+
 export interface StudentCategoryResponse {
     message: string;
     categories: Category[];
@@ -41,6 +46,11 @@ export interface StudentIsEnrolledResponse {
 export interface StudentIsCompletedResponse {
     message: string;
     isCompleted: boolean;
+}
+
+export interface StudentWishlistResponse {
+    message: string;
+    status: boolean;
 }
 
 export interface StudentLoginSuccessResponse {

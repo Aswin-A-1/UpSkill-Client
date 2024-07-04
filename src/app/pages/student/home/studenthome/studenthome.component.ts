@@ -12,6 +12,7 @@ import { Courses } from '../../../../core/models/course';
 export class StudenthomeComponent {
   isloggedin: boolean = false
   courses: Courses[] = [];
+  wishlistCourses: string[] = [];
   
   constructor(
     private _service: StudentHomeService,
@@ -20,6 +21,7 @@ export class StudenthomeComponent {
   ) {}
 
   ngOnInit(): void {
+    const studentId = JSON.parse(localStorage.getItem('user')!)._id
     this._service.getCourses().subscribe({
       next: (res) => {
         if (res) {
@@ -27,11 +29,40 @@ export class StudenthomeComponent {
         }
       }
     })
+
+    if(studentId) {
+      this._service.getWishlist(studentId).subscribe({
+        next: (res) => {
+          if (res) {
+            this.wishlistCourses = res.courses
+          }
+        }
+      })
+    }
     
   }
 
   explore() {
     this._router.navigate(['courseexplore']);
+  }
+
+  wishList(courseId: string) {
+    const userId = JSON.parse(localStorage.getItem('user')!)._id
+    this._service.wishlist(courseId, userId).subscribe({
+      next: (res) => {
+        if (res) {
+          if (res.status) {
+            this.wishlistCourses.push(courseId);
+          } else {
+            this.wishlistCourses = this.wishlistCourses.filter((id) => id !== courseId);
+          }
+        }
+      }
+    })
+  }
+
+  isInWishlist(courseId: string): boolean {
+    return this.wishlistCourses.includes(courseId);
   }
 
   enroll(courseId: string) {

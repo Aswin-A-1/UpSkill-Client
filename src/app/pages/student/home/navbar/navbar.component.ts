@@ -96,6 +96,10 @@ export class NavbarComponent {
     this._router.navigateByUrl('/instructor-login');
   }
 
+  wishlist() {
+    this._router.navigateByUrl('/wishlist');
+  }
+
   categories() {
     this._router.navigateByUrl('/courseexplore');
   }

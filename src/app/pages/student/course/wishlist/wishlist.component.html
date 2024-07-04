@@ -1,13 +1,15 @@
 <custom-toast [customToastService]="customToastService"></custom-toast>
 <div class="min-h-screen flex flex-col">
     <!-- Navbar -->
-    <app-navbar/>
+    <app-navbar />
     <div class="flex flex-col lg:flex-row h-full mx-16 mb-20 py-5 md:px-20">
         <div class="w-full">
-            <div *ngFor="let course of mycourses; let i = index" class="flex md:flex-row flex-col mb-4 p-4 border-2 border-indigo-50 border-solid rounded-lg">
+            <div *ngFor="let course of wishlistCourses; let i = index"
+                class="flex md:flex-row flex-col mb-4 p-4 border-2 border-indigo-50 border-solid rounded-lg">
                 <div>
                     <div class="mt-4 px-1 ">
-                        <img class="md:w-40 md:h-20 w-20 object-cover" [src]="course.thumbnailimage" alt="Product Image">
+                        <img class="md:w-40 md:h-20 w-20 object-cover" [src]="course.thumbnailimage"
+                            alt="Product Image">
                     </div>
                 </div>
                 <div class="w-full flex justify-between pl-4 pt-6">
@@ -15,25 +17,30 @@
                         <div>
                             <span class="md:text-base text-sm font-bold">{{ course.coursename }}</span>
                         </div>
-                        <div class="flex items-center">
-                            <div class="w-1/4 bg-indigo-100 rounded-full md:h-2.5 h-1.5">
-                                <div class="bg-indigo-600 md:h-2.5 h-1.5 rounded-full" [ngStyle]="{'width': course.completionPercentage + '%'}"></div>
-                            </div>
-                            <span class="md:text-base text-sm pl-4 font-medium">{{ course.completionPercentage }}%</span>
-                        </div>
                         <!-- <div>
                             <span class="text-xs px-0">By, {{ instructor }}</span>
                         </div> -->
                     </div>
                     <div class="flex md:flex-row flex-col align-top">
-                        <button *ngIf="course.completionPercentage == 100" (click)="generatePDF(course._id)"
+                        <!-- <button
                           class="flex bg-indigo-100 my-4 mr-4 pt-3 pb-2 px-3 text-indigo-400 text-xs rounded-lg hover:cursor-pointer border-none border-blue-100 hover:bg-indigo-200 hover:text-indigo-400 focus:outline-none">
-                          <span class="mt-1 mr-2 sm:block hidden font-medium">Certificate</span> <lucide-icon name="arrow-down-to-line" class="my-icon"></lucide-icon>
+                          <span class="mr-2 sm:block hidden font-medium">Remove</span>
+                        </button> -->
+
+                        <button (click)="deleteFromWishList(course._id)"
+                            class="bg-indigo-50 pt-3 pb-2 px-3 my-4 mr-4 text-indigo-400 text-xs rounded-full hover:cursor-pointer border-none border-blue-100 hover:bg-indigo-200 hover:text-indigo-400 focus:outline-none">
+                            <lucide-icon name="trash-2" class="my-icon"></lucide-icon>
                         </button>
-                        <button (click)="learn(course._id, i)"
-                                            class="w-full my-4 px-4 border-none font-bold text-sm text-white bg-[#3b28fe] hover:bg-[#5930ff] hover:cursor-pointer py-3 rounded-lg">Learn</button>
+                        <button (click)="enroll(course._id)"
+                            class="w-full my-4 px-4 border-none font-bold text-sm text-white bg-[#3b28fe] hover:bg-[#5930ff] hover:cursor-pointer py-3 rounded-lg">Enroll</button>
                     </div>
                 </div>
+            </div>
+            <div *ngIf="wishlistCourses.length === 0" class="py-10  flex flex-col items-center justify-center">
+                <div class="w-1/3 h-1/3">
+                    <img [src]="'assets/images/Empty-illustration.png'" alt="Image" class="object-cover w-full h-full p-4">
+                </div>
+                <h2 class="text-2xl font-semibold text-indigo-600">No courses</h2>
             </div>
         </div>
     </div>
@@ -63,9 +70,11 @@
                                 </div>
                             </div>
                             <div class="w-2/5 flex flex-row">
-                                
                                 <button class="w-1/2 ml-12 border-none font-bold text-sm text-indigo-600 bg-white hover:bg-indigo-50 hover:cursor-pointer px-1 py-2 rounded-lg">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 my-icon small-icon">
+                                    <svg *ngIf="!isInWishlist(course._id)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 my-icon small-icon">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                    </svg>
+                                    <svg *ngIf="isInWishlist(course._id)" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor" class="h-6 my-icon small-icon">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                                     </svg>
                                 </button>
@@ -76,74 +85,6 @@
             </div>
         </div>
     </div>
-
-    <div #certificate *ngIf="completedCourse && courseInstructor" id="certificate" class="container pm-certificate-container">
-    <div class="outer-border"></div>
-    <div class="inner-border"></div>
-    
-    <div class="pm-certificate-border col-xs-12">
-      <div class="row pm-certificate-header">
-        <div class="pm-certificate-title cursive col-xs-12 text-center">
-          <h2>Certificate of Completion from UpSkill</h2>
-        </div>
-      </div>
-
-      <div class="row pm-certificate-body">
-        
-        <div class="pm-certificate-block">
-            <div class="col-xs-12">
-              <div class="row">
-                <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
-                <div class="pm-certificate-name margin-0 col-xs-8 text-center">
-                  <span class="pm-name-text bold">{{ student | capitalize }}</span>
-                </div>
-                <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
-              </div>
-            </div>          
-
-            <div class="col-xs-12">
-              <div class="row">
-                <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
-                <div class="pm-earned col-xs-8 text-center">
-                  <span class="pm-earned-text padding-0 block cursive">has successfully completed the course from UpSkill</span>
-                  <!-- <span class="pm-credits-text block bold sans">{{ completedCourse }}</span> -->
-                </div>
-                <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
-                <div class="col-xs-12"></div>
-              </div>
-            </div>
-            
-            <div class="col-xs-12">
-              <div class="row">
-                <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
-                <div class="pm-course-title col-xs-8 text-center">
-                  <span class="pm-earned-text block cursive">with a comprehensive understanding of</span>
-                  <span class="pm-credits-text block bold sans">{{ completedCourse }}</span>
-                </div>
-                <div class="col-xs-2"><!-- LEAVE EMPTY --></div>
-              </div>
-            </div>
-        </div>       
-        
-        <div class="col-xs-12">
-          <div class="row">
-            <div class="pm-certificate-footer">
-                <div class="col-xs-4 pm-certified col-xs-4 text-center">
-                  <span class="pm-credits-text block sans">Instructor Name</span>
-                  <span class="pm-empty-space block">{{ courseInstructor }}</span>
-                  <span class="bold block">UpSkill</span>
-                </div>
-                <div class="col-xs-4">
-                  <!-- LEAVE EMPTY -->
-                </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
 
 
 

@@ -20,6 +20,7 @@ export class CourseexploreComponent {
   categories: Category[] = [];
   completedCourse: string | null = null;
   courseInstructor: string | null = null;
+  wishlistCourses: string[] = [];
   
   constructor(
     private _router: Router,
@@ -46,7 +47,17 @@ export class CourseexploreComponent {
       }
     });
 
-    // const studentId = JSON.parse(localStorage.getItem('user')!)._id;
+    const studentId = JSON.parse(localStorage.getItem('user')!)._id;
+
+    if(studentId) {
+      this._service.getWishlist(studentId).subscribe({
+        next: (res) => {
+          if (res) {
+            this.wishlistCourses = res.courses
+          }
+        }
+      })
+    }
   }
 
   getCourseByCategory(category: string) {
@@ -63,6 +74,25 @@ export class CourseexploreComponent {
   selectCategory(category: string) {
     this.selectedCategory = category
     this.getCourseByCategory(this.selectedCategory)
+  }
+
+  wishList(courseId: string) {
+    const userId = JSON.parse(localStorage.getItem('user')!)._id
+    this._service.wishlist(courseId, userId).subscribe({
+      next: (res) => {
+        if (res) {
+          if (res.status) {
+            this.wishlistCourses.push(courseId);
+          } else {
+            this.wishlistCourses = this.wishlistCourses.filter((id) => id !== courseId);
+          }
+        }
+      }
+    })
+  }
+
+  isInWishlist(courseId: string): boolean {
+    return this.wishlistCourses.includes(courseId);
   }
   
   enroll(courseId: string) {

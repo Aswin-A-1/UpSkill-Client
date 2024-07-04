@@ -13,6 +13,7 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from "../../../environments/environment";
 import { MylearningsComponent } from "../../pages/student/course/mylearnings/mylearnings.component";
 import { CourseexploreComponent } from "../../pages/student/course/courseexplore/courseexplore.component";
+import { WishlistComponent } from "../../pages/student/course/wishlist/wishlist.component";
 
 
 
@@ -28,6 +29,7 @@ import { CourseexploreComponent } from "../../pages/student/course/courseexplore
         CourseenrollComponent,
         MylearningsComponent,
         CourseexploreComponent,
+        WishlistComponent,
     ],
     exports: [],
     imports: [
