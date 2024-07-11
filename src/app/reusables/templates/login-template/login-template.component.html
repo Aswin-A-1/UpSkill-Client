@@ -37,9 +37,9 @@
           class="text-xs font-semibold text-red-600">Password is requried.</span>
         <span *ngIf="signinForm.get('password')?.hasError('maxlength') && (signinForm.get('password')?.touched)"
           class="text-xs font-semibold text-red-600">Password cannot exceed 20 characters.</span>
-        <span *ngIf="signinForm.get('password')?.hasError('pattern') && (signinForm.get('password')?.touched)"
+        <!-- <span *ngIf="signinForm.get('password')?.hasError('pattern') && (signinForm.get('password')?.touched)"
           class="text-xs font-semibold text-red-600">Password must include uppercase, lowercase, digit, and special
-          character.</span>
+          character.</span> -->
       </div>
       <!-- <div class="mb-4 mt-8">
                 <label for="username" class="block text-gray-700 font-bold mb-2">Username</label>
