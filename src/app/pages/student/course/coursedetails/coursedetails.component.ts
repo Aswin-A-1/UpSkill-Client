@@ -18,6 +18,7 @@ export class CoursedetailsComponent {
   isLoggedIn: boolean = false
   
   activeIndex: number | null = null;
+  wishlistCourses: string[] = [];
 
   toggleAccordion(index: number) {
     this.activeIndex = this.activeIndex === index ? null : index;
@@ -46,6 +47,8 @@ export class CoursedetailsComponent {
 
     if(localStorage.getItem('refresh_token') != null) this.isLoggedIn = true
 
+    const studentId = JSON.parse(localStorage.getItem('user')!)._id;
+
     this._route.queryParams.subscribe(params => {
       this.courseId = params['id'];
       if (this.courseId) {
@@ -59,6 +62,16 @@ export class CoursedetailsComponent {
         this.sections = res.sections
       }
     })
+
+    if(studentId) {
+      this._service.getWishlist(studentId).subscribe({
+        next: (res) => {
+          if (res) {
+            this.wishlistCourses = res.courses
+          }
+        }
+      })
+    }
   }
 
   checkEnrollment() {
@@ -68,10 +81,28 @@ export class CoursedetailsComponent {
       this._service.isEnrolled(this.courseId, studentId).subscribe({
         next: (res) => {
           this.isEnrolled = res.isEnrolled
-          console.log('enrollement sataus: ', this.isEnrolled)
         }
       })
     }
+  }
+
+  wishList() {
+    const userId = JSON.parse(localStorage.getItem('user')!)._id
+    this._service.wishlist(this.courseId, userId).subscribe({
+      next: (res) => {
+        if (res) {
+          if (res.status) {
+            this.wishlistCourses.push(this.courseId);
+          } else {
+            this.wishlistCourses = this.wishlistCourses.filter((id) => id !== this.courseId);
+          }
+        }
+      }
+    })
+  }
+
+  isInWishlist(): boolean {
+    return this.wishlistCourses.includes(this.courseId);
   }
 
 }
