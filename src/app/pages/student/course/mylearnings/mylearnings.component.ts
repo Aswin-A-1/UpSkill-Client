@@ -18,6 +18,7 @@ export class MylearningsComponent {
   completedCourse: string | null = null;
   courseInstructor: string | null = null;
   student: string = JSON.parse(localStorage.getItem('user')!).username;
+  wishlistCourses: string[] = [];
   
   constructor(
     private _router: Router,
@@ -43,6 +44,16 @@ export class MylearningsComponent {
         }
       }
     });
+
+    if(studentId) {
+      this._service.getWishlist(studentId).subscribe({
+        next: (res) => {
+          if (res) {
+            this.wishlistCourses = res.courses
+          }
+        }
+      })
+    }
   }
 
   generatePDF(courseId: string) {
@@ -74,6 +85,25 @@ export class MylearningsComponent {
         }
       }
     });
+  }
+
+  wishList(courseId: string) {
+    const userId = JSON.parse(localStorage.getItem('user')!)._id
+    this._service.wishlist(courseId, userId).subscribe({
+      next: (res) => {
+        if (res) {
+          if (res.status) {
+            this.wishlistCourses.push(courseId);
+          } else {
+            this.wishlistCourses = this.wishlistCourses.filter((id) => id !== courseId);
+          }
+        }
+      }
+    })
+  }
+
+  isInWishlist(courseId: string): boolean {
+    return this.wishlistCourses.includes(courseId);
   }
 
   learn(courseId: string, courseIndex: number) {
